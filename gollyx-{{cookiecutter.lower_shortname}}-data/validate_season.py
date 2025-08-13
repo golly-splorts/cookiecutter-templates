@@ -9,7 +9,7 @@ SERIES_GPD = {"LDS": 4, "LCS": 2, "HCS": 1}
 ABBR_TO_NAME = {
     "LDS": "League Division Series",
     "LCS": "League Championship Series",
-    "HCS": "Hellmouth {{cookiecutter.upper_name}} Cup",
+    "HCS": "Hellmouth {{cookiecutter.upper_shortname}} Cup",
 }
 
 CHOKE_ARTISTS = ['DET', 'BTX2']
