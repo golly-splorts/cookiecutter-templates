@@ -15,8 +15,7 @@ Hellmouth Cup repository types:
 
 * `gollyx--pelican` - branch containing pelican template
 * `gollyx--pelican-theme` - branch containing pelican theme template
-* `gollyx--data` - branch containing (real) season data
-* `gollyx--test-data` - branch containing (test) season data 
+* `gollyx--data` - branch containing season data (used for real and test data)
 * `zappa--api` - branch containing contents of zappa API folder for gollyx-cloud
 
 ## Usage
