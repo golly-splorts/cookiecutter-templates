@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export GOLLYX_STAGE="integration"
+
+# These read by the pelican.conf file and exposed to the pelican theme
+export GOLLYX_TLD="golly456.life"
+export GOLLYX_BASE_UI="https://star.{{cookiecutter.lower_shortname}}.integration.${GOLLYX_TLD}"
+export GOLLYX_BASE_API="https://cloud.star.{{cookiecutter.lower_shortname}}.${GOLLYX_TLD}"
+export GOLLYX_MAPS_API="https://maps.${GOLLYX_TLD}"

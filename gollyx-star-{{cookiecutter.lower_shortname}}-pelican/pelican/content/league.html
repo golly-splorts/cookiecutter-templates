@@ -1,0 +1,171 @@
+{% raw %}{% extends 'base.html' %}{% endraw %}
+{% raw %}{% block content %}{% endraw %}
+
+<div class="container invisible" id="league-standings-header-container">
+
+  <div class="row text-center league-standings-header-row">
+    <div class="col-md-12">
+        <h2 class="text-center league-standings-header-text">Star {{cookiecutter.upper_shortname}} Cup: Season <span id="standings-header-season-number">_</span> Standings</h2>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="container" id="league-standings-date-picker-container">
+  <div class="row justify-content-lg-center" id="date-picker-container">
+    <div class="col-lg-2" id="date-picker-season-chooser">
+        <!--
+        -->
+        <ul class="list-group text-center">
+            <label for="season">Season:</label>
+            <select name="season" id="season-picker">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="24">24</option>
+            </select>
+        </ul>
+
+    </div>
+    <div class="col-lg-2" id="date-picker-day-chooser">
+        <!--
+        -->
+        <ul class="list-group text-center">
+            <label for="day">Day:</label>
+            <select name="day" id="day-picker">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+            </select>
+        </ul>
+
+    </div>
+
+</div>
+
+
+
+<div class="container invisible" id="league-standings-container">
+
+  <!-- league 1 -->
+  <div class="row text-center justify-content-lg-center league-standings-league-header-row">
+    <div class="col-md-8">
+      <h2 class="text-center league-standings-league-header-text"><span id="league-1-name"></span></h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-lg-center" id="league-1-container">
+
+    <div class="col-lg-5" id="league-1-division-1-container">
+      <h4 class="text-center league-standings-division-header-text"><span id="league-1-division-1-name"></span></h4>
+      <ul class="list-group" id="league-1-division-1-ul">
+        <!--
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Team 1
+          <span class="standings-record">W-L</span>
+        </li>
+        -->
+      </ul>
+    </div>
+
+    <div class="col-lg-5" id="league-1-division-2-container">
+      <h4 class="text-center league-standings-division-header-text"><span id="league-1-division-2-name"></span></h4>
+      <ul class="list-group" id="league-1-division-2-ul">
+        <!--
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Team 1
+          <span class="standings-record">W-L</span>
+        </li>
+        -->
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- league 2 -->
+  <div class="row text-center justify-content-lg-center league-standings-league-header-row">
+    <div class="col-md-8">
+      <h2 class="text-center league-standings-league-header-text"><span id="league-2-name"></span></h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-lg-center" id="league-2-container">
+
+    <div class="col-lg-5" id="league-2-division-1-container">
+      <h4 class="text-center league-standings-division-header-text"><span id="league-2-division-1-name"></span></h4>
+      <ul class="list-group" id="league-2-division-1-ul">
+        <!--
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Team 1
+          <span class="standings-record">W-L</span>
+        </li>
+        -->
+      </ul>
+    </div>
+
+    <div class="col-lg-5" id="league-2-division-1-container">
+      <h4 class="text-center league-standings-division-header-text"><span id="league-2-division-2-name"></span></h4>
+      <ul class="list-group" id="league-2-division-2-ul">
+        <!--
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Team 1
+          <span class="standings-record">W-L</span>
+        </li>
+        -->
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="container-loading">
+
+    <div class="row text-center notify-header">
+      <div class="col-md-12">
+        <h4 class="text-success">The site is currently loading...</h4>
+      </div>
+    </div>
+
+</div>
+
+<div class="container invisible" id="container-error">
+
+    <div class="row text-center notify-header">
+      <div class="col-md-12">
+        <h2 class="text-danger">The site has experienced a technical glitch.</h2>
+      </div>
+    </div>
+
+    <div class="row text-center notify-body">
+      <div class="col-md-12">
+        <p>
+        Ninjas have been dispatched to track down those responsible for the downtime
+        and bring them back to Hellmouth Community College to fix the site.
+        </p>
+      </div>
+    </div>
+
+</div>
+
+<noscript>
+  <div class="container" id="container-noscript">
+    <div class="row text-center landing-header">
+      <div class="col-md-12">
+        <h2 class="text-danger">You must have Javascript enabled to view this site.</h2>
+      </div>
+    </div>
+  </div>
+</noscript>
+
+{% raw %}{% endblock %}{% endraw %}
+{% raw %}{% block javascript %}{% endraw %}
+<script type="text/javascript" src="league.js"></script>
+{% raw %}{% endblock %}{% endraw %}
