@@ -1,0 +1,9 @@
+{
+    "lower_shortname": "vi",
+    "upper_shortname": "VI",
+    "cup_number": "6",
+    "_copy_without_render": [
+        "templates/*.html",
+        "static"
+    ]
+}
