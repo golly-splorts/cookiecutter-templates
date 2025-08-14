@@ -815,7 +815,7 @@
         } else if(mode==23) {
 
           ////////////////////////////
-          // Hellmouth {{coookiecutter.upper_shortname}} Cup Series
+          // Hellmouth {{cookiecutter.upper_shortname}} Cup Series
           // Scheduled
 
           // HCS has no league, single-column
