@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block content %}
+{% raw %}{% extends 'base.html' %}{% endraw %}
+{% raw %}{% block content %}{% endraw %}
 
 <div class="container invisible" id="league-standings-header-container">
 
@@ -165,7 +165,7 @@
   </div>
 </noscript>
 
-{% endblock %}
-{% block javascript %}
+{% raw %}{% endblock %}{% endraw %}
+{% raw %}{% block javascript %}{% endraw %}
 <script type="text/javascript" src="league.js"></script>
-{% endblock %}
+{% raw %}{% endblock %}{% endraw %}
