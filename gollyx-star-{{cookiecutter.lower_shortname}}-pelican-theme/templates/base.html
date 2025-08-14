@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta charset="utf-8">
+<html lang="en">
+<head>
+
+    {% include '_includes/header.html' %}
+    {% block css %}
+    {% endblock %}
+
+</head>
+<body id="index">
+
+{% include '_includes/navbar.html' %}
+
+{% block content %}
+{% endblock %}
+
+{% include '_includes/javascript.html' %}
+
+{% block javascript %}
+{% endblock %}
+
+<footer id="contentinfo" class="body">
+    {% include '_includes/footer.html' %}
+</footer>
+</body>
+</html>
