@@ -1,0 +1,25 @@
+    {% raw %}{% block head %}{% endraw %}
+    <title>{% raw %}{{ SITENAME }}{% endraw %}</title>
+    <meta charset="utf-8" />
+
+    <script>
+        var baseUIUrl  = '{% raw %}{{ GOLLYX_BASE_UI  }}{% endraw %}';
+        var baseApiUrl = '{% raw %}{{ GOLLYX_BASE_API }}{% endraw %}';
+        var mapsApiUrl = '{% raw %}{{ GOLLYX_MAPS_API }}{% endraw %}';
+    </script>
+
+    <!--
+    CSS styles
+    -->
+    <link href="{% raw %}{{ SITEURL }}{% endraw %}/theme/css/slate.css"  rel="stylesheet" type="text/css">
+    <link href="{% raw %}{{ SITEURL }}{% endraw %}/theme/css/custom.css" rel="stylesheet" type="text/css">
+
+    <link rel="icon" type="image/png" href="{% raw %}{{ SITEURL }}{% endraw %}/theme/img/golly-favicon.png">
+
+    <!--
+        Versions:
+        gollyx-{{cookiecutter.lower_shortname}}-pelican: {% raw %}{{ GOLLYX_PELICAN_VERSION }}{% endraw %}
+        gollyx-{{cookiecutter.lower_shortname}}-pelican-theme: {{cookiecutter.cup_number}}00.0.0
+    -->
+
+    {% endblock head %}

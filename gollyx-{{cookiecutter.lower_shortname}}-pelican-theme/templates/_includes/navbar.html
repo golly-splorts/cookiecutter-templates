@@ -1,0 +1,143 @@
+<!-- Navigation -->
+<div id="navbar-div-top-level" class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
+
+  <div id="navbar-div-container" class="container">
+
+    <a href="{{ SITEURL }}/" class="navbar-brand">
+      <img class="navbar-brand-logo" type="image/png" width="25px" src="{{ SITEURL }}/theme/img/hellmouth-cup.png" alt="logo" />
+      {{ SITENAME }}
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- this is the non-brand portion of the nav bar -->
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+
+      <!-- begin list of navbar buttons -->
+      <ul class="navbar-nav">
+
+        <!--
+        pages order:
+        - home
+        - season*
+        - postseason*
+        - league
+        - maps
+        -->
+
+        <!-- seasons -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">
+              Season <span class="caret"></span>
+          </a>
+          <div id="navbar-season-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
+            <!--
+            <a class="dropdown-item" href="{{ SITEURL }}/season.html">Season 1</a>
+            -->
+          </div>
+        </li>
+
+        <!-- postseasons -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">
+              Postseason <span class="caret"></span>
+          </a>
+          <div id="navbar-postseason-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
+            <!--
+            <a class="dropdown-item" href="{{ SITEURL }}/postseason.html">Season 1</a>
+            -->
+          </div>
+        </li>
+
+        <!-- league -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{SITEURL}}/league.html">Standings</a>
+        </li>
+
+        <!-- explore -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">
+              Teams<span class="caret"></span>
+          </a>
+          <div id="navbar-explore-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
+            <div class="row" style="width: 500px;">
+              <ul class="list-unstyled col-md-6">
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Alewife_Arsonists">Alewife Arsonists</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Albuquerque_Solarpunks">Albuquerque Solarpunks</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Boylston_Boogers">Boylston Boogers</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Baltimore_Texas">Baltimore Texas II</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Delaware_Corporate_Shells">Delaware Corporate Shells</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Detroit_Grape_Chews">Detroit Grape Chews</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Elko_Astronauts">Elko Astronauts</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Fargo_Flea_Flickers">Fargo Flea Flickers</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Jersey_OSHA_Violations">Jersey OSHA Violations</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Long_Beach_Flightless_Birds">Long Beach Flightless Birds</a></li>
+              </ul>
+              <ul class="list-unstyled col-md-6">
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Milwaukee_Flamingos">Milwaukee Flamingos</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Phoenix_Freshrolls">Phoenix Freshrolls</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Sacramento_Boot_Lickers">Sacramento Boot Lickers</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Salt_Lake_Turbulence">Salt Lake Turbulence</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/San_Diego_Balloon_Animals">San Diego Balloon Animals</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/San_Francisco_Boat_Shoes">San Francisco Boat Shoes</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Seattle_Sneakers">Seattle Sneakers</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Sugar_Grove_Eavesdroppers">Sugar Grove Eavesdroppers</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Tucson_Butchers">Tucson Butchers</a></li>
+                  <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Vegas_Vampires">Vegas Vampires</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <!-- maps -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{SITEURL}}/maps.html">Maps</a>
+        </li>
+
+        <!-- simulator -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ SITEURL }}/simulator/index.html">Simulator</a>
+        </li>
+
+        <!-- cups -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">
+              Cups <span class="caret"></span>
+          </a>
+          <div id="navbar-cups-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
+            <a class="dropdown-item" href="https://hellmouth.golly.life">Hellmouth Cup</a>
+            <a class="dropdown-item" href="https://pseudo.golly.life">Pseudo Cup</a>
+            <a class="dropdown-item" href="https://toroidal.golly.life">Toroidal Cup</a>
+            <a class="dropdown-item" href="https://dragon.golly.life">Dragon Cup</a>
+            <a class="dropdown-item" href="https://rainbow.golly.life">Rainbow Cup</a>
+            <a class="dropdown-item" href="https://star.golly.life">Star Cup</a>
+            <a class="dropdown-item" href="https://klein.golly.life">Klein Cup</a>
+            <a class="dropdown-item" href="https://ii.golly.life">Hellmouth II Cup</a>
+            <a class="dropdown-item" href="https://star.ii.golly.life">Star II Cup</a>
+            <a class="dropdown-item" href="https://iii.golly.life">Hellmouth III Cup</a>
+            <a class="dropdown-item" href="https://star.iii.golly.life">Star III Cup</a>
+            <a class="dropdown-item" href="https://iv.golly.life">Hellmouth IV Cup</a>
+            <a class="dropdown-item" href="https://star.iv.golly.life">Star IV Cup</a>
+            <a class="dropdown-item" href="https://v.golly.life">Hellmouth V Cup</a>
+            <a class="dropdown-item" href="https://star.v.golly.life">Star V Cup</a>
+          </div>
+        </li>
+
+        <!-- about -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">
+              About<span class="caret"></span>
+          </a>
+          <div id="navbar-about-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
+            <a class="dropdown-item" href="https://wiki.golly.life">Golly.Life Wiki</a>
+            <a class="dropdown-item" href="https://wiki.golly.life/wiki/Hellmouth_V_Cup">About the Hellmouth V Cup</a>
+            <a class="dropdown-item" href="https://wiki.golly.life/wiki/Hellmouth_V_Cup/Rules">Hellmouth V Cup Rules</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
