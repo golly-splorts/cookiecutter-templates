@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<template id="map-card-template">
+  {% include "map.html" %}
+</template>
+
+
+<div class="container" id="container-maps-header">
+
+  <h2 class="season-header text-center">Hellmouth {{cookiecutter.upper_shortname}} Cup Maps</h2>
+
+</div>
+
+
+<div class="container invisible" id="loading-container">
+
+  <div class="row text-center notify-header invisible loading-message" id="maps-loading-message">
+    <div class="col-md-12">
+      <h4 class="text-success">The site is currently loading...</h4>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="container-maps">
+
+  <div class="row" id="row-maps">
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="container-error">
+
+    <div class="row text-center notify-header">
+      <div class="col-md-12">
+        <h2 class="text-danger">The site has experienced a technical glitch.</h2>
+      </div>
+    </div>
+
+    <div class="row text-center notify-body">
+      <div class="col-md-12">
+        <p>
+        Ninjas have been dispatched to track down those responsible for the downtime
+        and bring them back to Hellmouth Community College to fix the site.
+        </p>
+      </div>
+    </div>
+
+</div>
+
+
+<noscript>
+  <div class="container" id="container-noscript">
+    <div class="row text-center landing-header">
+      <div class="col-md-12">
+        <h2 class="text-danger">You must have Javascript enabled to view this site.</h2>
+      </div>
+    </div>
+  </div>
+</noscript>
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="maps.js"></script>
+{% endblock %}

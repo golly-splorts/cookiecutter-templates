@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<template id="minilife-template">
+  {% include "minilife.html" %}
+</template>
+
+<template id="finished-game-template">
+  {% include "finished_game.html" %}
+</template>
+
+<template id="finished-postgame-template">
+  {% include "finished_postgame.html" %}
+</template>
+
+<template id="inprogress-game-template">
+  {% include "inprogress_game.html" %}
+</template>
+
+<template id="inprogress-postgame-template">
+  {% include "inprogress_postgame.html" %}
+</template>
+
+<template id="scheduled-game-template">
+  {% include "scheduled_game.html" %}
+</template>
+
+<template id="scheduled-postgame-template">
+  {% include "scheduled_postgame.html" %}
+</template>
+
+<template id="seed-table-template">
+  {% include "seed_table.html" %}
+</template>
+
+<div class="container">
+
+<div class="container invisible" id="container-loading">
+
+  <div class="row text-center notify-header invisible loading-message" id="season-loading-message">
+    <div class="col-lg-12">
+      <h4 class="text-success">The site is currently loading...</h4>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="container-mode0009">
+
+    <div class="row text-center landing-header justify-content-sm-center">
+      <div class="col-lg-12">
+        <h2>Season <span id="landing-header-season-number">_</span> will begin soon!</h2>
+      </div>
+    </div>
+
+    <div class="row justify-content-sm-center flipdown-clock">
+      <div id="flipdown" class="flipdown"></div>
+    </div>
+
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+        <p>The next season will begin soon. In the meantime, here is a Game of Life simulator. Click to turn cells on and off!</p>
+      </div>
+    </div>
+
+    <div class="minilife" id="minilife-player">
+    </div>
+
+</div>
+
+
+
+<div class="container invisible" id="container-mode1019">
+
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+        <h2>Season <span id="landing-header-season-number">_</span><span style="display: none;" id="landing-header-day"> Day <span id="landing-header-day-number">_</span></span>: Current Games</h2>
+      </div>
+    </div>
+    <div class="row text-center notify-header invisible loading-message" id="mode1019-loading-message">
+      <div class="col-lg-12">
+        <h4 class="text-success">The site is currently loading...</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center" id="season-leagues-container">
+      <div class="col-sm-5 league-container" id="league-1-container">
+        <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
+      </div>
+
+      <div class="col-sm-5 league-container" id="league-2-container">
+        <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
+      </div>
+    </div>
+
+</div>
+
+
+
+<div class="container container-mode2029 invisible" id="container-mode21">
+
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+        <h2>Season <span id="landing-header-season-number">_</span>: League Division Series</h2>
+        <h4>This best of 5 series will begin soon!</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-sm-center flipdown-clock">
+      <div id="flipdown" class="flipdown"></div>
+    </div>
+
+    <div class="row text-center notify-header invisible loading-message" id="mode21-loading-message">
+      <div class="col-lg-12">
+        <h4 class="text-success">The site is currently loading...</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center waiting-container" id="lds-waiting-container">
+      <div class="col-sm-5 league-container" id="league-1-container">
+        <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
+      </div>
+
+      <div class="col-sm-5 league-container" id="league-2-container">
+        <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
+      </div>
+    </div>
+
+    <div class="seed-table waiting-seed-table" id="lds-waiting-seed-table">
+    </div>
+
+</div>
+
+
+
+
+<div class="container container-mode2029 invisible" id="container-mode22">
+
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+        <h2>Season <span id="landing-header-season-number">_</span>: League Championship Series</h2>
+        <h4>This best of 7 series will begin soon!</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-sm-center flipdown-clock">
+      <div id="flipdown" class="flipdown"></div>
+    </div>
+
+    <div class="row text-center notify-header invisible loading-message" id="mode22-loading-message">
+      <div class="col-lg-12">
+        <h4 class="text-success">The site is currently loading...</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center waiting-container" id="lcs-waiting-container">
+      <div class="col-sm-5 league-container" id="league-1-container">
+        <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
+      </div>
+
+      <div class="col-sm-5 league-container" id="league-2-container">
+        <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
+      </div>
+    </div>
+
+    <div class="seed-table waiting-seed-table" id="lcs-waiting-seed-table">
+    </div>
+
+</div>
+
+
+
+<div class="container container-mode2029 invisible" id="container-mode23">
+
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+          <h2>Season <span id="landing-header-season-number">_</span>: Hellmouth {{cookiecutter.upper_shortname}} Cup</h2>
+        <h4>This best of 7 series will begin soon!</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-sm-center flipdown-clock">
+      <div id="flipdown" class="flipdown"></div>
+    </div>
+
+    <div class="row text-center notify-header invisible loading-message" id="mode23-loading-message">
+      <div class="col-lg-12">
+        <h4 class="text-success">The site is currently loading...</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center waiting-container" id="hcs-waiting-container">
+      <div class="col-lg-4 league-container" id="hcs-league-waiting-container">
+      </div>
+    </div>
+
+    <div class="seed-table ongoing-seed-table" id="hcs-ongoing-seed-table">
+    </div>
+
+</div>
+
+
+
+<div class="container container-mode3039 invisible" id="container-mode31">
+
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+        <h2>Season <span id="landing-header-season-number">_</span>: League Division Series</h2>
+        <h4>Best of 5</h4>
+      </div>
+    </div>
+
+    <div class="row text-center notify-header invisible loading-message" id="mode31-loading-message">
+      <div class="col-lg-12">
+        <h4 class="text-success">The site is currently loading...</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center ongoing-container lds-ongoing-container">
+      <div class="col-sm-5 league-container" id="league-1-container">
+        <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
+      </div>
+
+      <div class="col-sm-5 league-container" id="league-2-container">
+        <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
+      </div>
+    </div>
+
+    <div class="seed-table ongoing-seed-table" id="lds-ongoing-seed-table">
+    </div>
+
+</div>
+
+
+
+<div class="container container-mode3039 invisible" id="container-mode32">
+
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+        <h2>Season <span id="landing-header-season-number">_</span>: League Championship Series</h2>
+        <h4>Best of 7</h4>
+      </div>
+    </div>
+
+    <div class="row text-center notify-header invisible loading-message" id="mode32-loading-message">
+      <div class="col-lg-12">
+        <h4 class="text-success">The site is currently loading...</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center ongoing-container" id="lcs-ongoing-container">
+      <div class="col-sm-5 league-container" id="league-1-container">
+        <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
+      </div>
+
+      <div class="col-sm-5 league-container" id="league-2-container">
+        <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
+      </div>
+    </div>
+
+    <div class="seed-table ongoing-seed-table" id="lcs-ongoing-seed-table">
+    </div>
+
+</div>
+
+
+
+<div class="container container-mode3039 invisible" id="container-mode33">
+
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+          <h2>Season <span id="landing-header-season-number">_</span>: Hellmouth {{cookiecutter.upper_shortname}} Cup</h2>
+        <h4>Best of 7</h4>
+      </div>
+    </div>
+
+    <div class="row text-center notify-header invisible loading-message" id="mode33-loading-message">
+      <div class="col-lg-12">
+        <h4 class="text-success">The site is currently loading...</h4>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center ongoing-container" id="hcs-ongoing-container">
+      <div class="col-lg-4 league-container" id="hcs-league-ongoing-container">
+      </div>
+    </div>
+
+    <div class="seed-table ongoing-seed-table" id="hcs-ongoing-seed-table">
+    </div>
+
+</div>
+
+
+<div class="container invisible" id="container-mode40plus">
+
+  <h2 class="text-center landing-header">Season <span id="landing-header-season-number">_</span> has ended.<h2>
+
+  <div class="row text-center notify-header invisible loading-message" id="mode33-loading-message">
+    <div class="col-lg-12">
+      <h4 class="text-success">The site is currently loading...</h4>
+    </div>
+  </div>
+
+  <div class="icon-container text-center" id="champion-icon-container"></div>
+
+  <h3 class="text-center invisible champion-header" id="champion-name-header">Your Hellmouth {{cookiecutter.upper_shortname}} Cup Champions are: The <span id="champion-team">Winners</span>!</h3>
+
+  <div class="row text-center landing-header">
+    <div class="col-lg-12">
+      <p>The next season will begin soon. In the meantime, here is a Game of Life simulator. Click to turn cells on and off!</p>
+    </div>
+  </div>
+
+  <div class="vspace40">
+  </div>
+
+  <div class="minilife" id="minilife-player">
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="container-error">
+
+    <div class="row text-center notify-header">
+      <div class="col-lg-12">
+        <h2 class="text-danger">The site has experienced a technical glitch.</h2>
+      </div>
+    </div>
+
+    <div class="row text-center notify-body">
+      <div class="col-lg-12">
+        <p>
+        Ninjas have been dispatched to track down those responsible for the downtime
+        and bring them back to Hellmouth Community College to fix the site.
+        </p>
+      </div>
+    </div>
+
+</div>
+
+<noscript>
+  <div class="container" id="container-noscript">
+    <div class="row text-center landing-header">
+      <div class="col-lg-12">
+        <h2 class="text-danger">You must have Javascript enabled to view this site.</h2>
+      </div>
+    </div>
+  </div>
+</noscript>
+
+{% endblock %}
+{% block css %}
+    <link href="{{ SITEURL }}/theme/css/flipdown.min.css"  rel="stylesheet" type="text/css">
+    <!-- re-include custom.css to override some flipdown.css settings -->
+    <link href="{{ SITEURL }}/theme/css/custom.css"  rel="stylesheet" type="text/css">
+{% endblock %}
+{% block javascript %}
+  <script type="text/javascript" src="{{ SITEURL }}/theme/js/json-sans-eval.js"></script>
+  <script type="text/javascript" src="{{ SITEURL }}/theme/js/minilife_core.js"></script>
+  <script type="text/javascript" src="{{ SITEURL }}/theme/js/flipdown.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+{% endblock %}

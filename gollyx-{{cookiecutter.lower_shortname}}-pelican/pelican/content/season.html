@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<template id="finished-game-template">
+  {% include "finished_game.html" %}
+</template>
+
+<template id="season-day-container-template">
+  {% include "season_day.html" %}
+</template>
+
+
+<div class="container invisible" id="season-header-container">
+
+  <h2 class="text-center season-header">Season <span id="season-header-season-number">_</span> Games</h2>
+
+</div>
+
+
+<div class="container invisible" id="loading-container">
+
+  <div class="row text-center notify-header invisible loading-message" id="season-loading-message">
+    <div class="col-md-12">
+      <h4 class="text-success">The site is currently loading...</h4>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="day-buttons-container">
+
+  <p class="text-center lead">Jump to day:</p>
+
+</div>
+
+
+<div class="container invisible" id="season-days-container">
+</div>
+
+
+<div class="container invisible" id="container-season-waiting">
+
+  <div class="row text-center notify-header">
+    <div class="col-md-12">
+        <h4 class="text-success">The season will begin soon...</h4>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="container-error">
+
+  <div class="row text-center notify-header">
+    <div class="col-md-12">
+      <h2 class="text-danger">The site has experienced a technical glitch.</h2>
+    </div>
+  </div>
+
+  <div class="row text-center notify-body">
+    <div class="col-md-12">
+      <p>
+      Ninjas have been dispatched to track down those responsible for the downtime
+      and bring them back to Hellmouth Community College to fix the site.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<noscript>
+  <div class="container" id="container-noscript">
+    <div class="row text-center landing-header">
+      <div class="col-md-12">
+        <h2 class="text-danger">You must have Javascript enabled to view this site.</h2>
+      </div>
+    </div>
+  </div>
+</noscript>
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="season.js"></script>
+{% endblock %}

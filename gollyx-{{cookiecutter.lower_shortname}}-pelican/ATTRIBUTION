@@ -1,0 +1,35 @@
+Golly would not be possible without the following 
+open-source technology stack:
+
+Frontend:
+
+* Twitter Bootstrap (https://getbootstrap.com/)
+* Flipdown.js (https://pbutcher.uk/flipdown/)
+* Bootswatch (https://bootswatch.com/)
+* jQuery (https://jquery.com/)
+* Game of Life by Pedro Verruma (https://github.com/pmav/game-of-life)
+
+Icons:
+
+* Game-Icons.net (https://game-icons.net/)
+
+Backend:
+
+* Pelican (https://blog.getpelican.com/)
+* Jinja (https://jinja.palletsprojects.com/en/2.11.x/)
+* Flask (https://flask.palletsprojects.com/en/1.1.x/)
+
+Testing:
+
+* Pytest (https://docs.pytest.org/en/latest/)
+* Requests (https://requests.readthedocs.io/en/master/)
+* Travis CI (https://travis-ci.com/)
+
+Infrastructure:
+
+* Nginx (https://www.nginx.com/)
+* Gunicorn (https://gunicorn.org/)
+* Docker (https://www.docker.com/)
+* Ansible (https://www.ansible.com/)
+* Github Pages (https://github.com)
+

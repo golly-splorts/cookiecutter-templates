@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<template id="finished-postgame-template">
+  {% include "finished_postgame.html" %}
+</template>
+
+
+<div class="container invisible" id="season-header-container">
+
+  <h2 class="text-center season-header">Season <span id="season-header-season-number">_</span>: Postseason</h2>
+
+</div>
+
+
+<div class="container invisible" id="loading-container">
+
+  <div class="row text-center notify-header invisible loading-message" id="postseason-loading-message">
+    <div class="col-md-12">
+      <h4 class="text-success">The site is currently loading...</h4>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="postseason-toc-container">
+  <div class="row justify-content-md-center season-toc">
+    <div class="col-lg-12">
+      <div class="text-center lead postseason-jump-to">Jump to:</div>
+      <div class="text-center lead" id="postseason-toc-text">
+        <a class="postseason-toc-text" id="lds-postseason-toc-text" href="#">Division Series (Round 1)</a>
+        <a class="postseason-toc-text" id="lcs-postseason-toc-text" href="#">Championship Series (Round 2)</a>
+        <a class="postseason-toc-text" id="hcs-postseason-toc-text" href="#">Hellmouth {{cookiecutter.upper_shortname}} Cup (Round 3)</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container invisible" id="postseason-champion-container">
+
+  <div class="row justify-content-md-center postseason-series-header">
+    <div class="col-lg-8">
+      <div class="icon-container text-center" id="champion-icon-container"></div>
+      <h3 class="text-center champion-header">Your Hellmouth {{cookiecutter.upper_shortname}} Cup Champions are: The <span id="champion-team">Winners</span>!</h3>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="postseason-hcs-container">
+
+  <div class="row justify-content-md-center postseason-series-header">
+    <div class="col-lg-8">
+        <a name="hcs" class="padded-anchor"></a>
+        <h2 class="text-center">Hellmouth {{cookiecutter.upper_shortname}} Cup</h2>
+        <p class="text-center lead">Best of 7</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-lg-center posteseason-leagues-container" id="hcs-leagues-container">
+    <div class="col-lg-6" id="hcs-league-container">
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="postseason-lcs-container">
+
+  <div class="row justify-content-lg-center postseason-series-header" id="lcs-series-header">
+    <div class="col-lg-8">
+        <a name="lcs" class="padded-anchor"></a>
+        <h2 class="text-center">League Championship Series</h2>
+        <p class="text-center lead">Best of 7</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-lg-center postseason-leagues-container" id="lcs-leagues-container">
+    <div class="col-lg-6 league-container" id="lcs-league-1-container">
+      <h4 class="text-center league-container-header" id="lcs-league-1-header"><span id="lcs-league-1-series-name"></span></h4>
+    </div>
+
+    <div class="col-lg-6 league-container" id="lcs-league-2-container">
+      <h4 class="text-center league-container-header" id="lcs-league-2-header"><span id="lcs-league-2-series-name"></span></h4>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container invisible" id="postseason-lds-container">
+
+  <div class="row justify-content-lg-center postseason-series-header" id="lds-series-header">
+    <div class="col-lg-10">
+      <a name="lds" class="padded-anchor"></a>
+      <h2 class="text-center">League Division Series</h2>
+      <p class="text-center lead">Best of 5</p>
+    </div>
+  </div>
+
+  <div class="postseason-leagues-container" id="lds-leagues-container">
+
+    <div class="row justify-content-lg-center postseason-leagues-container" id="lds-series-1-leagues-container">
+
+      <div class="col-lg-6 league-container league-1-container" id="lds-league-1-series-1-container">
+        <h4 class="text-center league-container-header"><span id="lds-league-1-series-1-name"></span></h4>
+      </div>
+
+      <div class="col-lg-6 league-container league-2-container" id="lds-league-2-series-1-container">
+        <h4 class="text-center league-container-header"><span id="lds-league-2-series-1-name"></span></h4>
+      </div>
+
+    </div>
+
+    <div class="row justify-content-lg-center postseason-leagues-container" id="lds-series-2-leagues-container">
+
+      <div class="col-lg-6 league-container league-1-container" id="lds-league-1-series-2-container">
+        <h4 class="text-center league-container-header"><span id="lds-league-1-series-2-name"></span></h4>
+      </div>
+
+      <div class="col-lg-6 league-container league-2-container" id="lds-league-2-series-2-container">
+        <h4 class="text-center league-container-header"><span id="lds-league-2-series-2-name"></span></h4>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<div class="container invisible" id="container-postseason-waiting">
+
+    <div class="row text-center notify-header">
+      <div class="col-md-12">
+          <h4 class="text-success">The postseason will begin on Day 50...</h4>
+      </div>
+    </div>
+
+</div>
+
+
+<div class="container invisible" id="container-invalid">
+    <div class="row text-center notify-header">
+      <div class="col-md-12">
+        <h2 class="text-danger">An invalid API parameter was specified.</h2>
+        <p>No one has been notified.</p>
+      </div>
+    </div>
+
+</div>
+
+
+<div class="container invisible" id="container-error">
+
+    <div class="row text-center notify-header">
+      <div class="col-md-12">
+        <h2 class="text-danger">The site has experienced a technical glitch.</h2>
+      </div>
+    </div>
+
+    <div class="row text-center notify-body">
+      <div class="col-md-12">
+        <p>
+        Ninjas have been dispatched to track down those responsible for the downtime
+        and bring them back to Hellmouth Community College to fix the site.
+        </p>
+      </div>
+    </div>
+
+</div>
+
+
+<noscript>
+  <div class="container" id="container-noscript">
+    <div class="row text-center landing-header">
+      <div class="col-md-12">
+        <h2 class="text-danger">You must have Javascript enabled to view this site.</h2>
+      </div>
+    </div>
+  </div>
+</noscript>
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="postseason.js"></script>
+{% endblock %}
