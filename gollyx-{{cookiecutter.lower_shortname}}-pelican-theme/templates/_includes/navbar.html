@@ -3,9 +3,9 @@
 
   <div id="navbar-div-container" class="container">
 
-    <a href="{{ SITEURL }}/" class="navbar-brand">
-      <img class="navbar-brand-logo" type="image/png" width="25px" src="{{ SITEURL }}/theme/img/hellmouth-cup.png" alt="logo" />
-      {{ SITENAME }}
+    <a href="{% raw %}{{ SITEURL }}{% endraw %}/" class="navbar-brand">
+      <img class="navbar-brand-logo" type="image/png" width="25px" src="{% raw %}{{ SITEURL }}{% endraw %}/theme/img/hellmouth-cup.png" alt="logo" />
+      {% raw %}{{ SITENAME }}{% endraw %}
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
           </a>
           <div id="navbar-season-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
             <!--
-            <a class="dropdown-item" href="{{ SITEURL }}/season.html">Season 1</a>
+            <a class="dropdown-item" href="{% raw %}{{ SITEURL }}{% endraw %}/season.html">Season 1</a>
             -->
           </div>
         </li>
@@ -46,14 +46,14 @@
           </a>
           <div id="navbar-postseason-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
             <!--
-            <a class="dropdown-item" href="{{ SITEURL }}/postseason.html">Season 1</a>
+            <a class="dropdown-item" href="{% raw %}{{ SITEURL }}{% endraw %}/postseason.html">Season 1</a>
             -->
           </div>
         </li>
 
         <!-- league -->
         <li class="nav-item">
-          <a class="nav-link" href="{{SITEURL}}/league.html">Standings</a>
+          <a class="nav-link" href="{% raw %}{{SITEURL}}{% endraw %}/league.html">Standings</a>
         </li>
 
         <!-- explore -->
@@ -93,12 +93,12 @@
 
         <!-- maps -->
         <li class="nav-item">
-          <a class="nav-link" href="{{SITEURL}}/maps.html">Maps</a>
+            <a class="nav-link" href="{% raw %}{{SITEURL}}{% endraw %}/maps.html">Maps</a>
         </li>
 
         <!-- simulator -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ SITEURL }}/simulator/index.html">Simulator</a>
+            <a class="nav-link" href="{% raw %}{{ SITEURL }}{% endraw %}/simulator/index.html">Simulator</a>
         </li>
 
         <!-- cups -->
@@ -122,6 +122,8 @@
             <a class="dropdown-item" href="https://star.iv.golly.life">Star IV Cup</a>
             <a class="dropdown-item" href="https://v.golly.life">Hellmouth V Cup</a>
             <a class="dropdown-item" href="https://star.v.golly.life">Star V Cup</a>
+            <a class="dropdown-item" href="https://vi.golly.life">Hellmouth VI Cup</a>
+            <a class="dropdown-item" href="https://star.vi.golly.life">Star VI Cup</a>
           </div>
         </li>
 
@@ -132,8 +134,10 @@
           </a>
           <div id="navbar-about-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
             <a class="dropdown-item" href="https://wiki.golly.life">Golly.Life Wiki</a>
-            <a class="dropdown-item" href="https://wiki.golly.life/wiki/Hellmouth_V_Cup">About the Hellmouth V Cup</a>
-            <a class="dropdown-item" href="https://wiki.golly.life/wiki/Hellmouth_V_Cup/Rules">Hellmouth V Cup Rules</a>
+            <a class="dropdown-item"
+                href="https://wiki.golly.life/wiki/Hellmouth_{{cookiecutter.upper_shortname}}_Cup">About the Hellmouth {{cookiecutter.upper_shortname}} Cup</a>
+            <a class="dropdown-item"
+                href="https://wiki.golly.life/wiki/Hellmouth_{{cookiecutter.upper_shortname}}_Cup/Rules">Hellmouth {{cookiecutter.upper_shortname}} Cup Rules</a>
           </div>
         </li>
 
