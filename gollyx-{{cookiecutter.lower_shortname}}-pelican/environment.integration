@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export GOLLYX_PELICAN_HOME="~/golly/pelican/gollyx-{{cookiecutter.lower_shortname}}-pelican"
 export GOLLYX_STAGE="integration"
 
 # These read by the pelican.conf file and exposed to the pelican theme

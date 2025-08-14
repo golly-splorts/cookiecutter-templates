@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export GOLLYX_PELICAN_HOME="~/golly/pelican/gollyx-{{cookiecutter.lower_shortname}}-pelican"
 export GOLLYX_UI_PORT="8000"
 export GOLLYX_API_PORT="8989"
 
