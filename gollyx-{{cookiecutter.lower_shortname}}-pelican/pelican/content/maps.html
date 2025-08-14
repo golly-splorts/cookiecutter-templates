@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
-{% block content %}
+{% raw %}{% extends 'base.html' %}{% endraw %}
+{% raw %}{% block content %}{% endraw %}
 
 
 <template id="map-card-template">
-  {% include "map.html" %}
+  {% raw %}{% include "map.html" %}{% endraw %}
 </template>
 
 
@@ -63,7 +63,7 @@
   </div>
 </noscript>
 
-{% endblock %}
-{% block javascript %}
+{% raw %}{% endblock %}{% endraw %}
+{% raw %}{% block javascript %}{% endraw %}
 <script type="text/javascript" src="maps.js"></script>
-{% endblock %}
+{% raw %}{% endblock %}{% endraw %}

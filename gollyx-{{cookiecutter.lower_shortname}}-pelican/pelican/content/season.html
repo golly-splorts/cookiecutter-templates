@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
-{% block content %}
+{% raw %}{% extends 'base.html' %}{% endraw %}
+{% raw %}{% block content %}{% endraw %}
 
 <template id="finished-game-template">
-  {% include "finished_game.html" %}
+  {% raw %}{% include "finished_game.html" %}{% endraw %}
 </template>
 
 <template id="season-day-container-template">
-  {% include "season_day.html" %}
+  {% raw %}{% include "season_day.html" %}{% endraw %}
 </template>
 
 
@@ -79,7 +79,7 @@
   </div>
 </noscript>
 
-{% endblock %}
-{% block javascript %}
+{% raw %}{% endblock %}{% endraw %}
+{% raw %}{% block javascript %}{% endraw %}
 <script type="text/javascript" src="season.js"></script>
-{% endblock %}
+{% raw %}{% endblock %}{% endraw %}

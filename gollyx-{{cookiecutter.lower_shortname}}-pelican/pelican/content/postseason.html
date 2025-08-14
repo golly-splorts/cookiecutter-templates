@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
-{% block content %}
+{% raw %}{% extends 'base.html' %}{% endraw %}
+{% raw %}{% block content %}{% endraw %}
 
 <template id="finished-postgame-template">
-  {% include "finished_postgame.html" %}
+  {% raw %}{% include "finished_postgame.html" %}{% endraw %}
 </template>
 
 
@@ -185,7 +185,7 @@
   </div>
 </noscript>
 
-{% endblock %}
-{% block javascript %}
+{% raw %}{% endblock %}{% endraw %}
+{% raw %}{% block javascript %}{% endraw %}
 <script type="text/javascript" src="postseason.js"></script>
-{% endblock %}
+{% raw %}{% endblock %}{% endraw %}
