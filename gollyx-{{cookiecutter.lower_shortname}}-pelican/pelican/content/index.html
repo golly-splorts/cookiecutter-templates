@@ -1,36 +1,36 @@
-{% extends 'base.html' %}
-{% block content %}
+{% raw %}{% extends 'base.html' %}{% endraw %}
+{% raw %}{% block content %}{% endraw %}
 
 <template id="minilife-template">
-  {% include "minilife.html" %}
+  {% raw %}{% include "minilife.html" %}{% endraw %}
 </template>
 
 <template id="finished-game-template">
-  {% include "finished_game.html" %}
+  {% raw %}{% include "finished_game.html" %}{% endraw %}
 </template>
 
 <template id="finished-postgame-template">
-  {% include "finished_postgame.html" %}
+  {% raw %}{% include "finished_postgame.html" %}{% endraw %}
 </template>
 
 <template id="inprogress-game-template">
-  {% include "inprogress_game.html" %}
+  {% raw %}{% include "inprogress_game.html" %}{% endraw %}
 </template>
 
 <template id="inprogress-postgame-template">
-  {% include "inprogress_postgame.html" %}
+  {% raw %}{% include "inprogress_postgame.html" %}{% endraw %}
 </template>
 
 <template id="scheduled-game-template">
-  {% include "scheduled_game.html" %}
+  {% raw %}{% include "scheduled_game.html" %}{% endraw %}
 </template>
 
 <template id="scheduled-postgame-template">
-  {% include "scheduled_postgame.html" %}
+  {% raw %}{% include "scheduled_postgame.html" %}{% endraw %}
 </template>
 
 <template id="seed-table-template">
-  {% include "seed_table.html" %}
+  {% raw %}{% include "seed_table.html" %}{% endraw %}
 </template>
 
 <div class="container">
@@ -350,15 +350,15 @@
   </div>
 </noscript>
 
-{% endblock %}
-{% block css %}
-    <link href="{{ SITEURL }}/theme/css/flipdown.min.css"  rel="stylesheet" type="text/css">
+{% raw %}{% endblock %}{% endraw %}
+{% raw %}{% block css %}{% endraw %}
+<link href="{% raw %}{{ SITEURL }}{% endraw %}/theme/css/flipdown.min.css"  rel="stylesheet" type="text/css">
     <!-- re-include custom.css to override some flipdown.css settings -->
-    <link href="{{ SITEURL }}/theme/css/custom.css"  rel="stylesheet" type="text/css">
-{% endblock %}
-{% block javascript %}
-  <script type="text/javascript" src="{{ SITEURL }}/theme/js/json-sans-eval.js"></script>
-  <script type="text/javascript" src="{{ SITEURL }}/theme/js/minilife_core.js"></script>
-  <script type="text/javascript" src="{{ SITEURL }}/theme/js/flipdown.min.js"></script>
+    <link href="{% raw %}{{ SITEURL }}{% endraw %}/theme/css/custom.css"  rel="stylesheet" type="text/css">
+{% raw %}{% endblock %}{% endraw %}
+{% raw %}{% block javascript %}{% endraw %}
+  <script type="text/javascript" src="{% raw %}{{ SITEURL }}{% endraw %}/theme/js/json-sans-eval.js"></script>
+  <script type="text/javascript" src="{% raw %}{{ SITEURL }}{% endraw %}/theme/js/minilife_core.js"></script>
+  <script type="text/javascript" src="{% raw %}{{ SITEURL }}{% endraw %}/theme/js/flipdown.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
-{% endblock %}
+  {% raw %}{% endblock %}{% endraw %}
