@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block content %}
+{% raw %}{% extends 'base.html' %}{% endraw %}
+{% raw %}{% block content %}{% endraw %}
 
 
 <div class="container" id="container-golly-header">
@@ -282,8 +282,8 @@
   </div>
 </noscript>
 
-{% endblock %}
-{% block javascript %}
-<script src="{{ SITEURL }}/theme/js/json-sans-eval.js"></script>
+{% raw %}{% endblock %}{% endraw %}
+{% raw %}{% block javascript %}{% endraw %}
+<script src="{% raw %}{{ SITEURL }}{% endraw %}/theme/js/json-sans-eval.js"></script>
 <script src="{{cookiecutter.lower_shortname}}.js"></script>
-{% endblock %}
+{% raw %}{% endblock %}{% endraw %}
