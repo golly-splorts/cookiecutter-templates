@@ -3,7 +3,18 @@
     "upper_shortname": "VI",
     "cup_number": "6",
     "_copy_without_render": [
-        "templates/*.html",
+        "templates/article.html",
+        "templates/base.html",
+        "templates/finished_game.html",
+        "templates/finished_postgame.html",
+        "templates/inprogress_game.html",
+        "templates/inprogress_postgame.html",
+        "templates/map.html",
+        "templates/minilife.html",
+        "templates/scheduled_game.html",
+        "templates/scheduled_postgame.html",
+        "templates/season_day.html",
+        "templates/seed_table.html",
         "static"
     ]
 }
