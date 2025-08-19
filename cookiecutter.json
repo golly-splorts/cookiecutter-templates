@@ -1,0 +1,11 @@
+{
+    "lower_shortname": "vi",
+    "upper_shortname": "VI",
+    "zappa_api_version": "600.0",
+    "integration_cup_start_date":  "YYYY-MM-HH",
+    "integration_cup_start_hour":  "9",
+    "integration_certificate_arn": "",
+    "prod_cup_start_date":  "YYYY-MM-HH",
+    "prod_cup_start_hour":  "9",
+    "prod_certificate_arn": ""
+}
