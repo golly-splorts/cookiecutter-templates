@@ -1,0 +1,50 @@
+{
+    "integration": {
+        "app_function": "app.app",
+        "aws_region": "us-west-1",
+        "project_name": "zappa-gollyx-{{cookiecutter.lower_shortname}}-api",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-6t7qbuj55",
+        "role_name": "custom-zappa-lambda-execution-role",
+        "role_arn": "arn:aws:iam::699103353083:role/custom-zappa-lambda-execution-role",
+        "manage_roles": false,
+        "cloudwatch_log_level": "INFO",
+        "certificate_arn": "{{cookiecutter.integration_certificate_arn}}",
+        "domain": "cloud.{{cookiecutter.lower_shortname}}.golly456.life",
+        "base_path": "",
+        "exclude": [
+            "lib-gollyx-nongo",
+            "prod-data",
+            "set_mode.py"
+        ],
+        "environment_variables": {
+            "GOLLYX_CLOUD_START_DATE": "{{cookiecutter.integration_cup_start_date}}",
+            "GOLLYX_CLOUD_START_HOUR": "{{cookiecutter.integration_cup_start_hour}}",
+            "GOLLYX_STAGE": "integration"
+        }
+    },
+    "prod": {
+        "app_function": "app.app",
+        "aws_region": "us-west-1",
+        "project_name": "zappa-gollyx-{{cookiecutter.lower_shortname}}-api",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-6t7qbuj55",
+        "role_name": "custom-zappa-lambda-execution-role",
+        "role_arn": "arn:aws:iam::699103353083:role/custom-zappa-lambda-execution-role",
+        "manage_roles": false,
+        "cloudwatch_log_level": "INFO",
+        "certificate_arn": "{{cookiecutter.prod_certificate_arn}}",
+        "domain": "cloud.{{cookiecutter.lower_shortname}}.golly.life",
+        "base_path": "",
+        "exclude": [
+            "lib-gollyx-nongo",
+            "integration-data",
+            "set_mode.py"
+        ],
+        "environment_variables": {
+            "GOLLYX_CLOUD_START_DATE": "{{cookiecutter.prod_cup_start_date}}",
+            "GOLLYX_CLOUD_START_HOUR": "{{cookiecutter.prod_cup_start_hour}}",
+            "GOLLYX_STAGE": "prod"
+        }
+    }
+}
