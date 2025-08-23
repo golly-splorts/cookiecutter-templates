@@ -198,8 +198,8 @@
 
       // Get total number of days
       var nDays = seasonApiResult.length;
-      var nRows = Math.ceil((nDays + 1)/10);
-      var nCols = 10;
+      var nRows = 1;
+      var nCols = nDays;
 
       var dayButtonsDivRow, rowButtonUlList, buttonPlaceholderElement, buttonLiElement;
       var iRow, iCol;
@@ -262,23 +262,20 @@
 
             }
 
-            if (iCol == 9) {
+            if (iCol == nDays-1) {
 
               // end ul here because it's either maximum number of days, or end of row
               dayButtonsDivRow.appendChild(rowButtonUlList);
 
-              // End the ul and create a new one
+              // End the ul
               dayButtonsDivRow.appendChild(rowButtonUlList);
-              rowButtonUlList = document.createElement('ul');
-              rowButtonUlList.classList.add('pagination');
-              rowButtonUlList.classList.add('pagination-sm');
 
             }
             iDay++;
           }
           dayContainer.appendChild(dayButtonsDivRow);
-        }
-      }
+        } // end for each col
+      } // end for each row
     },
 
     /**
