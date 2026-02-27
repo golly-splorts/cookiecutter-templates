@@ -2,30 +2,9 @@ import os
 import pytz
 import logging
 from datetime import datetime, timedelta
-from flask import Flask, jsonify
+from flask import Flask, jsonify, g
 import gollyx_nongo
-from gollyx_nongo.game_getter import IIGameGetter
-from gollyx_nongo.team_getter import TeamsGetter
-from gollyx_nongo.postseason_getter import (
-    IIPostseasonPrecedingDayGetter,
-    IIPostseasonDayGetter,
-    IIPostseasonLengthGetter,
-    IIPostseasonGetter,
-)
-from gollyx_nongo.seed_getter import (
-    IISeedGetter,
-)
-from gollyx_nongo.season_getter import (
-    IISeasonDayGetter,
-    IISeasonPrecedingDayGetter,
-    IISeasonGetter,
-)
-from gollyx_nongo.records_getter import (
-    IIRecordsGetter,
-)
-from gollyx_nongo.champion_getter import (
-    IIChampionGetter,
-)
+from gollyx_nongo import fetch_getter
 
 
 # -------------------------------------------
@@ -50,6 +29,7 @@ datadir = os.path.join(HERE, f"{STAGE}-data")
 
 def setup_routes(app):
     def scrub_scores_jsonify_games(games):
+        """Remove score and generation info from a list of games and return as a JSON response."""
         for game in games:
             for i in range(2):
                 key = f"team{i+1}Score"
@@ -72,30 +52,27 @@ def setup_routes(app):
 
     @app.route("/mode")
     def site_mode():
-        t = Timekeeper()
-        return jsonify(t.get_site_mode())
+        return jsonify(g.timekeeper.get_site_mode())
 
     @app.route("/today")
     def today():
-        t = Timekeeper()
-        resp = t.get_site_mode()
+        resp = g.timekeeper.get_site_mode()
         mode = resp["mode"]
         if mode > 0:
-            season0 = t.get_current_season()
-            day0 = t.get_current_day()
+            season0 = g.timekeeper.get_current_season()
+            day0 = g.timekeeper.get_current_day()
             return jsonify([season0, day0])
         else:
-            season0 = t.get_current_season()
+            season0 = g.timekeeper.get_current_season()
             return jsonify([season0, -1])
 
     @app.route("/currentGames")
     def current_games():
-        t = Timekeeper()
-        resp = t.get_site_mode()
+        resp = g.timekeeper.get_site_mode()
         mode = resp["mode"]
 
-        season0 = t.get_current_season()
-        day0 = t.get_current_day()
+        season0 = g.timekeeper.get_current_season()
+        day0 = g.timekeeper.get_current_day()
 
         if mode < 0:
             # wat
@@ -108,7 +85,7 @@ def setup_routes(app):
         elif mode < 20:
             # Regular season
             # Get games for today, remove score and generations info
-            sdg = IISeasonDayGetter(datadir, season0, day0)
+            sdg = fetch_getter("{{cookiecutter.lower_shortname}}", "season_day", datadir, season0, day0)
             games = sdg.get_season_day_game_data_slim()
 
             # Scrub games of scores and return
@@ -116,15 +93,15 @@ def setup_routes(app):
 
         elif mode < 30:
             # Postseason has not started yet, return first scheduled game of the series
-            if mode==21:
-                series = 'LDS'
-            elif mode==22:
-                series = 'LCS'
-            elif mode==23:
-                series = 'HCS'
-            else:
+            waiting_modes_map = {
+                21: 'LDS',
+                22: 'LCS',
+                23: 'HCS'
+            }
+            series = waiting_modes_map.get(mode)
+            if series is None:
                 raise APIError()
-            getter = IIPostseasonDayGetter(datadir, season0, series, 1)
+            getter = fetch_getter("{{cookiecutter.lower_shortname}}", "postseason_day", datadir, season0, series, 1)
             games = getter.get_postseason_day_game_data_slim()
             games.sort(key=lambda x: x["description"])
 
@@ -134,16 +111,16 @@ def setup_routes(app):
         elif mode < 40:
             elapsed = resp["elapsed"]
             # Postseason is happening
-            if mode==31:
-                series = 'LDS'
-            elif mode==32:
-                series = 'LCS'
-            elif mode==33:
-                series = 'HCS'
-            else:
+            inprogress_modes_map = {
+                31: 'LDS',
+                32: 'LCS',
+                33: 'HCS'
+            }
+            series = inprogress_modes_map.get(mode)
+            if series is None:
                 raise APIError()
             series_day = (elapsed//3600) + 1
-            getter = IIPostseasonDayGetter(datadir, season0, series, series_day)
+            getter = fetch_getter("{{cookiecutter.lower_shortname}}", "postseason_day", datadir, season0, series, series_day)
             games = getter.get_postseason_day_game_data_slim()
             games.sort(key=lambda x: x["description"])
 
@@ -163,14 +140,12 @@ def setup_routes(app):
         if season0 < 0 or day0 < 0:
             raise InvalidSeasonError()
 
-        t = Timekeeper()
-        resp = t.get_site_mode()
+        resp = g.timekeeper.get_site_mode()
         mode = resp["mode"]
-        current_season0 = t.get_current_season()
+        current_season0 = g.timekeeper.get_current_season()
 
         if season0 < current_season0:
-            # Past season, so return data
-            dg = IISeasonDayGetter(datadir, season0, day0)
+            dg = fetch_getter("{{cookiecutter.lower_shortname}}", "season_day", datadir, season0, day0)
             return jsonify(dg.get_season_day_game_data_slim())
 
         elif season0 > current_season0:
@@ -178,17 +153,17 @@ def setup_routes(app):
 
         elif season0 == current_season0:
             # Season is underway
-            current_day0 = t.get_current_day()
-            resp = t.get_site_mode()
+            current_day0 = g.timekeeper.get_current_day()
+            resp = g.timekeeper.get_site_mode()
             mode = resp["mode"]
             if day0 < current_day0 or mode >= 40:
                 # This day has passed, so return data
-                dg = IISeasonDayGetter(datadir, season0, day0)
+                dg = fetch_getter("{{cookiecutter.lower_shortname}}", "season_day", datadir, season0, day0)
                 return jsonify(dg.get_season_day_game_data_slim())
             elif day0 == current_day0 and mode > 10 and mode < 30:
                 # We are waiting for the next series,
                 # ok to return today
-                dg = IISeasonDayGetter(datadir, season0, day0)
+                dg = fetch_getter("{{cookiecutter.lower_shortname}}", "season_day", datadir, season0, day0)
                 return jsonify(dg.get_season_day_game_data_slim())
 
         # If we reach this point, don't return any data
@@ -196,15 +171,14 @@ def setup_routes(app):
 
     @app.route("/game/<gameid>")
     def game(gameid, event=None, context=None):
-        gg = IIGameGetter(datadir, gameid)
+        gg = fetch_getter("{{cookiecutter.lower_shortname}}", "game", datadir, gameid)
         game = gg.get_game_data()
 
         # Check when the game happened
-        t = Timekeeper()
-        resp = t.get_site_mode()
+        resp = g.timekeeper.get_site_mode()
         mode = resp["mode"]
-        season0 = t.get_current_season()
-        day0 = t.get_current_day()
+        season0 = g.timekeeper.get_current_season()
+        day0 = g.timekeeper.get_current_day()
 
         if game["season"] < season0:
             # Game was prior to today, return entire game
@@ -237,17 +211,11 @@ def setup_routes(app):
         """
         Return a short flat list of all seasons (0-indexed) that have been started (incl. current season).
         """
-        t = Timekeeper()
-        season0 = t.get_current_season()
+        season0 = g.timekeeper.get_current_season()
         seasons_list = list(range(0, season0 + 1))
         return jsonify(seasons_list)
 
-    @app.route("/season")
-    def season():
-        t = Timekeeper()
-        season0 = t.get_current_season()
-        return a_season(season0)
-
+    @app.route("/season", defaults={"season0": None})
     @app.route("/season/<int:season0>")
     def a_season(season0):
         """
@@ -256,15 +224,16 @@ def setup_routes(app):
         If the season specified is underway, this will filter out current day and all days following.
         Season is ZERO-INDEXED.
         """
+        if season0 is None:
+            season0 = g.timekeeper.get_current_season()
         if season0 < 0:
             raise InvalidSeasonError()
 
-        t = Timekeeper()
-        current_season0 = t.get_current_season()
+        current_season0 = g.timekeeper.get_current_season()
 
         if season0 < current_season0:
             # Past season, so return full season
-            sg = IISeasonGetter(datadir, season0)
+            sg = fetch_getter("{{cookiecutter.lower_shortname}}", "season", datadir, season0)
             return jsonify(sg.get_season_game_data_slim())
 
         elif season0 > current_season0:
@@ -272,8 +241,8 @@ def setup_routes(app):
 
         elif season0 == current_season0:
             # Season is underway
-            day0 = t.get_current_day()
-            resp = t.get_site_mode()
+            day0 = g.timekeeper.get_current_day()
+            resp = g.timekeeper.get_site_mode()
             mode = resp["mode"]
 
             if mode < 10:
@@ -281,21 +250,16 @@ def setup_routes(app):
                 return jsonify([])
             elif mode < 20:
                 # Regular season, use IISeasonPrecedingDayGetter
-                spd = IISeasonPrecedingDayGetter(datadir, season0, day0)
+                spd = fetch_getter("{{cookiecutter.lower_shortname}}", "season_preceding_day", datadir, season0, day0)
                 return jsonify(spd.get_season_precedingday_game_data_slim())
             else:
                 # The season is over, so return full season
-                sg = IISeasonGetter(datadir, season0)
+                sg = fetch_getter("{{cookiecutter.lower_shortname}}", "season", datadir, season0)
                 return jsonify(sg.get_season_game_data_slim())
 
         raise FlaskError()
 
-    @app.route("/postseason")
-    def postseason():
-        t = Timekeeper()
-        season0 = t.get_current_season()
-        return a_postseason(season0)
-
+    @app.route("/postseason", defaults={"season0": None})
     @app.route("/postseason/<int:season0>")
     def a_postseason(season0):
         """
@@ -306,15 +270,16 @@ def setup_routes(app):
             - inner list: one element per game that day
         Season is ZERO-INDEXED.
         """
+        if season0 is None:
+            season0 = g.timekeeper.get_current_season()
         if season0 < 0:
             raise InvalidSeasonError()
 
-        t = Timekeeper()
-        current_season0 = t.get_current_season()
+        current_season0 = g.timekeeper.get_current_season()
 
         if season0 < current_season0:
             # Past season, so return full postseason
-            pg = IIPostseasonGetter(datadir, season0)
+            pg = fetch_getter("{{cookiecutter.lower_shortname}}", "postseason", datadir, season0)
             return jsonify(pg.get_postseason_data_slim())
 
         elif season0 > current_season0:
@@ -322,8 +287,8 @@ def setup_routes(app):
 
         elif season0 == current_season0:
             # Season is underway
-            day0 = t.get_current_day()
-            resp = t.get_site_mode()
+            day0 = g.timekeeper.get_current_day()
+            resp = g.timekeeper.get_site_mode()
             mode = resp["mode"]
             if mode < 20:
                 # Regular season is about to start or still in progress
@@ -332,15 +297,15 @@ def setup_routes(app):
                 # Waiting for next postseason series
                 # Current day returns the day of the last game played
                 # The postseason being returned
-                if mode == 21:
-                    series = "LDS"
-                elif mode == 22:
-                    series = "LCS"
-                elif mode == 23:
-                    series = "HCS"
-                else:
+                waiting_modes_map = {
+                    21: "LDS",
+                    22: "LCS",
+                    23: "HCS"
+                }
+                series = waiting_modes_map.get(mode)
+                if series is None:
                     raise FlaskError()
-                ppdg = IIPostseasonPrecedingDayGetter(datadir, season0, series, 1)
+                ppdg = fetch_getter("{{cookiecutter.lower_shortname}}", "postseason_preceding_day", datadir, season0, series, 1)
                 result = ppdg.get_postseason_precedingdays_game_data_slim()
                 for s in result.keys():
                     for i, _ in enumerate(result[s]):
@@ -349,17 +314,17 @@ def setup_routes(app):
             elif mode < 40:
                 # There is currently an ongoing postseason game
                 # Use elapsed seconds to determine which series day we are in
-                if mode == 31:
-                    series = "LDS"
-                elif mode == 32:
-                    series = "LCS"
-                elif mode == 33:
-                    series = "HCS"
-                else:
+                inprogress_modes_map = {
+                    31: "LDS",
+                    32: "LCS",
+                    33: "HCS"
+                }
+                series = inprogress_modes_map.get(mode)
+                if series is None:
                     raise FlaskError()
                 series_day = resp["elapsed"] // 3600
-                ppdg = IIPostseasonPrecedingDayGetter(
-                    datadir, season0, series, series_day + 1
+                ppdg = fetch_getter(
+                    "{{cookiecutter.lower_shortname}}", "postseason_preceding_day", datadir, season0, series, series_day + 1
                 )
                 result = ppdg.get_postseason_precedingdays_game_data_slim()
                 for s in result.keys():
@@ -367,7 +332,7 @@ def setup_routes(app):
                         result[s][i].sort(key=lambda x: x["description"])
                 return jsonify(result)
             else:
-                pdg = IIPostseasonGetter(datadir, season0)
+                pdg = fetch_getter("{{cookiecutter.lower_shortname}}", "postseason", datadir, season0)
                 result = pdg.get_postseason_data_slim()
                 for s in result.keys():
                     for i, _ in enumerate(result[s]):
@@ -376,12 +341,7 @@ def setup_routes(app):
 
         raise FlaskError()
 
-    @app.route("/seeds")
-    def seeds():
-        t = Timekeeper()
-        season0 = t.get_current_season()
-        return a_seeds(season0)
-
+    @app.route("/seeds", defaults={"season0": None})
     @app.route("/seeds/<int:season0>")
     def a_seeds(season0):
         """
@@ -390,15 +350,16 @@ def setup_routes(app):
         - values: list of the top 4 seeeds for corresponding league, in order
         - (or empty list, if season has not finished yet)
         """
+        if season0 is None:
+            season0 = g.timekeeper.get_current_season()
         if season0 < 0:
             raise InvalidSeasonError()
 
-        t = Timekeeper()
-        current_season0 = t.get_current_season()
+        current_season0 = g.timekeeper.get_current_season()
 
         if season0 < current_season0:
             # Past season, so return seed table
-            sg = IISeedGetter(datadir, season0)
+            sg = fetch_getter("{{cookiecutter.lower_shortname}}", "seed", datadir, season0)
             return jsonify(sg.get_seed_table())
 
         elif season0 > current_season0:
@@ -406,85 +367,71 @@ def setup_routes(app):
 
         elif season0 == current_season0:
             # Season is underway
-            day0 = t.get_current_day()
-            resp = t.get_site_mode()
+            day0 = g.timekeeper.get_current_day()
+            resp = g.timekeeper.get_site_mode()
             mode = resp["mode"]
             if mode < 20:
                 # Regular season is still in progress
                 return jsonify({})
             else:
                 # Season is finished, seed table is decided
-                sg = IISeedGetter(datadir, season0)
+                sg = fetch_getter("{{cookiecutter.lower_shortname}}", "seed", datadir, season0)
                 return jsonify(sg.get_seed_table())
 
         raise FlaskError()
 
-    @app.route("/champion")
-    def champion():
-        """Returns the II Cup champion for the current season that just ended, otherwise return nothing"""
-        t = Timekeeper()
-        season0 = t.get_current_season()
-        return a_champion(season0)
-
+    @app.route("/champion", defaults={"season0": None})
     @app.route("/champion/<int:season0>")
     def a_champion(season0):
         """Returns the II Cup champion for the specified season"""
+        if season0 is None:
+            season0 = g.timekeeper.get_current_season()
         if season0 < 0:
             raise InvalidSeasonError()
 
-        t = Timekeeper()
-        current_season0 = t.get_current_season()
+        current_season0 = g.timekeeper.get_current_season()
 
         if season0 < current_season0:
             # Past season, so return champions from past season
-            cg = IIChampionGetter(datadir, season0)
+            cg = fetch_getter("{{cookiecutter.lower_shortname}}", "champion", datadir, season0)
             return jsonify(cg.get_champion_data())
         elif season0 == current_season0:
-            resp = t.get_site_mode()
+            resp = g.timekeeper.get_site_mode()
             mode = resp["mode"]
             if mode < 40:
                 return jsonify({})
             else:
-                cg = IIChampionGetter(datadir, season0)
+                cg = fetch_getter("{{cookiecutter.lower_shortname}}", "champion", datadir, season0)
                 return jsonify(cg.get_champion_data())
         elif season0 > current_season0:
             raise FutureSeasonError()
 
         raise FlaskError()
 
-    @app.route("/teams")
-    def teams():
-        t = Timekeeper()
-        season0 = t.get_current_season()
-        return a_teams(season0)
-
+    @app.route("/teams", defaults={"season0": None})
     @app.route("/teams/<int:season0>")
     def a_teams(season0):
         """
         Return all team info for the specified season.
         Season is ZERO-INDEXED.
         """
+        if season0 is None:
+            season0 = g.timekeeper.get_current_season()
         if season0 < 0:
             raise InvalidSeasonError()
 
-        t = Timekeeper()
-        current_season0 = t.get_current_season()
+        current_season0 = g.timekeeper.get_current_season()
 
         if season0 <= current_season0:
             # Okie dokie here ya go
-            tg = TeamsGetter(datadir, season0)
+            tg = fetch_getter("{{cookiecutter.lower_shortname}}", "teams", datadir, season0)
             td = tg.get_teams_data()
             td.sort(key=lambda x: x["teamAbbr"])
             return jsonify(td)
         else:
             raise FutureSeasonError()
 
-    @app.route("/records")
-    def records():
-        t = Timekeeper()
-        season0 = t.get_current_season()
-        return a_records(season0)
-
+    @app.route("/records", defaults={"season0": None})
     @app.route("/records/<int:season0>")
     def a_records(season0):
         """
@@ -497,15 +444,14 @@ def setup_routes(app):
         If IIRecordsGetter receives a day > 48, it returns the records
         as of the end of the season.
         """
-        if season0 < 0:
-            raise InvalidSeasonError()
+        if season0 is None:
+            season0 = g.timekeeper.get_current_season()
 
-        t = Timekeeper()
-        current_season0 = t.get_current_season()
+        current_season0 = g.timekeeper.get_current_season()
 
         if season0 < current_season0:
             # Season is past, so return records at end of season
-            rg = IIRecordsGetter(datadir, season0)
+            rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0)
             wlrecords = rg.get_records_data(use_abbr=False)
             return jsonify(wlrecords)
 
@@ -513,28 +459,22 @@ def setup_routes(app):
             raise FutureSeasonError()
 
         elif season0 == current_season0:
-            current_day0 = t.get_current_day()
-            resp = t.get_site_mode()
+            current_day0 = g.timekeeper.get_current_day()
+            resp = g.timekeeper.get_site_mode()
             mode = resp["mode"]
             if mode > 10 and mode < 30:
                 # for 20s, return records as of tomorrow
-                # (for mode 21)
-                rg = IIRecordsGetter(datadir, season0, current_day0 + 1)
+                rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0, current_day0 + 1)
                 wlrecords = rg.get_records_data(use_abbr=False)
                 return jsonify(wlrecords)
             else:
-                rg = IIRecordsGetter(datadir, season0, current_day0)
+                rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0, current_day0)
                 wlrecords = rg.get_records_data(use_abbr=False)
                 return jsonify(wlrecords)
 
         raise FlaskError()
 
-    @app.route("/standings")
-    def standings():
-        t = Timekeeper()
-        season0 = t.get_current_season()
-        return a_standings(season0)
-
+    @app.route("/standings", defaults={"season0": None})
     @app.route("/standings/<int:season0>")
     def a_standings(season0):
 
@@ -562,15 +502,16 @@ def setup_routes(app):
             }
         }
         """
+        if season0 is None:
+            season0 = g.timekeeper.get_current_season()
         # No matter what the mode, we will always return
         # a standings data structure, so set to work
         # assembling it
-        t = Timekeeper()
-        current_season0 = t.get_current_season()
-        current_day0 = t.get_current_day()
+        current_season0 = g.timekeeper.get_current_season()
+        current_day0 = g.timekeeper.get_current_day()
 
         # Assemble league/div structure
-        tg = TeamsGetter(datadir, season0)
+        tg = fetch_getter("{{cookiecutter.lower_shortname}}", "teams", datadir, season0)
         teams = tg.get_teams_data()
         leagues = {t["league"] for t in teams}
         leagues = sorted(list(leagues))
@@ -588,22 +529,92 @@ def setup_routes(app):
         wlrecords = None
         if season0 < current_season0:
             # Season is past
-            rg = IIRecordsGetter(datadir, season0)
+            rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0)
             wlrecords = rg.get_records_data(use_abbr=True)
 
         elif season0 == current_season0:
-            current_day0 = t.get_current_day()
-            resp = t.get_site_mode()
+            resp = g.timekeeper.get_site_mode()
             mode = resp["mode"]
-            if mode > 10 and mode < 30:
-                rg = IIRecordsGetter(datadir, season0, current_day0 + 1)
+
+            if mode > 10 and mode < 20:
+                rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0, current_day0 + 1)
                 wlrecords = rg.get_records_data(use_abbr=True)
             else:
-                rg = IIRecordsGetter(datadir, season0, current_day0)
+                rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0, current_day0)
                 wlrecords = rg.get_records_data(use_abbr=True)
 
         else:
             raise FutureSeasonError()
+
+        # Now populate the final data structure with the WL records
+        for league in leagues:
+            for division in divisions:
+                for team in teams:
+                    if team["league"] == league and team["division"] == division:
+                        divlist = rankings[league][division]
+                        team["teamWinLoss"] = wlrecords[team["teamAbbr"]]
+                        divlist.append(team)
+                rankings[league][division].sort(
+                    key=lambda x: x["teamWinLoss"][0], reverse=True
+                )
+
+        # Final structure to return
+        structure = {}
+        structure["leagues"] = leagues
+        structure["divisions"] = divisions
+        structure["rankings"] = rankings
+        return jsonify(structure)
+
+    @app.route("/standings/<int:season0>/<int:day0>")
+    def a_standings_day(season0, day0):
+        current_season0 = g.timekeeper.get_current_season()
+        current_day0 = g.timekeeper.get_current_day()
+
+        # Assemble league/div structure
+        tg = fetch_getter("{{cookiecutter.lower_shortname}}", "teams", datadir, season0)
+        teams = tg.get_teams_data()
+        leagues = {t["league"] for t in teams}
+        leagues = sorted(list(leagues))
+        divisions = {t["division"] for t in teams}
+        divisions = sorted(list(divisions))
+
+        # Assemble rankings data structure
+        rankings = {}
+        for league in leagues:
+            divstruct = {}
+            for division in divisions:
+                divstruct[division] = []
+            rankings[league] = divstruct
+
+        wlrecords = None
+        if season0 < current_season0:
+            # Season is past, so day0 shifted +1 (up to and including day0)
+            rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0, day0 + 1)
+
+        elif season0 == current_season0:
+            resp = g.timekeeper.get_site_mode()
+            mode = resp["mode"]
+
+            if day0 < current_day0 or mode >= 20:
+                # This day has passed, so return data (+1 so it is up to and including day0)
+                rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0, day0 + 1)
+
+            elif day0 == current_day0:
+                if mode >= 20:
+                    # Postseason waiting or ongoing, or done
+                    # Return standings as of (day0 + 1)
+                    rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0, day0 + 1)
+                else:
+                    # Season is ongoing
+                    # Return standings as of (day0)
+                    rg = fetch_getter("{{cookiecutter.lower_shortname}}", "records", datadir, season0, day0)
+            else:
+                raise FutureDayError()
+
+        else:
+            raise FutureSeasonError()
+
+        wlrecords = rg.get_records_data(use_abbr=True)
 
         # Now populate the final data structure with the WL records
         for league in leagues:
@@ -867,9 +878,10 @@ class Timekeeper(object):
         self.postseason_lds_end = self.postseason_lds_start + timedelta(hours=lds_hours)
 
         # ----
-        # LCS 
+        # LCS
 
-        # starts 72 hours after season start (DPS - 1 + 24 hours)
+        # LCS starts 24 hours after the last regular season game.
+        # (dps-1) hours for the dps-1 games, plus 24 hours.
         self.postseason_lcs_start = self.season_start + timedelta(hours=dps-1+one_day)
 
         # ends 1 hour after last LCS game
@@ -879,7 +891,7 @@ class Timekeeper(object):
         # ----
         # HCS
 
-        # starts 24 hours after LCS starts
+        # HCS starts 24 hours after LCS starts.
         self.postseason_hcs_start = self.postseason_lcs_start + timedelta(hours=24)
 
         # ends 1 hour after last game
@@ -944,6 +956,8 @@ class Timekeeper(object):
         daysfromstart = delta.days
         weeksfromstart = daysfromstart // 7
         leftover = daysfromstart % 7
+        # A new season starts every 7 days. The 6th and 7th days of each week are an off-season period.
+        # if the leftover is greater than 5, it means we are in the off-season, so we roll over to the next season.
         if leftover > 5:
             # Roll over to next season 6 days after start of season
             # Set mode to 0
@@ -976,7 +990,7 @@ class Timekeeper(object):
         return start_dt
 
     def get_postseason_series_length(self, season0, series):
-        getter = IIPostseasonLengthGetter(datadir, season0, series)
+        getter = fetch_getter("{{cookiecutter.lower_shortname}}", "postseason_length", datadir, season0, series)
         return getter.get_series_length()
 
 
@@ -1023,6 +1037,11 @@ class FutureSeasonError(FlaskError):
     message = "Future Season Error"
 
 
+class FutureDayError(FlaskError):
+    status_code = 400
+    message = "Future Day Error"
+
+
 class FutureGameError(FlaskError):
     status_code = 400
     message = "Future Game Error"
@@ -1049,10 +1068,16 @@ def setup_errorhandling(app):
 
 
 app = Flask(__name__)
+
+
+@app.before_request
+def before_request_func():
+    g.timekeeper = Timekeeper()
+
 app.__version__ = __version__
 setup_routes(app)
 setup_errorhandling(app)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
