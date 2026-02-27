@@ -2,8 +2,8 @@
     "integration": {
         "app_function": "app.app",
         "aws_region": "us-west-1",
-        "project_name": "zappa-gollyx-{{cookiecutter.lower_shortname}}-api",
-        "runtime": "python3.9",
+        "project_name": "zappa-gollyx-star-{{cookiecutter.lower_shortname}}-api",
+        "runtime": "python3.12",
         "s3_bucket": "zappa-6t7qbuj55",
         "role_name": "custom-zappa-lambda-execution-role",
         "role_arn": "arn:aws:iam::699103353083:role/custom-zappa-lambda-execution-role",
@@ -26,8 +26,8 @@
     "prod": {
         "app_function": "app.app",
         "aws_region": "us-west-1",
-        "project_name": "zappa-gollyx-{{cookiecutter.lower_shortname}}-api",
-        "runtime": "python3.9",
+        "project_name": "zappa-gollyx-star-{{cookiecutter.lower_shortname}}-api",
+        "runtime": "python3.12",
         "s3_bucket": "zappa-6t7qbuj55",
         "role_name": "custom-zappa-lambda-execution-role",
         "role_arn": "arn:aws:iam::699103353083:role/custom-zappa-lambda-execution-role",

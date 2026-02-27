@@ -7,7 +7,7 @@ import argparse
 
 
 STAGE = "integration"  # should not change
-DPS = 49
+DPS = 11
 
 
 def main(sysargs=sys.argv[1:]):
@@ -99,23 +99,23 @@ def get_start_date_hour(mode, season0):
 
     elif mode==22:
         # mode 22: LDS over, waiting for LCS
-        gold_start -= timedelta(hours=DPS + 9)
+        gold_start -= timedelta(hours=DPS + 6)
 
     elif mode==32:
         # mode 32: LCS
-        gold_start -= timedelta(hours=3*ONE_DAY+1)
+        gold_start -= timedelta(hours=DPS + 10)
 
     elif mode==23:
         # mode 23: LCS over, waiting for cup
-        gold_start -= timedelta(hours=3*ONE_DAY+9)
+        gold_start -= timedelta(hours=2*ONE_DAY-2)
 
     elif mode==33:
         # mode 33: cup
-        gold_start -= timedelta(hours=4*ONE_DAY+1)
+        gold_start -= timedelta(hours=2*ONE_DAY+2)
 
     elif mode>=40:
         # mode > 40: cup is over
-        gold_start -= timedelta(hours=4*ONE_DAY+9)
+        gold_start -= timedelta(hours=2*ONE_DAY+12)
 
     else:
         raise Exception("Invalid mode specified!")
