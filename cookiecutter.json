@@ -1,6 +1,6 @@
 {
     "lower_shortname": "vi",
     "upper_shortname": "VI",
-    "maps_api_lower_shortname": "vi",
-    "cup_number": "6"
+    "cup_number": "6",
+    "union": "golly"
 }
