@@ -15,7 +15,7 @@
 
 (function () {
 
-  var realBackgroundColor = "#272b30";
+  var realBackgroundColor = "#060606";
   var gridStrokeColor1    = "#3a3a3a";
   var mapZoneStrokeColor  = "#dddddd";
   var grays = ["#303030", "#3f3f3f", "#494949", "#525252", "#5d5d5d"];
@@ -24,29 +24,65 @@
 
     // http://www.mirekw.com/ca/rullex_gene.html
 
-    // Conway's Game of Life
+    // Star Wars CA
     ruleParams : {
-      b : [3],
-      s : [2, 3],
+      b : [2],
+      s : [3, 4, 5],
+      c : 4,
       tolZero : 1e-8,
-      tolStable : 1e-8,
-      runningAvgMaxDim: 240,
+      tolStable : 1e-6,
+      runningAvgMaxDim: 280,
     },
 
+    // // Banners
+    // ruleParams : {
+    //   b : [3, 4, 5, 7],
+    //   s : [2, 3, 6, 7],
+    //   c : 5,
+    //   tolZero : 1e-8,
+    //   tolStable : 1e-5,
+    //   //runningAvgMaxDim: 280,
+    //   runningAvgMaxDim: 220,
+    // },
+
+    // // Caterpillars
+    // ruleParams : {
+    //   s : [1, 2, 4, 5, 6, 7],
+    //   b : [3, 7, 8],
+    //   c : 4,
+    //   tolZero : 1e-8,
+    //   tolStable : 1e-6,
+    //   runningAvgMaxDim: 280,
+    // },
+
+    // // Transer
+    // ruleParams : {
+    //   s : [1, 3, 4, 5, 8],
+    //   b : [3, 8],
+    //   c : 6,
+    //   tolZero : 1e-8,
+    //   tolStable : 1e-6,
+    //   runningAvgMaxDim: 280,
+    // },
 
     // Initial Conditions:
-    //
-    // // Two acorns
-    // s1Default: '[{"50":[60,160]},{"51":[62,162]},{"52":[59,60,63,64,65,159,160,163,164,165]}]',
-    // s2Default: '[{"60":[60,160]},{"61":[62,162]},{"62":[59,60,63,64,65,159,160,163,164,165]}]',
-    // Crabs
-    s1Default: '[{"43":[119,160]},{"44":[118,120,160,161]},{"45":[119,159,161]},{"46":[122,123]},{"47":[119,122,123,157,158]},{"48":[118,120,125,157,158]},{"49":[120,126,127]},{"50":[118,119,125,126,155,159,160,167]},{"51":[115,118,154,156,158,161,167,168]},{"52":[155,159,161,162,166,168]},{"53":[117,164]},{"54":[115,116,165]},{"55":[118,162,165]},{"56":[119,120]},{"57":[118,119]}]',
-    s2Default: '[{"40":[85]},{"41":[85,86]},{"42":[84,86]},{"44":[82,83]},{"45":[82,83]},{"47":[80,84,85,92]},{"48":[79,81,83,86,92,93]},{"49":[37,80,84,86,87,91,93]},{"50":[36,38,89]},{"51":[37,90]},{"52":[33,34,87,90]},{"53":[33,34,37]},{"54":[31,36,38]},{"55":[29,30,36]},{"56":[30,31,37,38]},{"57":[38,41]},{"59":[39]},{"60":[40,41]},{"61":[38]},{"62":[36,37]},{"63":[37,38]}]',
+    s1Default: '[{"49":[93,94,95,97,98,100,101,144,145,146,147,148,149,151]},{"50":[94,95,96,97,98,99,100,101,143,144,147,149,150,151]},{"51":[93,96,97,98,99,100,101,144,145,146,147,148,150,151]},{"52":[93,94,95,96,97,98,99,100,101,143,144,145,146,148,149,150,151]},{"53":[93,95,96,97,98,99,100,101,143,144,145,148,149,150,151]},{"54":[93,94,96,97,98,100,101,143,145,146,147,149,150,151]},{"55":[93,94,95,96,98,99,100,101,143,144,145,146,148,151]},{"56":[93,94,95,96,97,98,100,101,144,146,147,148,149]},{"57":[93,94,95,96,97,99,100,144,145,146,148,149,150]},{"58":[93,94,96,97,99,100,101,144,145,147,150]},{"59":[93,94,96,97,98,99,100,101,143,144,145,149,150,151]},{"60":[93,94,95,96,98,99,100,143,144,145,146,147,149,151]},{"61":[93,94,95,96,97,99,100,101,143,144,146,147,148,149,150,151]},{"62":[93,94,95,96,97,98,99,100,144,145,146,148,149,150,151]},{"63":[93,94,96,97,98,99,101,147,149,150,151]},{"64":[93,94,96,97,98,99,100,143,144,145,146,147,149,150,151]},{"65":[93,97,98,99,100,101,143,144,145,146,147,148,149,150,151]},{"66":[93,94,95,97,98,99,100,144,147,148,150,151]},{"67":[93,95,97,99,100,101,145,146,149,150,151]},{"68":[94,95,96,97,98,99,100,101,143,144,145,146,147,148,149]},{"69":[93,95,96,97,101,143,144,148,149,150,151]},{"70":[94,95,96,97,98,99,100,143,144,146,147,148,149,150,151]},{"71":[93,94,95,96,97,98,99,101,143,144,145,146,147,148,149,150]},{"72":[93,94,96,97,98,99,100,101,143,144,149,150,151]},{"73":[93,94,95,96,97,98,101,143,145,147,148,149,150]},{"74":[93,94,96,97,99,100,101,143,144,145,146,147,148,149,150,151]},{"75":[93,94,95,96,97,99,100,101,143,145,146,147,148,150,151]},{"76":[93,94,95,97,98,100,143,145,146,147,148,149,151]},{"77":[93,94,95,96,97,98,99,100,101,143,144,145,146,147,151]},{"78":[93,94,96,97,98,99,100,101,144,145,146,149,150,151]},{"79":[93,95,96,97,98,99,100,143,146,149,151]},{"80":[93,94,95,97,98,99,100,101,143,144,145,146,147,148,149,150,151]},{"81":[93,94,95,96,97,98,99,100,101,143,144,146,147,148,149,150,151]},{"82":[93,94,95,96,98,99,100,101,143,144,145,146,147,148,149,150,151]},{"83":[93,95,97,98,99,100,101,143,144,145,146,147,148,149,150,151]},{"84":[93,94,95,96,97,99,100,101,144,145,146,147,148,149,151]},{"85":[94,96,97,98,99,144,145,146,147,148,149,150,151]},{"86":[93,94,95,96,97,98,99,100,101,143,145,146,147,148,149,150,151]},{"87":[94,95,96,97,98,100,101,143,144,146,147,149,151]},{"88":[93,94,95,96,97,98,99,100,143,144,145,146,147,148,149,150,151]},{"89":[93,94,96,97,98,99,100,101,144,145,147,148,149,150,151]},{"90":[98,100,143,144,145,146,147,148,149,151]},{"91":[93,94,96,97,98,99,100,101,143,144,146,147,148,149,150,151]},{"92":[93,94,95,96,97,98,99,100,101,143,144,145,147,148,149,150,151]},{"93":[93,94,95,96,97,99,100,143,144,145,146,147,148,149,150]},{"94":[93,95,96,97,98,99,100,143,145,146,147,148,149,150]},{"95":[93,94,95,96,97,98,99,100,101,143,145,146,147,148,149,150,151]},{"96":[93,94,95,96,97,98,99,100,101,143,144,145,146,147,148,149,150,151]},{"97":[94,95,96,97,98,99,100,101,144,146,147,148,149]}]',
+    s2Default: '[{"47":[52,53,54,55,56,57,58,59,188,189,190,191,192,194,195,196]},{"48":[54,55,56,57,58,60,188,189,190,192,193,195,196]},{"49":[52,53,55,56,57,58,59,188,189,190,191,193,194,195,196]},{"50":[52,53,54,56,58,59,60,189,190,191,192,193,194,196]},{"51":[52,53,54,55,56,57,58,188,189,190,191,192,193,195,196]},{"52":[54,56,57,58,59,60,188,189,190,192,193,194]},{"53":[53,54,55,56,57,58,59,188,189,190,191,192,194,195]},{"54":[52,53,54,57,58,60,188,189,190,192,193,194,195,196]},{"55":[52,53,54,55,56,57,59,60,190,193,194,195,196]},{"56":[52,53,54,55,56,57,58,60,188,189,190,191,192,193,194]},{"57":[52,53,55,56,57,59,60,189,190,192,193,195]},{"58":[52,53,55,57,60,188,189,192,193,194,195,196]},{"59":[52,53,55,56,57,58,60,188,189,190,191,193,194,195,196]},{"60":[53,54,55,56,57,58,59,60,188,189,190,192,193,194,196]},{"61":[53,54,55,56,57,58,60,188,189,190,192,193,194,195,196]},{"62":[52,53,54,55,56,57,58,59,60,188,190,192,196]},{"63":[52,53,56,58,59,188,189,190,191,192,193,194,195,196]},{"64":[53,54,55,57,59,60,189,190,191,192,194,195]},{"65":[53,56,57,59,60,188,189,190,191,192,195,196]},{"66":[52,53,54,56,57,58,59,188,189,190,192,194,195]},{"67":[52,53,54,56,57,58,59,189,191,193,194,195,196]},{"68":[52,53,55,56,57,58,59,60,189,190,191,192,193,194,195,196]},{"69":[52,53,54,55,56,57,58,59,60,188,189,190,192,193,194,195,196]},{"70":[52,53,54,56,57,58,59,60,188,189,190,191,192,193,194,195,196]},{"71":[52,55,57,58,59,60,190,191,192,193,195,196]},{"72":[52,53,54,55,56,57,58,59,60,189,190,191,192,193,194,195]},{"73":[52,54,55,56,58,59,60,189,190,191,192,193,194,195,196]},{"74":[52,53,54,55,56,57,58,59,188,190,191,192,193,194,195,196]},{"75":[52,53,54,55,56,188,190,191,192,193,194,195,196]},{"76":[52,53,55,56,57,58,59,60,188,190,191,192,193,194,196]},{"77":[52,53,55,56,57,58,59,60,188,189,190,191,192,193,194,195,196]},{"78":[52,53,54,55,56,57,58,59,60,188,190,191,192,194,195]},{"79":[53,55,56,57,58,59,60,189,190,191,192,193,194,195,196]},{"80":[52,54,55,56,57,58,59,60,189,190,193,194,195]},{"81":[52,53,54,55,56,58,59,60,188,189,190,191,193,194,195]},{"82":[52,53,54,55,57,58,59,60,188,189,190,191,192,193,195,196]},{"83":[52,53,54,56,58,59,60,188,189,190,191,193,195,196]},{"84":[52,53,54,55,56,57,58,59,60,189,190,191,193,194,195]},{"85":[52,53,54,55,56,57,59,60,188,189,190,191,192,193,194,195,196]},{"86":[52,55,56,57,58,60,188,189,190,191,192,193,194,195]},{"87":[52,53,55,57,58,59,60,188,189,190,191,192,194,195]},{"88":[52,54,55,56,57,58,60,189,192,193,194,196]},{"89":[53,54,55,57,58,59,60,188,189,190,191,192,193,194,196]},{"90":[52,53,54,55,56,57,58,59,60,188,189,191,192,194,195,196]},{"91":[52,53,54,55,57,58,59,60,188,189,190,192,193,194,195]},{"92":[52,53,54,55,56,58,59,60,188,189,190,191,192,193,195]},{"93":[52,53,55,56,57,58,59,188,190,191,193,194,195,196]},{"94":[52,53,54,55,56,57,59,60,189,191,192,193,194,195,196]},{"95":[52,53,54,55,56,57,58,60,188,189,190,191,192,193,195]}]',
+
+    // two acorns
+    //s1Default: '[{"50":[60,160]},{"51":[62,162]},{"52":[59,60,63,64,65,159,160,163,164,165]}]',
+    //s2Default: '[{"60":[60,160]},{"61":[62,162]},{"62":[59,60,63,64,65,159,160,163,164,165]}]',
 
     // Geometry:
     defaultCols: 240,
-    defaultRows: 150,
+    defaultRows: 160,
     defaultCellSize: 3,
+
+    //// Stability:
+    //// Previously this was 240, but that was a bit too small for Star Wars CA
+    //// If increased to 300, it never converges if oscillators are present
+    //// This should be rule-specific
+    //runningAvgMaxDim: 280,
 
     // URLs:
     baseApiUrl : getBaseApiUrl(),
@@ -68,9 +104,6 @@
     mapMode : false,
     sandboxMode : false,
 
-    teamNames: [],
-    teamColors: [],
-
     columns : 0,
     rows : 0,
     cellSize: 0,
@@ -83,6 +116,7 @@
 
     // Cell colors
     //
+    // dead/trail colors always the same
     // alive color sets are either set by the game (game mode)
     // or set by the user via the schemes (sandbox mode)
     colors : {
@@ -97,25 +131,24 @@
 
       alive: null,
       aliveLabels: null,
+      deadWait: null,
 
+
+      // https://www.colorhexa.com/ffc20a-to-272b30
       schemes : [
         {
-          aliveLabels: ['Blue', 'Yellow'],
-          alive: ['#3b9dff', '#ffc20a'],
+          aliveLabels: ['Orange', 'Blue', 'Referees'],
+          alive:       ['#e66100', '#0c7bdc', '#ffffff'],
         },
         {
-          aliveLabels: ['Orange', 'Purple'],
-          alive: ['#e66100', '#9963ab'],
-        },
-        {
-          aliveLabels: ['Yellow', 'Red'],
-          alive: ['#ffc20a', '#dc3220'],
-        },
-        {
-          aliveLabels: ['Bright', 'Not So Bright'],
-          alive: ['#EEEEEE', '#777777'],
+          aliveLabels: ['Yellow', 'Red', 'Referees'],
+          alive: ['#ffc20a', '#dc3220', '#ffffff'],
         }
       ],
+
+      getRefereeLabel : function() {
+        return "Referees";
+      },
     },
 
     // Grid style
@@ -154,19 +187,11 @@
     element : {
       generation : null,
       livecells : null,
-      livecells1 : null,
-      livecells2 : null,
-      //livepct: null,
-
+      liveCellsColors: [],
+      livepct: null,
       teamColors: [],
       teamNames: [],
       teamRanks: [],
-
-      team1color: null,
-      team1name: null,
-      team2color: null,
-      team2name: null,
-
       mapName: null,
       mapPanel: null,
     },
@@ -175,6 +200,7 @@
     // Set in loadConfig()
     initialState1 : null,
     initialState2 : null,
+    initialState3 : null,
 
     // Trail state
     trail : {
@@ -262,6 +288,8 @@
       // Or specify the states of the two colors
       this.s1user = this.helpers.getUrlParameter('s1');
       this.s2user = this.helpers.getUrlParameter('s2');
+      // Remove ability to specify referee state by URL
+      // this.s3user = this.helpers.getUrlParameter('s3');
 
       if (this.gameId != null) {
         // Game simulation mode with map overlay
@@ -345,11 +373,11 @@
           var gameTitleElem = document.getElementById('golly-game-title');
           if (gameApiResult.isPostseason == true) {
             var sp1 = gameApiResult.season + 1;
-            gameTitleElem.innerHTML = "Hellmouth {{cookiecutter.upper_shortname}}: " + gameApiResult.description + " <small>- S" + sp1 + "</small>";
+            gameTitleElem.innerHTML = "Star {{cookiecutter.upper_shortname}}: " + gameApiResult.description + " <small>- S" + sp1 + "</small>";
           } else {
             var sp1 = gameApiResult.season + 1;
             var dp1 = gameApiResult.day + 1;
-            var descr = "Hellmouth {{cookiecutter.upper_shortname}} Cup: Season " + sp1 + " Day " + dp1;
+            var descr = "Star {{cookiecutter.upper_shortname}} Cup: Season " + sp1 + " Day " + dp1;
             gameTitleElem.innerHTML = descr;
           }
 
@@ -408,7 +436,7 @@
         var rows = this.getRowsFromUrlSafely();
         var cols = this.getColsFromUrlSafely();
 
-        // Load a map from the /map API endpoint
+        // Load a random map from the /map API endpoint
         let url = this.mapsApiUrl + '/map/{{cookiecutter.lower_shortname}}/' + this.patternName + '/r/' + this.getRowsFromUrlSafely() + '/c/' + this.getColsFromUrlSafely();
         fetch(url)
         .then(res => res.json())
@@ -421,7 +449,7 @@
 
           // Set the game title
           var gameTitleElem = document.getElementById('golly-game-title');
-          gameTitleElem.innerHTML = "Hellmouth {{cookiecutter.upper_shortname}}: " + mapApiResult.mapName;
+          gameTitleElem.innerHTML = "Star {{cookiecutter.upper_shortname}} Map: " + mapApiResult.mapName;
 
           this.setTeamNames();
           this.setColors();
@@ -429,6 +457,8 @@
           // Initial conditions
           this.initialState1 = mapApiResult.initialConditions1;
           this.initialState2 = mapApiResult.initialConditions2;
+          this.initialState3 = mapApiResult.initialConditions3;
+
           this.columns = mapApiResult.columns;
           this.rows = mapApiResult.rows;
           this.cellSize = mapApiResult.cellSize;
@@ -451,7 +481,6 @@
         })
         .catch(err => {
           this.error(-1);
-          //throw err
         });
         // Done loading pattern from /map API endpoint
 
@@ -488,6 +517,8 @@
           gameTitleElem.innerHTML = "Sandbox";
 
         }
+        // No ability to specify referee state by URL, and no default state
+        this.initialState3 = [{}];
 
         // Remove loading message, show controls and grid
         this.removeLoadingElem();
@@ -518,9 +549,23 @@
       var liveCounts = this.getCounts();
       this.updateStatisticsElements(liveCounts);
 
-      // If either cell count is 0 to begin with, disable victory check
+      // If all cell counts are 0 to begin with, disable victory check
       this.zeroStart = false;
-      if (liveCounts.liveCells1==0 || liveCounts.liveCells2==0) {
+      var zeroScores = 0;
+
+      ////////////////////////////////
+      // hard-coded rules format
+      var r;
+      for (r=0; r<this.colors.ncolors-1; r++) {
+        if (liveCounts.liveCellsColors[r]==0) {
+          zeroScores++;
+        }
+      }
+      // end hard-coded rules format
+      ////////////////////////////////
+
+      var shutoutConditions = (zeroScores == 1);
+      if (shutoutConditions) {
         this.zeroStart = true;
       }
 
@@ -529,7 +574,6 @@
     /**
      * Update the Game of Life scoreboard with winner/loser
      * indicators, if this is a game and we know the score.
-     * This is only done once @ beginning when we load state.
      */
     updateWinLossLabels : function() {
       if (this.gameMode === true) {
@@ -579,11 +623,51 @@
     setTeamNames : function() {
       if (this.gameMode === true) {
         // If game mode, get team names from game API result
-        this.teamNames = [this.gameApiResult.team1Name, this.gameApiResult.team2Name];
+        this.teamNames = [this.gameApiResult.team1Name, this.gameApiResult.team2Name, this.colors.getRefereeLabel()];
       } else {
         // Use color labels
         this.teamNames = this.colors.schemes[this.colors.currentScheme].aliveLabels;
       }
+    },
+
+    /**
+     * Given the team color and the grid background color,
+     * calculate the background color of dead waiting cells.
+     */
+    interpolateDeadWaitColor : function(hexcol1, hexcol2, dw) {
+      slots = (this.ruleParams.c-1);
+      p = (slots-dw)/slots;
+
+      col1 = hexcol1.slice(1,hexcol1.length);
+      col2 = hexcol2.slice(1,hexcol2.length);
+
+      const rgb1 = parseInt(col1, 16);
+      const rgb2 = parseInt(col2, 16);
+      
+      const [r1, g1, b1] = this.toArray(rgb1);
+      const [r2, g2, b2] = this.toArray(rgb2);
+      
+      const q = 1-p;
+      const rr = Math.round(r1 * p + r2 * q);
+      const rg = Math.round(g1 * p + g2 * q);
+      const rb = Math.round(b1 * p + b2 * q);
+      
+      var result = Number((rr << 16) + (rg << 8) + rb).toString(16);
+      if (result.length < 6) {
+        var i;
+        for (i=0; i<(6 - result.length); i++) {
+          result = "0" + result;
+        }
+      }
+      return result;
+    },
+
+    toArray : function(rgb) {
+      const r = rgb >> 16;
+      const g = (rgb >> 8) % 256;
+      const b = rgb % 256;
+    
+      return [r, g, b];
     },
 
     /**
@@ -605,18 +689,27 @@
         // - insert the teams' original color schemes in front
         // - update the labels for each color scheme to be the team names
         this.colors.schemes.unshift({
-          aliveLabels : [this.gameApiResult.team1Name, this.gameApiResult.team2Name],
-          alive : [this.gameApiResult.team1Color, this.gameApiResult.team2Color]
+          // Hard-coded referee color
+          aliveLabels : [this.gameApiResult.team1Name, this.gameApiResult.team2Name, 'Referees'],
+          alive : [this.gameApiResult.team1Color, this.gameApiResult.team2Color, '#ffffff'],
+          deadWait : [
+            ['#' + this.interpolateDeadWaitColor(this.gameApiResult.team1Color, realBackgroundColor, 1), '#' + this.interpolateDeadWaitColor(this.gameApiResult.team2Color, realBackgroundColor, 1), '#999999'],
+            ['#' + this.interpolateDeadWaitColor(this.gameApiResult.team1Color, realBackgroundColor, 2), '#' + this.interpolateDeadWaitColor(this.gameApiResult.team2Color, realBackgroundColor, 2), '#444444'],
+          ],
         });
         this.colors.currentScheme = 0;
         this.colors.alive = this.colors.schemes[this.colors.currentScheme].alive;
+        this.colors.deadWait = this.colors.schemes[this.colors.currentScheme].deadWait;
 
       } else {
         // Parse color options and pick out scheme
         this.colors.currentScheme = 0;
 
-        this.colors.aliveLabels = this.colors.schemes[this.colors.currentScheme].aliveLabels;
         this.colors.alive = this.colors.schemes[this.colors.currentScheme].alive;
+        this.colors.deadWait = [
+            ['#' + this.interpolateDeadWaitColor(this.colors.alive[0], realBackgroundColor, 1), '#' + this.interpolateDeadWaitColor(this.colors.alive[1], realBackgroundColor, 1), '#999999'],
+            ['#' + this.interpolateDeadWaitColor(this.colors.alive[0], realBackgroundColor, 2), '#' + this.interpolateDeadWaitColor(this.colors.alive[1], realBackgroundColor, 2), '#444444'],
+        ];
       }
     },
 
@@ -637,19 +730,8 @@
 
         this.teamApiResult = teamApiResult;
 
-        // Assemble team1/2 abbreviations
-        var teamAbbrs = ['', ''];
-        var k;
-        for (k = 0; k < teamApiResult.length; k++) {
-          if (teamApiResult[k].teamName == this.gameApiResult.team1Name) {
-            teamAbbrs[0] = teamApiResult[k].teamAbbr.toLowerCase();
-          }
-          if (teamApiResult[k].teamName == this.gameApiResult.team2Name) {
-            teamAbbrs[1] = teamApiResult[k].teamAbbr.toLowerCase();
-          }
-        }
-
-        // Assemble team1/2 colors/names
+        // Assemble team abbr/colors/names
+        var teamAbbrs = [this.gameApiResult.team1Abbr.toLowerCase(), this.gameApiResult.team2Abbr.toLowerCase()];
         var teamColors = [this.gameApiResult.team1Color, this.gameApiResult.team2Color];
         var teamNames = [this.gameApiResult.team1Name, this.gameApiResult.team2Name];
 
@@ -750,7 +832,11 @@
      */
     setZoomState : function() {
       if (this.gameMode === true) {
-        /* we are all good */
+        /* we are all good
+        this.columns  = this.mapApiResult.columns;
+        this.rows     = this.mapApiResult.rows;
+        this.cellSize = this.mapApiResult.cellSize;
+         */
       } else {
         this.columns = this.getColsFromUrlSafely();
         this.rows = this.getRowsFromUrlSafely();
@@ -759,7 +845,7 @@
     },
 
     /**
-     * Parse the initial state variables s1/s2.
+     * Parse the initial state variables s1/s2/s3.
      * Initialize the internal state of the simulator.
      *
      * The internal state is stored as a list of live cells,
@@ -780,8 +866,8 @@
           for (icol = 0 ; icol < state1[irow][y].length ; icol++) {
             var yy = parseInt(y);
             var xx = state1[irow][yy][icol];
-            this.listLife.addCell(xx, yy, this.listLife.actualState);
-            this.listLife.addCell(xx, yy, this.listLife.actualState1);
+            color = 1;
+            this.listLife.addAliveCell(xx, yy, color);
           }
         }
       }
@@ -794,11 +880,14 @@
           for (icol = 0 ; icol < state2[irow][y].length ; icol++) {
             var yy = parseInt(y);
             var xx = state2[irow][yy][icol];
-            this.listLife.addCell(xx, yy, this.listLife.actualState);
-            this.listLife.addCell(xx, yy, this.listLife.actualState2);
+            if (!this.listLife.isAlive(xx, yy)) {
+              color = 2;
+              this.listLife.addAliveCell(xx, yy, color);
+            }
           }
         }
       }
+
     },
 
 
@@ -836,7 +925,11 @@
         var maxDim = this.ruleParams.runningAvgMaxDim;
 
         // Use vector magnitude to account for changes in all team scores
-        var squareSum = liveCounts.liveCells1**2 + liveCounts.liveCells2**2;
+        var squareSum = 0;
+        var r;
+        for (r=0; r<GOL.colors.ncolors-1; r++) {
+          squareSum += liveCounts.liveCellsColors[r]**2;
+        }
         var rootSum = Math.sqrt(squareSum);
 
         // update running average window
@@ -885,9 +978,9 @@
             if (victoryByStability) {
               // Someone won due to the simulation becoming stable
               this.foundVictor = true;
-              if (liveCounts.liveCells1 > liveCounts.liveCells2) {
+              if (liveCounts.liveCellsColors[0] > liveCounts.liveCellsColors[1]) {
                 this.whoWon = 1;
-              } else if (liveCounts.liveCells2 > liveCounts.liveCells1) {
+              } else if (liveCounts.liveCellsColors[1] > liveCounts.liveCellsColors[0]) {
                 this.whoWon = 2;
               } else {
                 this.whoWon = 0;
@@ -903,15 +996,32 @@
         // is to have all other teams get shut out.
         var victoryByShutout = false;
 
-        if (liveCounts.liveCells1 == 0) {
-          this.whoWon = 2;
+        /////////////////////////////////
+        // hard-coded rules format
+        var zeroScore = 0;
+        var threshold = 1;
+        var r;
+        for (r=0; r<GOL.colors.ncolors-1; r++) {
+          if (liveCounts.liveCellsColors[r] == 0) {
+            zeroScore++;
+          }
+        }
+        if (zeroScore >= threshold) {
+          victoryByShutout = true;
+        }
+        // end hard-coded rules format
+        //////////////////////////////////
+
+        if (victoryByShutout) {
+          // Someone won because everyone else died
           this.foundVictor = true;
-          this.showWinnersLosers = true;
-          this.handlers.buttons.run();
-          this.running = false;
-        } else if (liveCounts.liveCells2 == 0) {
-          this.whoWon = 1;
-          this.foundVictor = true;
+          if (liveCounts.liveCellsColors[0] > liveCounts.liveCellsColors[1]) {
+            this.whoWon = 1;
+          } else if (liveCounts.liveCellsColors[1] > liveCounts.liveCellsColors[0]) {
+            this.whoWon = 2;
+          } else {
+            this.whoWon = 0;
+          }
           this.showWinnersLosers = true;
           this.handlers.buttons.run();
           this.running = false;
@@ -924,9 +1034,10 @@
      */
     updateStatisticsElements : function(liveCounts) {
       this.element.livecells.innerHTML  = liveCounts.liveCells;
-      this.element.livecells1.innerHTML = liveCounts.liveCells1;
-      this.element.livecells2.innerHTML = liveCounts.liveCells2;
-      //this.element.livepct.innerHTML    = liveCounts.livePct.toFixed(1) + "%";
+      this.element.livecells1.innerHTML = liveCounts.liveCellsColors[0];
+      this.element.livecells2.innerHTML = liveCounts.liveCellsColors[1];
+      this.element.livecells3.innerHTML = liveCounts.liveCellsColors[2];
+      this.element.livepct.innerHTML    = liveCounts.livePct.toFixed(1) + "%";
     },
 
     /**
@@ -1030,13 +1141,14 @@
       this.element.livecells  = document.getElementById('livecells');
       this.element.livecells1 = document.getElementById('livecells1');
       this.element.livecells2 = document.getElementById('livecells2');
+      this.element.livecells3 = document.getElementById('livecells3');
 
       this.element.team1wlrec = document.getElementById("team1record");
       this.element.team2wlrec = document.getElementById("team2record");
       this.element.team1wlrecCont = document.getElementById("team1record-container");
       this.element.team2wlrecCont = document.getElementById("team2record-container");
 
-      //this.element.livepct    = document.getElementById('livePct');
+      this.element.livepct    = document.getElementById('livePct');
 
       this.element.team1color = document.getElementsByClassName("team1color");
       this.element.team1name  = document.getElementsByClassName("team1name");
@@ -1049,6 +1161,7 @@
 
       this.element.mapName = document.getElementById('mapname-label');
       this.element.mapPanel = document.getElementById('stats-panel-map');
+
       this.element.speedSlider = document.getElementById('speed-slider');
 
       this.element.team1winner = document.getElementById('team1winner');
@@ -1108,17 +1221,22 @@
       guiTime = (new Date());
 
       for (i = 0; i < GOL.listLife.redrawList.length; i++) {
-        var x, y, action;
+        var x, y, action, color;
         x = GOL.listLife.redrawList[i][0];
         y = GOL.listLife.redrawList[i][1];
         action = GOL.listLife.redrawList[i][2];
+        color = GOL.listLife.redrawList[i][3];
 
         // Decide which action to take
-        //
+        // TODO: this matches up with the current value of c, but update it so it can handle c != 4
         if (action === 1) {
-          GOL.canvas.changeCelltoAlive(x, y);
+          GOL.canvas.changeCelltoAlive(x, y, color);
         } else if (action === 2) {
-          GOL.canvas.keepCellAlive(x, y);
+          GOL.canvas.keepCellAlive(x, y, color);
+        } else if (action === 3) {
+          GOL.canvas.changeCelltoDeadWait(x, y, color, c=0);
+        } else if (action === 4) {
+          GOL.canvas.changeCelltoDeadWait(x, y, color, c=1);
         } else {
           GOL.canvas.changeCelltoDead(x, y);
         }
@@ -1360,6 +1478,8 @@
 
         /**
          * Button Handler - Remove/Add Trail
+         *
+         * This function is only called when the user clicks the "Trails" button.
          */
         trail : function() {
           GOL.trail.current = !GOL.trail.current;
@@ -1371,18 +1491,24 @@
         },
 
         /**
-         * Button Handler - Cycle through the color schemes
+         * Cycle through the color schemes.
+         *
+         * This function is only called when the user clicks the "Colors" button.
          */
         colorcycle : function() {
           if (GOL.colors.schemes.length > 1) {
             GOL.colors.currentScheme = (GOL.colors.currentScheme + 1) % GOL.colors.schemes.length;
             GOL.colors.alive = GOL.colors.schemes[GOL.colors.currentScheme].alive;
+            GOL.colors.deadWait = [
+                ['#' + GOL.interpolateDeadWaitColor(GOL.colors.alive[0], realBackgroundColor, 1), '#' + GOL.interpolateDeadWaitColor(GOL.colors.alive[1], realBackgroundColor, 1), '#999999'],
+                ['#' + GOL.interpolateDeadWaitColor(GOL.colors.alive[0], realBackgroundColor, 2), '#' + GOL.interpolateDeadWaitColor(GOL.colors.alive[1], realBackgroundColor, 2), '#444444'],
+            ];
             if (GOL.gameMode === false) {
               GOL.teamNames = GOL.colors.schemes[GOL.colors.currentScheme].aliveLabels;
             }
             GOL.updateTeamNamesColors();
             if (GOL.running) {
-              GOL.colors.schedule = true; // Delay redraw
+              GOL.colors.schedule = true; // Delay redraw until end of next generation
             } else {
               GOL.canvas.drawWorld(); // Force complete redraw now
             }
@@ -1392,7 +1518,9 @@
         },
 
         /**
-         * Button Handler - Show/hide the grid
+         * Show/hide the grid
+         *
+         * This function is only called when the user clicks the "Grid" button.
          */
         grid : function() {
           GOL.grid.current = (GOL.grid.current + 1) % GOL.grid.schemes.length;
@@ -1404,7 +1532,7 @@
         },
 
         /**
-         * Button Handler - Update simulation speed
+         * Update simulation speed
          */
         speedControl : function() {
           // We don't need to do anything with the
@@ -1501,9 +1629,13 @@
         for (i = 0 ; i < GOL.columns; i++) {
           for (j = 0 ; j < GOL.rows; j++) {
             if (GOL.listLife.isAlive(i, j)) {
-              this.drawCell(i, j, true);
+              this.drawCell(i, j, 1, GOL.listLife.getCellColor(i, j));
+            } else if (GOL.listLife.isDeadWait(i, j, c=0)) {
+              this.drawCell(i, j, 2, GOL.listLife.getDeadWaitColor(i, j, c=0));
+            } else if (GOL.listLife.isDeadWait(i, j, c=1)) {
+              this.drawCell(i, j, 3, GOL.listLife.getDeadWaitColor(i, j, c=1));
             } else {
-              this.drawCell(i, j, false);
+              this.drawCell(i, j, 0);
             }
           }
         }
@@ -1532,19 +1664,38 @@
       /**
        * drawCell
        */
-      drawCell : function (i, j, alive) {
+      drawCell : function (i, j, aliveDeadState, color = -1) {
 
-        if (alive) {
+        if (aliveDeadState === 0) {
 
-          // color by... color
-          this.context.fillStyle = GOL.colors.alive[GOL.listLife.getCellColor(i, j) - 1];
-
-        } else {
+          // aliveDeadState = 0 means this cell is dead
           if (GOL.trail.current && this.age[i][j] < 0) {
             this.context.fillStyle = GOL.colors.trail[(this.age[i][j] * -1) % GOL.colors.trail.length];
           } else {
             this.context.fillStyle = GOL.colors.dead;
           }
+
+        } else if (aliveDeadState === 1 ) {
+
+          // aliveDeadState = 1 means this cell is normal-alive
+          // (use alive colors)
+          if (color === -1) {
+            // look up this cell's color using state lists
+            this.context.fillStyle = GOL.colors.alive[GOL.listLife.getCellColor(i, j) - 1];
+          } else {
+            // save time by using user-specified color
+            this.context.fillStyle = GOL.colors.alive[color - 1];
+          }
+
+        } else {
+
+          // Rules that specify a value for c will have dead/alive and c-2 remaining states
+          // Calling this function with aliveDeadState > 1 will move cells to dead wait states
+          c = aliveDeadState - 2;
+
+          this.context.fillStyle = GOL.colors.deadWait[c][color - 1];
+          // No default option for color, user must provide
+
         }
 
         this.context.fillRect(this.cellSpace + (this.cellSpace * i) + (this.cellSize * i), this.cellSpace + (this.cellSpace * j) + (this.cellSize * j), this.cellSize, this.cellSize);
@@ -1579,24 +1730,24 @@
 
       /**
        * switchCell
+       *
+       * This is only activated when a user clicks on a cell
        */
       switchCell : function(i, j) {
+        //////////////
+        // TODO fix
         if (GOL.sandboxMode===true) {
           if (GOL.listLife.isAlive(i, j)) {
+            // User can only paint two colors, no referee
             if (GOL.listLife.getCellColor(i, j) == 1) {
               // Swap colors
-              GOL.listLife.removeCell(i, j, GOL.listLife.actualState1);
-              GOL.listLife.addCell(i, j, GOL.listLife.actualState2);
-              this.keepCellAlive(i, j);
-            } else {
-              GOL.listLife.removeCell(i, j, GOL.listLife.actualState);
-              GOL.listLife.removeCell(i, j, GOL.listLife.actualState2);
-              this.changeCelltoDead(i, j);
+              GOL.listLife.removeCellFromCustomState(i, j, GOL.listLife.actualState, GOL.listLife.actualStateColors, 1);
+              GOL.listLife.addCellToCustomState(i, j, GOL.listLife.actualState, GOL.listLife.actualStateColors, 2);
+            } else if (GOL.listLife.getCellColor(i, j) == 2) {
+              GOL.listLife.removeCellFromCustomState(i, j, GOL.listLife.actualState, GOL.listLife.actualStateColors, 2);
             }
           } else {
-            GOL.listLife.addCell(i, j, GOL.listLife.actualState);
-            GOL.listLife.addCell(i, j, GOL.listLife.actualState1);
-            this.changeCelltoAlive(i, j);
+            GOL.listLife.addCellToCustomState(i, j, GOL.listLife.actualState, GOL.listLife.actualStateColors, 1);
           }
         }
         if (GOL.running) {
@@ -1610,10 +1761,14 @@
       /**
        * keepCellAlive
        */
-      keepCellAlive : function(i, j) {
+      keepCellAlive : function(i, j, color = -1) {
         if (i >= 0 && i < GOL.columns && j >=0 && j < GOL.rows) {
           this.age[i][j]++;
-          this.drawCell(i, j, true);
+          if (color === -1) {
+            // default behavior: use current cell color
+            color = GOL.listLife.getCellColor(i, j)
+          }
+          this.drawCell(i, j, 1, color);
         }
       },
 
@@ -1621,10 +1776,14 @@
       /**
        * changeCelltoAlive
        */
-      changeCelltoAlive : function(i, j) {
+      changeCelltoAlive : function(i, j, color = -1) {
         if (i >= 0 && i < GOL.columns && j >=0 && j < GOL.rows) {
           this.age[i][j] = 1;
-          this.drawCell(i, j, true);
+          if (color === -1) {
+            // default behavior: use current cell color
+            color = GOL.listLife.getCellColor(i, j)
+          }
+          this.drawCell(i, j, 1, color);
         }
       },
 
@@ -1634,10 +1793,21 @@
        */
       changeCelltoDead : function(i, j) {
         if (i >= 0 && i < GOL.columns && j >=0 && j < GOL.rows) {
+          // Age sign change should happen when cell perma-dies, not while in deadwait
           this.age[i][j] = -this.age[i][j]; // Keep trail
-          this.drawCell(i, j, false);
+          this.drawCell(i, j, 0, 0);
         }
-      }
+      },
+
+
+      changeCelltoDeadWait : function(i, j, color, c = -1) {
+        if (i >= 0 && i < GOL.columns && j >=0 && j < GOL.rows) {
+          if (c>=0) {
+            this.drawCell(i, j, 2+c, color);
+          }
+        }
+      },
+
 
     },
 
@@ -1647,94 +1817,152 @@
      */
     listLife : {
 
-      actualState : [],
-      actualState1 : [],
-      actualState2 : [],
       redrawList : [],
-
+      // Most other variables should be initialized using the init() function
 
       /**
        * Initialize variables
        */
       init : function () {
+
+        // Alive cells.
+        // This is a single state.
+        // A state is an array of arrays.
         this.actualState = [];
-        this.actualState1 = [];
-        this.actualState2 = [];
+
+        // Alive cell colors
+        // TODO: use ncolors
+        var actualStateColors1 = new Set();
+        var actualStateColors2 = new Set();
+        var actualStateColors3 = new Set();
+        this.actualStateColors = [actualStateColors1, actualStateColors2, actualStateColors3];
+
+        // Dead wait cells.
+        // This is an array of states.
+        // Each state is an array of arrays.
+        // The number of dead wait states is c - 2.
+        // The 2 accounts for alive/dead.
+        this.deadWaitN = [];
+        // Dead wait cell colors.
+        // This is an array of arrays of 3 color sets.
+        // Each set holds (x,y) points for that color, 3 total colors.
+        this.deadWaitColorsN = [];
+        var j;
+        // 2 to account for alive/dead
+        for(j=0; j<GOL.ruleParams.c-2; j++) {
+          deadWaitj = [];
+          this.deadWaitN.push(deadWaitj);
+
+          // TODO: use ncolors
+          deadWaitColorj1 = new Set();
+          deadWaitColorj2 = new Set();
+          deadWaitColorj3 = new Set();
+          deadWaitColorj = [deadWaitColorj1, deadWaitColorj2, deadWaitColorj3];
+          this.deadWaitColorsN.push(deadWaitColorj);
+        }
       },
 
+        /**
+         * Iterate over each (x,y) point in the list life state "state",
+         * accumulating the number of alive cells, and return
+         * the grand total.
+         */
+      getStateCount : function(state) {
 
-      getLiveCounts : function() {
-        var i, j;
-
-        var state = GOL.listLife.actualState;
         var liveCells = 0;
         for (i = 0; i < state.length; i++) {
           if ((state[i][0] >= 0) && (state[i][0] < GOL.rows)) {
             for (j = 1; j < state[i].length; j++) {
+              // shouldn't need these, but just to be sure.
               if ((state[i][j] >= 0) && (state[i][j] < GOL.columns)) {
-                liveCells++;
+                if ((state[i][0] >= 0) && (state[i][0] < GOL.rows)) {
+                  liveCells++;
+                }
               }
             }
           }
         }
+        return liveCells;
 
-        var state1 = GOL.listLife.actualState1;
-        var liveCells1 = 0;
-        for (i = 0; i < state1.length; i++) {
-          if ((state1[i][0] >= 0) && (state1[i][0] < GOL.rows)) {
-            for (j = 1; j < state1[i].length; j++) {
-              if ((state1[i][j] >= 0) && (state1[i][j] < GOL.columns)) {
-                liveCells1++;
-              }
-            }
-          }
+      },
+
+
+      /**
+       * Return the number of alive cells, and a list of the number of alive cells
+       * of each color. Returns other useful statistics and count information.
+       */
+      getLiveCounts : function() {
+        var liveCells = GOL.listLife.getStateCount(GOL.listLife.actualState);
+
+        var liveCellsSum = 0;
+        var liveCellsColors = [];
+        var r;
+        for (r=0; r<GOL.colors.ncolors; r++) {
+          var ncells = GOL.listLife.actualStateColors[r].size;
+          liveCellsColors.push(ncells);
+          liveCellsSum += ncells;
         }
 
-        var state2 = GOL.listLife.actualState2;
-        var liveCells2 = 0;
-        for (i = 0; i < state2.length; i++) {
-          if ((state2[i][0] >= 0) && (state2[i][0] < GOL.rows)) {
-            for (j = 1; j < state2[i].length; j++) {
-              if ((state2[i][j] >= 0) && (state2[i][j] < GOL.columns)) {
-                liveCells2++;
-              }
-            }
-          }
+        if (liveCells != liveCellsSum) {
+          throw 'Error in getLiveCounts: liveCells='+liveCells+' but sum of individual liveCells is '+liveCellsSum;
         }
 
         var totalArea = GOL.columns * GOL.rows;
-
-        var livePct = ((liveCells1 + liveCells2)/(totalArea))*100.0;
-
-        // var territory1 = liveCells1/(1.0*totalArea);
-        // territory1 = territory1 * 100;
-        // var territory2 = liveCells2/(1.0*totalArea);
-        // territory2 = territory2 * 100;
+        var livePct = ((liveCellsSum)/(totalArea))*100.0;
 
         return {
           liveCells: liveCells,
-          liveCells1 : liveCells1,
-          liveCells2 : liveCells2,
+          liveCellsColors : liveCellsColors,
           livePct : livePct,
-          // territory1 : territory1,
-          // territory2 : territory2,
         };
       },
 
 
+      /**
+       * The main driver method: advance the state of the simulator forward one generation.
+       */
       nextGeneration : function() {
+
         var x, xm1, xp1, y, ym1, yp1;
         var i, j, m, n, key, t1, t2;
         var alive = 0, alive1 = 0, alive2 = 0;
         var deadNeighbors;
-        var newState = [], newState1 = [], newState2 = [];
+
+        // new state that will replace actual state
+        var newActualState = [];
+
+        var newActualStateColors = [];
+        var r;
+        for (r=0; r<GOL.colors.ncolors; r++) {
+          var colorN = new Set();
+          newActualStateColors.push(colorN);
+        }
+
+        // array of states
+        var newDeadWaitN = [];
+        // array of arrays of 3 color sets
+        var newDeadWaitColorsN = [];
+        var j;
+        // 2 to account for alive/dead
+        for(j=0; j<GOL.ruleParams.c-2; j++) {
+          newDeadWaitj = [];
+          newDeadWaitN.push(newDeadWaitj);
+
+          // TODO: use ncolors
+          newDeadWaitColorj1 = new Set();
+          newDeadWaitColorj2 = new Set();
+          newDeadWaitColorj3 = new Set();
+          newDeadWaitColorj = [newDeadWaitColorj1, newDeadWaitColorj2, newDeadWaitColorj3];
+          newDeadWaitColorsN.push(newDeadWaitColorj);
+        }
+
         var allDeadNeighbors = {};
-        var allDeadNeighbors1 = {};
-        var allDeadNeighbors2 = {};
-        var neighbors, color;
+        var neighbors, color, result;
+
         this.redrawList = [];
 
-        // iterate over each point stored in the actualState list
+
+        // iterate over each alive cell (iterate over actualState list)
         // this is the SURVIVE step
         var y, ym1, yp1;
         for (i = 0; i < this.actualState.length; i++) {
@@ -1748,25 +1976,26 @@
           for (j = 1; j < this.actualState[i].length; j++) {
 
             x = this.actualState[i][j];
-            xm1 = this.periodicNormalizex(x-1);
             xp1 = this.periodicNormalizex(x+1);
+            xm1 = this.periodicNormalizex(x-1);
 
-            deadNeighbors = [
-              [xm1, ym1, 1], [x, ym1, 1], [xp1, ym1, 1], 
-              [xm1, y, 1], [xp1, y, 1], 
-              [xm1, yp1, 1], [x, yp1, 1], [xp1, yp1, 1]
-            ];
+            x = this.periodicNormalizex(x);
+            y = this.periodicNormalizey(y);
 
-            // Get number of live neighbors and remove alive neighbors from deadNeighbors
-            result = this.getNeighborsFromAlive(x, y, i, this.actualState, deadNeighbors);
+            // Possible dead neighbors
+            deadNeighbors = [[xm1, ym1, 1], [x, ym1, 1], [xp1, ym1, 1], [xm1, y, 1], [xp1, y, 1], [xm1, yp1, 1], [x, yp1, 1], [xp1, yp1, 1]];
+
+            // Get number of alive neighbors, and set alive neighbors in deadNeighbors to undefined.
+            // The star wars CA uses majority rule to determine color.
+            // In case of a tie, use existing color.
+            result = this.getNeighborsFromAlive(x, y, deadNeighbors);
             neighbors = result['neighbors'];
 
             // Majority wins, use color returned by getNeighborsFromAlive
             color = result['color'];
-            if (color <= 0) {
-              // Tie, keep current color
-              color = this.getCellColor(x, y);
-            }
+
+            // (Note: rejected the color-preserving method for star wars CA
+            // because it is impossible for it to stabilize.)
 
             // Iterate over each dead cell (in the vicinity of alive cells),
             // and check how many times this dead cell shows up as a live cell neighbor.
@@ -1778,19 +2007,26 @@
 
                 var xx = deadNeighbors[m][0];
                 var yy = deadNeighbors[m][1];
-                key = xx + ',' + yy; // Create hashtable key
 
-                // count number of dead neighbors
-                if (allDeadNeighbors[key] === undefined) {
-                  allDeadNeighbors[key] = 1;
-                } else {
-                  allDeadNeighbors[key]++;
+                // Star Wars introduces an additional 2-gen wait
+                // If cell is in dead wait state,
+                // it can't be born yet, so skip this.
+                if (!this.isDeadWait(xx, yy)) {
+                  key = xx + ',' + yy; // Create hashtable key
+                  // accumulate number of neighbors for each dead cell
+                  if (allDeadNeighbors[key] === undefined) {
+                    allDeadNeighbors[key] = 1;
+                  } else {
+                    allDeadNeighbors[key]++;
+                  }
                 }
               }
             }
 
             ///////////////////////////////
             // SURVIVE counts
+            //
+            // star wars
 
             var cellSurvives = false;
             var k;
@@ -1799,25 +2035,37 @@
                 cellSurvives = true;
               }
             }
-
-            //if (y == GOL.rows-1) {
-            //  console.log('survive for cell x = ' + x + ' y = ' + y + ' : ' + cellSurvives);
-            //}
-
             if (cellSurvives) {
               // Keep cell alive
-              this.addCell(x, y, newState);
-              if (color==1) {
-                this.addCell(x, y, newState1);
-              } else if (color==2) {
-                this.addCell(x, y, newState2);
-              }
-              this.redrawList.push([x, y, 2]); // Keep alive
+
+              // NOTE: on rainbow math map, cells are laid out on a grid
+              // but there are no cells at grid line intersections,
+              // and cells never have more than 2 neighbors.
+              // star wars b2/s345 means every cell dies in the first step.
+
+              // previously: called addCell() for alive state, and then for corresponding color state
+              // when finished, called redrawList.push with action 2
+              this.addCellToCustomState(x, y, newActualState, newActualStateColors, color);
+              var redrawAction = 2; // keep alive
+              this.redrawList.push([x, y, redrawAction, color]);
             } else {
               // Kill cell
 
-              this.redrawList.push([x, y, 0]); // Kill cell
+              // previously: called addCell() for newDeadWaitTwo, and for corresponding color version
+              // when finished, called redrawList.push with action 3
+
+              // uhhhhhh... newActualState is gonna be empty most of the time.
+              // How can we call removeCellFromState on newActualState if it has no cells?
+              // We can't. There is no point to calling remove cell here.
+              //this.removeCellFromCustomState(x, y, newActualState, newActualStateColors, color);
+
+              // Add it to the dead wait
+              var firstPhase = 0;
+              this.addCellToCustomState(x, y, newDeadWaitN[firstPhase], newDeadWaitColorsN[firstPhase], color);
+              var redrawAction = 3; // 0=dead, 1=alive, 2=keep alive, 3=first phase of dead wait
+              this.redrawList.push([x, y, redrawAction, color]);
             }
+
           }
         }
 
@@ -1831,7 +2079,7 @@
           /////////////////////////////////
           // BIRTH counts
           //
-          // check birth rule
+          // star wars
           var cellBorn = false;
           var k;
           for (k=0; k<GOL.ruleParams.b.length; k++) {
@@ -1851,20 +2099,93 @@
             // Get color of (x, y) cell
             color = this.getColorFromAlive(t1, t2);
 
-            this.addCell(t1, t2, newState);
-            if (color == 1) {
-              this.addCell(t1, t2, newState1);
-            } else if (color == 2) {
-              this.addCell(t1, t2, newState2);
-            }
+            // previously: just called addCell with newState
+            this.addCellToCustomState(t1, t2, newActualState, newActualStateColors, color);
+            this.redrawList.push([t1, t2, 1, color]); // Bring to life (action 1)
 
-            this.redrawList.push([t1, t2, 1]);
           }
         }
 
-        this.actualState = newState;
-        this.actualState1 = newState1;
-        this.actualState2 = newState2;
+        ///////////////////////////////
+        // deadWait cycling:
+        //
+        // Iterate over all cells in last dead wait state, and kill.
+        // Shift other dead wait states by 1, and redraw them as such.
+        // The newest dead wait cells are already in the redraw list.
+
+        // Iterate over all cells in the last dead wait state and kill them
+        // (-2 accounts for alive/dead state, not in the deadWaitN list)
+        var cmaxIndex = (GOL.ruleParams.c - 1) - 2;
+        var i, j;
+        for (i = 0; i < this.deadWaitN[cmaxIndex].length; i++) {
+          for (j = 1; j < this.deadWaitN[cmaxIndex][i].length; j++) {
+            x = this.deadWaitN[cmaxIndex][i][j];
+            y = this.deadWaitN[cmaxIndex][i][0];
+            this.redrawList.push([x, y, 0, 0]); // action 0: perma-kill
+            // Nothing should be done here with new dead wait
+          }
+        }
+
+        // Iterate backwards over each dead wait state, copying current dead wait N-1 into new dead wait N
+        // Add each cell that changes dead wait states to a redraw list.
+        // Note: newDeadWaitColorsN[0] is populated in survive step, so no need to cover c=0 in loop.
+        var ncolors = 3;
+        var c;
+        for (c = cmaxIndex; c > 0; c--) {
+
+          // Shift dead wait N-1 back to N
+          var cm1 = c - 1;
+
+          // Set the new dead wait for phase c to the current (old) dead wait at phase c-1
+          newDeadWaitN[c] = JSON.parse(JSON.stringify(this.deadWaitN[cm1]));
+
+          // set new dead weight color sets to old dead weight color sets of prior step
+          var colorSets = [];
+          var color0;
+          for (color0=0; color0<ncolors; color0++) {
+            var colorSet = new Set(this.deadWaitColorsN[cm1][color0]);
+            colorSets.push(colorSet);
+          }
+          newDeadWaitColorsN[c] = colorSets;
+
+          // Generalize this for all c values
+          // 0=die, 1=birth, 2=keep alive, 3=death phase 1, 4=death phase 2, 5=death phase 3,...
+          // death phase c+1 ==> redrawAction=3+c
+          var redrawAction = 3+c;
+
+          // Add every cell that changed dead wait states to the redraw list
+          var i, j;
+          state = newDeadWaitN[c];
+          for (i=0; i<state.length; i++) {
+            for (j=1; j<state[i].length; j++) {
+              x = state[i][j];
+              y = state[i][0];
+              cellColor = -1;
+              repr = "(" + x + "," + y + ")";
+              // Need to get cell color before we can redraw
+              var color0;
+              for (color0=0; color0<ncolors; color0++) {
+                if (newDeadWaitColorsN[c][color0].has(repr)) {
+                  cellColor = color0 + 1;
+                }
+              }
+              if (cellColor > 0) {
+                this.redrawList.push([x, y, redrawAction, cellColor]);
+              }
+            }
+          }
+
+        } // end loop over dead wait states
+
+        ///////////////////////////
+        // done, now update
+        this.actualState = newActualState;
+        //this.actualState = JSON.parse(JSON.stringify(newActualState));
+        this.actualStateColors = newActualStateColors;
+
+        this.deadWaitN = newDeadWaitN;
+        //this.deadWaitN = JSON.parse(JSON.stringify(newDeadWaitN));
+        this.deadWaitColorsN = newDeadWaitColorsN;
 
         return this.getLiveCounts();
       },
@@ -1890,353 +2211,380 @@
       },
 
 
-      topPointer : 1,
-      middlePointer : 1,
-      bottomPointer : 1,
-
-      getColorFromAlive : function(x, y) {
-        var state1 = this.actualState1;
-        var state2 = this.actualState2;
-
-        var color1 = 0;
-        var color2 = 0;
-
-        // Loop points back around
-        x = (x + GOL.columns)%(GOL.columns);
-        y = (y + GOL.rows)%(GOL.rows);
-
-        var xm1 = ((x-1) + GOL.columns)%(GOL.columns);
-        var xp1 = ((x+1) + GOL.columns)%(GOL.columns);
-
-        var ym1 = ((y-1) + GOL.rows)%(GOL.rows);
-        var yp1 = ((y+1) + GOL.rows)%(GOL.rows);
-
-        // color1
-        for (i = 0; i < state1.length; i++) {
-          var yy = state1[i][0];
-
-          if (yy === ym1) {
-
-            // legacy of klein
-            var xm1_, x_, xp1_;
-            xm1_ = xm1;
-            x_ = x;
-            xp1_ = xp1;
-
-            // Top row
-            for (j = 1; j < state1[i].length; j++) {
-              var xx = state1[i][j];
-
-              if (xx === xm1_) {
-                // top left
-                color1++;
-              } else if (xx === x_) {
-                // top middle
-                color1++;
-              } else if (xx === xp1_) {
-                // top right
-                color1++;
-              }
-            }
-
-          } else if (yy === y) {
-            // Middle row
-            for (j = 1; j < state1[i].length; j++) {
-              var xx = state1[i][j];
-              if (xx === xm1) {
-                // top left
-                color1++;
-              } else if (xx === xp1) {
-                // top right
-                color1++;
-              }
-            }
-
-          } else if (yy === yp1) {
-
-            var xm1_, x_, xp1_;
-            xm1_ = xm1;
-            x_ = x;
-            xp1_ = xp1;
-
-            // Bottom row
-            for (j = 1; j < state1[i].length; j++) {
-              var xx = state1[i][j];
-              if (xx === xm1_) {
-                // bottom left
-                color1++;
-              } else if (xx === x_) {
-                // bottom middle
-                color1++;
-              } else if (xx === xp1_) {
-                // bottom right
-                color1++;
+      /**
+       * Count the number of dead wait neighbors of cell (x,y)
+       * that have the specified color.
+       */
+      getColorCountsFromDeadWait(x, y, color) {
+        var color0 = color - 1;
+        var deadWaitCount = 0;
+        // periodic grid: loop points back around
+        var x = this.periodicNormalizex(x);
+        var y = this.periodicNormalizey(y);
+        var c;
+        // 2 to account for alive/dead
+        for (c=0; c<GOL.ruleParams.c-2; c++) {
+          points = this.deadWaitColorsN[c][color0];
+          var ii, jj, xx, yy;
+          for (iy=-1; iy<=1; iy++) {
+            for (ix=-1; ix<=1; ix++) {
+              if (!(ix==0 && iy==0)) {
+                xx = x + ix;
+                xx = this.periodicNormalizex(xx);
+                yy = y + iy;
+                yy = this.periodicNormalizey(yy);
+                repr = "(" + xx + "," + yy + ")";
+                if (points.has(repr)) {
+                  deadWaitCount++;
+                }
               }
             }
           }
-
         }
-
-        // color2
-        for (i = 0; i < state2.length; i++) {
-          var yy = state2[i][0];
-
-          if (yy === ym1) {
-
-            var xm1_, x_, xp1_;
-            xm1_ = xm1;
-            x_ = x;
-            xp1_ = xp1;
-
-            // Top row
-            for (j = 1; j < state2[i].length; j++) {
-              var xx = state2[i][j];
-              if (xx === xm1) {
-                // top left
-                color2++;
-              } else if (xx === x) {
-                // top middle
-                color2++;
-              } else if (xx === xp1) {
-                // top right
-                color2++;
-              }
-            }
-
-          } else if (yy === y) {
-            // Middle row
-            for (j = 1; j < state2[i].length; j++) {
-              var xx = state2[i][j];
-              if (xx === xm1) {
-                // left
-                color2++;
-              } else if (xx === xp1) {
-                // right
-                color2++;
-              }
-            }
-
-          } else if (yy === yp1) {
-
-            var xm1_, x_, xp1_;
-            var xm1_, x_, xp1_;
-            xm1_ = xm1;
-            x_ = x;
-            xp1_ = xp1;
-
-            // Bottom row
-            for (j = 1; j < state2[i].length; j++) {
-              var xx = state2[i][j];
-              if (xx === xm1_) {
-                // bottom left
-                color2++;
-              } else if (xx === x_) {
-                // bottom middle
-                color2++;
-              } else if (xx === xp1_) {
-                // bottom right
-                color2++;
-              }
-            }
-          }
-
-        }
-
-        if (color1 > color2) {
-          return 1;
-        } else if (color2 > color1) {
-          return 2;
-        } else {
-          return 0;
-        }
+        return deadWaitCount;
       },
 
       /**
+       * Count the number of alive neighbors of cell (x,y)
+       * that have the specified color.
+       */
+      getColorCountsFromAlive : function(x, y, color) {
+        var myTimer = Date.now();
+        var color0 = color-1;
+        var aliveCount = 0;
+        // periodic grid: loop points back around
+        var x = this.periodicNormalizex(x);
+        var y = this.periodicNormalizey(y);
+        var points = this.actualStateColors[color0];
+        var ix, iy;
+        for (iy=-1; iy<=1; iy++) {
+          for (ix=-1; ix<=1; ix++) {
+            if (!(ix==0 && iy==0)) {
+              xx = x + ix;
+              xx = this.periodicNormalizex(xx);
+              yy = y + iy;
+              yy = this.periodicNormalizey(yy);
+              repr = "(" + xx + "," + yy + ")";
+              if (points.has(repr)) {
+                aliveCount++;
+              }
+            }
+          }
+        }
+        return aliveCount;
+      },
+
+
+      /**
+       * Count the number of alive neighbors of cell (x,y)
+       * that have the specified color, and eliminate them
+       * from possibleDeadNeighborsList.
+       */
+      getColorCountsFromPossibleNeighbors : function(x, y, color, possibleDeadNeighborsList) {
+        var color0 = color-1;
+        var count = 0;
+        // z iterates over every possible neighbor.
+        // ix/iy loop must be in same order as deadNeighbors var in nextGeneration.
+        var z = 0;
+        var points = this.actualStateColors[color0];
+        for (iy=-1; iy<=1; iy++) {
+          for (ix=-1; ix<=1; ix++) {
+            if (!(ix==0 && iy==0)) {
+              xx = x + ix;
+              xx = this.periodicNormalizex(xx);
+              yy = y + iy;
+              yy = this.periodicNormalizey(yy);
+              repr = "(" + xx + "," + yy + ")";
+              if (points.has(repr)) {
+                // possibleDeadNeighbors[z][0 and 1] must equal x and y
+                // for the following to be a valid action...
+                possibleDeadNeighborsList[z] = undefined;
+                count++;
+              }
+              z++;
+            }
+          }
+        }
+        return count;
+      },
+
+
+      /**
+       * Check if the cell at location (x, y) is alive
+       */
+      isAlive : function(x, y, debug=false) {
+        // periodic grid: loop points back around
+        var x = this.periodicNormalizex(x);
+        var y = this.periodicNormalizey(y);
+        var repr = "(" + x + "," + y + ")";
+        if (debug) {
+          console.log(repr);
+        }
+        // Loop over each color (this method doesn't care about color)
+        var color0;
+        var ncolors = 3;
+        var points;
+        for (color0=0; color0 < ncolors; color0++) {
+          points = this.actualStateColors[color0];
+          if (points.has(repr)) {
+            return true;
+          }
+        }
+        return false;
+      },
+
+      /**
+       * Check if the cell at location (x, y) is in a dead wait state.
+       * If the index c (zero-indexed) is specified, only check that dead wait state.
+       */
+      isDeadWait : function(x, y, c = -1) {
+        // periodic grid: loop points back around
+        var x = this.periodicNormalizex(x);
+        var y = this.periodicNormalizey(y);
+        var repr = "(" + x + "," + y + ")";
+
+        // Loop over each dead wait state (c parameter), or just the one specified
+        var cmin, cmax;
+        if (c<0) {
+          cmin = 0;
+          cmax = GOL.ruleParams.c - 2; // -2 comes from accounting for alive/dead
+        } else {
+          cmin = c;
+          cmax = c + 1;
+        }
+
+        for (ic=cmin; ic<cmax; ic++) {
+          // Also loop over each color (this method doesn't care about color)
+          var color0;
+          var ncolors = 3;
+          for (color0=0; color0 < ncolors; color0++) {
+            points = this.deadWaitColorsN[ic][color0];
+            if (points.has(repr)) {
+              return true;
+            }
+          }
+        }
+        return false;
+      },
+
+
+      /*
+       * Determine the color of a birthed cell.
+       * Performs tie-breaker determination.
+       *
+       * Note: This method is only called when
+       * cell (x,y) is dead but has enough neighbors
+       * to become alive.
+       *
+       * This method isn't checking whether the cell
+       * should be birthed, it's just checking what
+       * color the birthed cell would be.
        *
        */
-      getNeighborsFromAlive : function (x, y, i, state, possibleNeighborsList) {
+      getColorFromAlive : function(x, y) {
 
         // Loop points back around
-        x = (x + GOL.columns)%(GOL.columns);
-        y = (y + GOL.rows)%(GOL.rows);
+        x = this.periodicNormalizex(x);
+        y = this.periodicNormalizey(y);
 
-        var xm1 = ((x-1) + GOL.columns)%(GOL.columns);
-        var xp1 = ((x+1) + GOL.columns)%(GOL.columns);
+        // TODO: use ncolors
+        var color1, color2, color3;
+        color1 = this.getColorCountsFromAlive(x, y, 1);
+        color2 = this.getColorCountsFromAlive(x, y, 2);
+        color3 = this.getColorCountsFromAlive(x, y, 3);
 
-        var ym1 = ((y-1) + GOL.rows)%(GOL.rows);
-        var yp1 = ((y+1) + GOL.rows)%(GOL.rows);
+        // return value
+        var color = 0;
 
-        var neighbors = 0, k;
-        var neighbors1 = 0, neighbors2 = 0;
+        // Determine color of a new birthed cell by determining
+        // number of neighbors of each color, and majority color.
+        //
+        // This cell is currently dead, so this check is
+        // slightly different from the check for live cells.
 
-        // Top
-        var im1 = i-1;
-        if (im1 < 0) {
-          im1 = state.length-1;
-        }
-        if (state[im1] !== undefined) {
-          if (state[im1][0] === ym1) {
+        var ns = color1+color2;
+        var nsa = color1+color2+color3;
 
-            var xm1_, x_, xp1_;
-            xm1_ = xm1;
-            x_ = x;
-            xp1_ = xp1;
+        // Only consider case where number of neighbors > 0
+        // (otherwise cell stays dead)
+        if (nsa > 0) {
 
-            for (k = 1; k < state[im1].length; k++) {
+          // Only consider case where number of non-referee neighbors > 0
+          if (ns > 0) {
 
-              // NW
-              if (state[im1][k] === xm1_) {
-                possibleNeighborsList[0] = undefined;
-                //this.topPointer = k + 1;
-                neighbors++;
-                var xx = state[im1][k];
-                var yy = state[im1][0];
-                var cellcol = this.getCellColor(xx, yy);
-                if (cellcol === 1) {
-                  neighbors1++;
-                } else if (cellcol === 2) {
-                  neighbors2++;
-                }
-              }
-
-              // N
-              if (state[im1][k] === x_) {
-                possibleNeighborsList[1] = undefined;
-                //this.topPointer = k;
-                neighbors++;
-                var xx = state[im1][k];
-                var yy = state[im1][0];
-                var cellcol = this.getCellColor(xx, yy);
-                if (cellcol === 1) {
-                  neighbors1++;
-                } else if (cellcol === 2) {
-                  neighbors2++;
-                }
-              }
-
-              // NE
-              if (state[im1][k] === xp1_) {
-                possibleNeighborsList[2] = undefined;
-
-                neighbors++;
-                var xx = state[im1][k];
-                var yy = state[im1][0];
-                var cellcol = this.getCellColor(xx, yy);
-                if (cellcol == 1) {
-                  neighbors1++;
-                } else if (cellcol == 2) {
-                  neighbors2++;
-                }
-              }
+            var maxNeighbor = Math.max(color1, color2);
+            if ((maxNeighbor==color1) && (color1 > color2)) {
+              color = 1;
+            } else if ((maxNeighbor==color2) && (color2 >  color1)) {
+              color = 2;
+            } else {
+              // We have a tie:
+              // We could repeat the same procedure as above but including dead wait cells,
+              // or we could take the easy way out and add this new cell to the referees.
+              color = 3;
             }
 
-          }
-        }
-
-        // Middle
-        for (k = 1; k < state[i].length; k++) {
-
-          if (state[i][k] === xm1) {
-            possibleNeighborsList[3] = undefined;
-            neighbors++;
-            var xx = state[i][k];
-            var yy = state[i][0];
-            var cellcol = this.getCellColor(xx, yy);
-            if (cellcol == 1) {
-              neighbors1++;
-            } else if (cellcol == 2) {
-              neighbors2++;
-            }
-          }
-
-          if (state[i][k] === xp1) {
-            possibleNeighborsList[4] = undefined;
-            neighbors++;
-            var xx = state[i][k];
-            var yy = state[i][0];
-            var cellcol = this.getCellColor(xx, yy);
-            if (cellcol == 1) {
-              neighbors1++;
-            } else if (cellcol == 2) {
-              neighbors2++;
-            }
-          }
-
-        }
-
-        // Bottom
-        var ip1 = i+1;
-        if ((ip1) >= state.length) {
-          ip1 = 0;
-        }
-        if (state[ip1] !== undefined) {
-          if (state[ip1][0] === yp1) {
-
-            var xm1_, x_, xp1_;
-            xm1_ = xm1;
-            x_ = x;
-            xp1_ = xp1;
-
-            for (k = 1; k < state[ip1].length; k++) {
-
-              if (state[ip1][k] === xm1_) {
-                possibleNeighborsList[5] = undefined;
-                neighbors++;
-                var xx = state[ip1][k];
-                var yy = state[ip1][0];
-                var cellcol = this.getCellColor(xx, yy);
-                if (cellcol == 1) {
-                  neighbors1++;
-                } else if (cellcol == 2) {
-                  neighbors2++;
-                }
-              }
-
-              if (state[ip1][k] === x_) {
-                possibleNeighborsList[6] = undefined;
-                neighbors++;
-                var xx = state[ip1][k];
-                var yy = state[ip1][0];
-                var cellcol = this.getCellColor(xx, yy);
-                if (cellcol == 1) {
-                  neighbors1++;
-                } else if (cellcol == 2) {
-                  neighbors2++;
-                }
-              }
-
-              if (state[ip1][k] === xp1_) {
-                possibleNeighborsList[7] = undefined;
-
-                neighbors++;
-                var xx = state[ip1][k];
-                var yy = state[ip1][0];
-                var cellcol = this.getCellColor(xx, yy);
-                if (cellcol == 1) {
-                  neighbors1++;
-                } else if (cellcol == 2) {
-                  neighbors2++;
-                }
-              }
-
-            }
-          }
-        }
-
-        var color;
-        if (neighbors1 > neighbors2) {
-          color = 1;
-        } else if (neighbors2 > neighbors1) {
-          color = 2;
-        } else {
-          if (x%2==y%2) {
-            color = 1;
           } else {
-            color = 2;
+            // No live non-referee neighbors
+            color = 3;
+          } // end if ns > 0
+
+        } else {
+          // No live neighbors
+          color = 0;
+        } // end if nsa > 0
+
+        return color;
+
+      },
+
+      /*
+       * Determine the number of neighbor cells
+       * of an alive cell (x,y) that are alive.
+       *
+       * Currently, we also check deadWait colors and count them too.
+       *
+       * Input arguments:
+       * - possibleNeighborsList: list of possible (x, y) dead neighbors
+       *
+       * Algorithm:
+       * - iterate over each possible dead neighbor coordinate
+       * - set the coordinate to undefined if neighbor is alive
+       * - accumulate an alive neighbors counter for each color
+       * - use color counters to determine final color
+       *
+       */
+      getNeighborsFromAlive : function (x, y, possibleNeighborsList) {
+
+        state = this.actualState;
+
+        // Loop points back around
+        x = this.periodicNormalizex(x);
+        y = this.periodicNormalizey(y);
+
+        // TODO: use ncolors
+        var neighbors1, neighbors2, neighbors3;
+        neighbors1 = this.getColorCountsFromPossibleNeighbors(x, y, 1, possibleNeighborsList);
+        neighbors2 = this.getColorCountsFromPossibleNeighbors(x, y, 2, possibleNeighborsList);
+        neighbors3 = this.getColorCountsFromPossibleNeighbors(x, y, 3, possibleNeighborsList);
+        var neighbors = neighbors1+neighbors2+neighbors3;
+
+        // Used in tiebreakers
+        var neighborsdw1, neighborsdw2;
+        neighborsdw1 = this.getColorCountsFromDeadWait(x, y, 1);
+        neighborsdw2 = this.getColorCountsFromDeadWait(x, y, 2);
+
+        // Determine number of neighbors, and majority color.
+        // This procedure is only applied to surviving cells.
+        //
+        // General cellular automata survival:
+        //
+        // With a third referee team,
+        // we can use a majority rules approach,
+        // and add teams to the referees if tie.
+        //
+        // Star Wars surival rule is S345
+        //
+        // S3:
+        // AAA -> A
+        // AAB -> A
+        // ABR -> Refs
+        //
+        // S4:
+        // AAAA -> A
+        // AAAB -> A
+        // AABB -> Refs
+        // AABR -> A
+        //
+        // S5:
+        // AAAAA -> A
+        // AAAAB -> A
+        // AAABB -> A
+        // AAABR -> A
+        // AABRR -> A
+        // AABBR -> Refs
+        // ABRRR -> Refs
+
+        // This is the final color returned
+        // 0 means no alive colors/cells
+        // 1,2,3 means color 1,2,3
+        // -1 means tie
+        var color = 0;
+
+        var numNeighborsAll = neighbors1+neighbors2+neighbors3;
+        var numNeighbors = neighbors1+neighbors2;
+
+        // Check if any neighbors are alive
+        if (numNeighborsAll > 0) {
+
+          // Check if any alive neighbors are non-referees
+          if (numNeighbors > 0) {
+
+            // Only goal is to determine if there is a tie,
+            // which means two or more teams have value
+            // equal to max(neighbors1, neighbors2)
+            var maxNeighbor = Math.max(neighbors1, neighbors2);
+            var numEqualToMax = 0;
+            if (neighbors1==maxNeighbor) {
+              numEqualToMax++;
+              color = 1;
+            }
+            if (neighbors2==maxNeighbor) {
+              numEqualToMax++;
+              color = 2;
+            }
+
+            // TODO: ncolors - 1 (non-refs)
+            if (numEqualToMax==2) {
+
+              // Two colors have the maximum number of neighbors, so we have a tie.
+              // Repeat same procedure as above, but now use counts INCLUDING dead weight cells.
+              var maxNeighborDw = Math.max(neighbors1+neighborsdw1, neighbors2+neighborsdw2);
+              //var maxNeighborDw = Math.max(neighborsdw1, neighborsdw2);
+              var numEqualToMaxDw = 0;
+              //if (neighborsdw1==maxNeighborDw)
+              if (neighbors1+neighborsdw1==maxNeighborDw) {
+                numEqualToMaxDw++;
+                color = 1;
+              }
+              //if (neighborsdw2==maxNeighborDw)
+              if (neighbors2+neighborsdw2==maxNeighborDw) {
+                numEqualToMaxDw++;
+                color = 2;
+              }
+
+
+              if (numEqualToMaxDw==2) {
+                // We STILL have a tie, when taking into account
+                // the number of deadWait neighbors.
+                color = -1;
+
+              } // end if tie in tiebreaker too
+
+            } // end if tie
+
+          } else {
+            // All alive neighbors are referees, so a tie
+            color = -1;
           }
+
+        } else {
+          // Cell is all alone, keep same color
+          color = -1;
         }
 
-        //return neighbors;
+        // Deal with color of -1 by keeping same color
+        if (color < 0) {
+          color = this.getCellColor(x, y);
+        }
+
+        // Hold up.
+        // If getCellColor(x,y) returns 0,
+        // this cell is dead.
+        // If this cell is dead, we're calling this
+        // function wrong - it should only be called
+        // on live cells.
+
         return {
           neighbors: neighbors,
           color: color
@@ -2245,9 +2593,10 @@
 
 
       /**
-       * Check if the cell at location (x, y) is alive
+       * Check if the cell at location (x, y)
+       * is in the given state
        */
-      isAlive : function(x, y) {
+      checkCellInState: function(x, y, state) {
 
         // Loop points back around
         x = (x + GOL.columns)%(GOL.columns);
@@ -2255,12 +2604,12 @@
 
         var i, j;
 
-        for (i = 0; i < this.actualState.length; i++) {
-          // check that first coordinate in actualState matches
-          if (this.actualState[i][0] === y) {
-            for (j = 1; j < this.actualState[i].length; j++) {
-              // check that second coordinate in actualState matches
-              if (this.actualState[i][j] === x) {
+        for (i = 0; i < state.length; i++) {
+          // check that first coordinate matches
+          if (state[i][0] === y) {
+            for (j = 1; j < state[i].length; j++) {
+              // check that second coordinate matches
+              if (state[i][j] === x) {
                 return true;
               }
             }
@@ -2268,6 +2617,7 @@
         }
         return false;
       },
+
 
       /**
        * Get the color of the cell at location (x, y)
@@ -2277,60 +2627,130 @@
         // periodic grid: loop points back around
         var x = this.periodicNormalizex(x);
         var y = this.periodicNormalizey(y);
-
-        for (i = 0; i < this.actualState1.length; i++) {
-          if (this.actualState1[i][0] === y) {
-            for (j = 1; j < this.actualState1[i].length; j++) {
-              if (this.actualState1[i][j] === x) {
-                return 1;
-              }
-            }
+        var repr = "(" + x + "," + y + ")";
+        var ncolors = 3;
+        var color0;
+        for (color0=0; color0 < ncolors; color0++) {
+          var points = this.actualStateColors[color0];
+          if (points.has(repr)) {
+            return color0+1;
           }
         }
-        for (i = 0; i < this.actualState2.length; i++) {
-          if (this.actualState2[i][0] === y) {
-            for (j = 1; j < this.actualState2[i].length; j++) {
-              if (this.actualState2[i][j] === x) {
-                return 2;
-              }
+        return 0;
+      },
+
+
+      getDeadWaitColor : function(x, y, c = -1) {
+        // periodic grid: loop points back around
+        var x = this.periodicNormalizex(x);
+        var y = this.periodicNormalizey(y);
+        var repr = "(" + x + "," + y + ")";
+
+        // Loop over each dead wait state (c parameter), or just the one specified
+        var cmin, cmax;
+        if (c<0) {
+          // Do all c values
+          cmin = 0;
+          cmax = GOL.ruleParams.c - 2; // -2 comes from accounting for alive/dead
+        } else {
+          // Only do the c value specified
+          cmin = c;
+          cmax = c + 1;
+        }
+
+        for (ic=cmin; ic<cmax; ic++) {
+          // Loop over each color to find which color contains this point
+          var ncolors = 3;
+          var color0;
+          for (color0=0; color0 < ncolors; color0++) {
+            var points = this.deadWaitColorsN[ic][color0];
+            if (points.has(repr)) {
+              return color0+1;
             }
           }
         }
         return 0;
       },
 
+
       /**
-       *
+       * remove a cell from the alive state (actualState),
+       * and remove from the set of points with the corresponding color.
        */
-      removeCell : function(x, y, state) {
+      removeNotAliveCell : function(x, y, color) {
+        this.removeCellFromCustomState(x, y, this.actualState, this.actualStateColors, color);
+      },
 
-        // Periodic grid
-        var x = this.periodicNormalizex(x);
-        var y = this.periodicNormalizey(y);
 
-        var i, j;
-
-        for (i = 0; i < state.length; i++) {
-          if (state[i][0] === y) {
-            if (state[i].length === 2) { // Remove all Row
-              state.splice(i, 1);
-            } else { // Remove Element
-              for (j = 1; j < state[i].length; j++) {
-                if (state[i][j] === x) {
-                  state[i].splice(j, 1);
-                  return;
-                }
-              }
-            }
-          }
+      /**
+       * same as above, but for a custom state.
+       */
+      removeCellFromCustomState : function(x, y, state, colorSet, color) {
+        color0 = color - 1;
+        // TODO: use ncolors
+        if((color0 >= 0) && (color0 < 3)) {
+          // Remove point from alive state
+          this._removeCell(x, y, state);
+          // Remove point repr from color set
+          var repr = "(" + x + "," + y + ")";
+          colorSet[color0].delete(repr);
+        } else {
+          throw "removeCellFromCustomState() called for cell " + x + "," + y + " with invalid color "+color;
         }
       },
 
 
       /**
+       * add a cell to the alive state (actualState),
+       * and add to the set of points with the corresponding color.
        *
+       * Parameters:
+       * - aliveState is the state array to add (x,y) to
+       * - color is the color of the cell (1, 2, 3)
        */
-      addCell : function(x, y, state) {
+      addAliveCell : function(x, y, color) {
+        this.addCellToCustomState(x, y, this.actualState, this.actualStateColors, color);
+      },
+
+
+      /**
+       * same as above, but for a custom state.
+       */
+      addCellToCustomState : function(x, y, state, colorSet, color) {
+        color0 = color - 1;
+        // TODO: use ncolors
+        if((color0 >= 0) && (color0 < 3)) {
+
+          // Add to alive state
+          this._addCell(x, y, state);
+
+          // Add this point to the set of points for the specified color
+          // TODO: make this a function
+          var repr = "(" + x + "," + y + ")";
+
+          // Verify we don't already have this cell in another color
+          var r;
+          for (r=0; r<GOL.colors.ncolors; r++) {
+            if (r!=color0) {
+              if (colorSet[r].has(repr)) {
+                throw "addCellToCustomState() asked to add a duplicate cell from color "+(r+1)+" to color "+color;
+              }
+            }
+          }
+
+          // Add this point to the set of points for the specified color
+          colorSet[color0].add(repr);
+
+        } else {
+          throw "addCellToCustomState() called with invalid color "+color;
+        }
+      },
+
+
+      /**
+       * Add a cell at (x,y) to the given state array
+       */
+      _addCell : function(x, y, state) {
 
         // Loop points back around
         x = this.periodicNormalizex(x);
@@ -2407,7 +2827,35 @@
             }
           }
         }
+      },
+
+      /**
+       * Remove the cell at (x,y) from the given state array
+       */
+      _removeCell : function(x, y, state) {
+
+        // Loop points back around
+        x = this.periodicNormalizex(x);
+        y = this.periodicNormalizey(y);
+
+        var i, j;
+
+        for (i = 0; i < state.length; i++) {
+          if (state[i][0] === y) {
+            if (state[i].length === 2) { // Remove all Row
+              state.splice(i, 1);
+            } else { // Remove Element
+              for (j = 1; j < state[i].length; j++) {
+                if (state[i][j] === x) {
+                  state[i].splice(j, 1);
+                  return;
+                }
+              }
+            }
+          }
+        }
       }
+
 
     },
 
@@ -2500,23 +2948,23 @@
 
       getWaitTimeMs : function () {
         var j = 0;
-        var default_ = 600;
+        var default_ = 500;
         try {
           j = GOL.element.speedSlider.value;
         } catch {
-          console.log("Could not read speed-slider value, using default value of 60 ms");
+          // console.log("Could not read speed-slider value, using default value of 25 ms");
           return default_;
         }
         if (j<=0) {
           return 0;
         } else if (j==1) {
-          return 8;
+          return 3;
         } else if (j==2) {
-          return 24;
+          return 15;
         } else if (j==3) {
-          return 60;
+          return 50;
         } else if (j==4) {
-          return 250;
+          return 200;
         } else if (j==5) {
           return default_;
         } else {
