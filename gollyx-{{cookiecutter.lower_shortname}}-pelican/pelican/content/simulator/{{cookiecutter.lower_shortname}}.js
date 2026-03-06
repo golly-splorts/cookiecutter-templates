@@ -37,11 +37,13 @@
     // Initial Conditions:
     //
     // // Two acorns
-    // s1Default: '[{"50":[60,160]},{"51":[62,162]},{"52":[59,60,63,64,65,159,160,163,164,165]}]',
-    // s2Default: '[{"60":[60,160]},{"61":[62,162]},{"62":[59,60,63,64,65,159,160,163,164,165]}]',
-    // Crabs
-    s1Default: '[{"43":[119,160]},{"44":[118,120,160,161]},{"45":[119,159,161]},{"46":[122,123]},{"47":[119,122,123,157,158]},{"48":[118,120,125,157,158]},{"49":[120,126,127]},{"50":[118,119,125,126,155,159,160,167]},{"51":[115,118,154,156,158,161,167,168]},{"52":[155,159,161,162,166,168]},{"53":[117,164]},{"54":[115,116,165]},{"55":[118,162,165]},{"56":[119,120]},{"57":[118,119]}]',
-    s2Default: '[{"40":[85]},{"41":[85,86]},{"42":[84,86]},{"44":[82,83]},{"45":[82,83]},{"47":[80,84,85,92]},{"48":[79,81,83,86,92,93]},{"49":[37,80,84,86,87,91,93]},{"50":[36,38,89]},{"51":[37,90]},{"52":[33,34,87,90]},{"53":[33,34,37]},{"54":[31,36,38]},{"55":[29,30,36]},{"56":[30,31,37,38]},{"57":[38,41]},{"59":[39]},{"60":[40,41]},{"61":[38]},{"62":[36,37]},{"63":[37,38]}]',
+    //
+    s1Default: '[{"30":[50,51,54,55,56]},{"31":[53]},{"32":[51]}]',
+    s2Default: '[{"90":[25]},{"91":[27]},{"92":[24,25,28,29,30]}]',
+    //
+    // // Crabs
+    // s1Default: '[{"43":[119,160]},{"44":[118,120,160,161]},{"45":[119,159,161]},{"46":[122,123]},{"47":[119,122,123,157,158]},{"48":[118,120,125,157,158]},{"49":[120,126,127]},{"50":[118,119,125,126,155,159,160,167]},{"51":[115,118,154,156,158,161,167,168]},{"52":[155,159,161,162,166,168]},{"53":[117,164]},{"54":[115,116,165]},{"55":[118,162,165]},{"56":[119,120]},{"57":[118,119]}]',
+    // s2Default: '[{"40":[85]},{"41":[85,86]},{"42":[84,86]},{"44":[82,83]},{"45":[82,83]},{"47":[80,84,85,92]},{"48":[79,81,83,86,92,93]},{"49":[37,80,84,86,87,91,93]},{"50":[36,38,89]},{"51":[37,90]},{"52":[33,34,87,90]},{"53":[33,34,37]},{"54":[31,36,38]},{"55":[29,30,36]},{"56":[30,31,37,38]},{"57":[38,41]},{"59":[39]},{"60":[40,41]},{"61":[38]},{"62":[36,37]},{"63":[37,38]}]',
 
     // Geometry:
     defaultCols: 240,
@@ -451,7 +453,6 @@
         })
         .catch(err => {
           this.error(-1);
-          //throw err
         });
         // Done loading pattern from /map API endpoint
 
@@ -835,20 +836,25 @@
       if (this.foundVictor==false) {
         var maxDim = this.ruleParams.runningAvgMaxDim;
 
-        // Use vector magnitude to account for changes in all team scores
-        var squareSum = liveCounts.liveCells1**2 + liveCounts.liveCells2**2;
-        var rootSum = Math.sqrt(squareSum);
+        var victoryPct = 0.0;
+        var totalCells = liveCounts.liveCells1 + liveCounts.liveCells2;
+        var smol = 1e-12; // To prevent division by zero
+        if (totalCells > smol) {
+            if (liveCounts.liveCells1 > liveCounts.liveCells2) {
+                victoryPct = (liveCounts.liveCells1 / (totalCells + smol)) * 100;
+            } else {
+                victoryPct = (liveCounts.liveCells2 / (totalCells + smol)) * 100;
+            }
+        }
 
-        // update running average window
         if (this.generation < maxDim) {
-          // Keep populating the window...
-          //
-          // Use vector magnitude to account for changes in all team scores
-          this.runningAvgWindow[this.generation] = rootSum;
+          // Keep populating the window
+          this.runningAvgWindow[this.generation] = victoryPct;
+
         } else {
           // Push and pop newest/oldest values
           var removed = this.runningAvgWindow.shift();
-          this.runningAvgWindow.push(rootSum);
+          this.runningAvgWindow.push(victoryPct);
 
           // compute running average
           var sum = 0.0;
@@ -876,46 +882,35 @@
           if (!this.approxEqual(removed, 0.0, tolZero)) {
             // Here because we have a nonzero running average (game is going), and no victor.
             // Check if average has become stable
-            //
-            //var diff01 = this.relativeDiff(this.runningAvgLast3[0], this.runningAvgLast3[1], tolStable);
-            //var diff02 = this.relativeDiff(this.runningAvgLast3[1], this.runningAvgLast3[2], tolStable);
             var bool0eq1 = this.approxEqual(this.runningAvgLast3[0], this.runningAvgLast3[1], tolStable);
             var bool1eq2 = this.approxEqual(this.runningAvgLast3[1], this.runningAvgLast3[2], tolStable);
-            var victoryByStability = ((bool0eq1 && bool1eq2) && (liveCounts.liveCells > 0));
-            if (victoryByStability) {
-              // Someone won due to the simulation becoming stable
-              this.foundVictor = true;
-              if (liveCounts.liveCells1 > liveCounts.liveCells2) {
-                this.whoWon = 1;
-              } else if (liveCounts.liveCells2 > liveCounts.liveCells1) {
-                this.whoWon = 2;
-              } else {
-                this.whoWon = 0;
-              }
-              this.showWinnersLosers = true;
-              this.handlers.buttons.run();
-              this.running = false;
+            var zeroCells = (liveCounts.liveCells1 === 0 || liveCounts.liveCells2 === 0);
+
+            if ((bool0eq1 && bool1eq2) || zeroCells) {
+                var z1 = this.approxEqual(this.runningAvgLast3[0], 50.0, tolStable);
+                var z2 = this.approxEqual(this.runningAvgLast3[1], 50.0, tolStable);
+                var z3 = this.approxEqual(this.runningAvgLast3[2], 50.0, tolStable);
+
+                if ((!(z1 || z2 || z3)) || zeroCells) {
+                    if (liveCounts.liveCells1 > liveCounts.liveCells2) {
+                        this.foundVictor = true;
+                        this.whoWon = 1;
+                        this.showWinnersLosers = true;
+                        this.handlers.buttons.run();
+                        this.running = false;
+                    } else if (liveCounts.liveCells2 > liveCounts.liveCells1) {
+                        this.foundVictor = true;
+                        this.whoWon = 2;
+                        this.showWinnersLosers = true;
+                        this.handlers.buttons.run();
+                        this.running = false;
+                    } else {
+                        this.whoWon = 0;
+                    }
+                }
             }
           }
         } // end if gen > maxDim
-
-        // Second way for a victor to be declared,
-        // is to have all other teams get shut out.
-        var victoryByShutout = false;
-
-        if (liveCounts.liveCells1 == 0) {
-          this.whoWon = 2;
-          this.foundVictor = true;
-          this.showWinnersLosers = true;
-          this.handlers.buttons.run();
-          this.running = false;
-        } else if (liveCounts.liveCells2 == 0) {
-          this.whoWon = 1;
-          this.foundVictor = true;
-          this.showWinnersLosers = true;
-          this.handlers.buttons.run();
-          this.running = false;
-        }
       } // end if no victor found
     },
 
@@ -1036,7 +1031,7 @@
       this.element.team1wlrecCont = document.getElementById("team1record-container");
       this.element.team2wlrecCont = document.getElementById("team2record-container");
 
-      //this.element.livepct    = document.getElementById('livePct');
+      // this.element.livepct    = document.getElementById('livePct');
 
       this.element.team1color = document.getElementsByClassName("team1color");
       this.element.team1name  = document.getElementsByClassName("team1name");
@@ -1360,6 +1355,8 @@
 
         /**
          * Button Handler - Remove/Add Trail
+         *
+         * This function is only called when the user clicks the "Trails" button.
          */
         trail : function() {
           GOL.trail.current = !GOL.trail.current;
@@ -1371,7 +1368,9 @@
         },
 
         /**
-         * Button Handler - Cycle through the color schemes
+         * Cycle through the color schemes
+         *
+         * This function is only called when the user clicks the "Colors" button.
          */
         colorcycle : function() {
           if (GOL.colors.schemes.length > 1) {
@@ -1382,7 +1381,7 @@
             }
             GOL.updateTeamNamesColors();
             if (GOL.running) {
-              GOL.colors.schedule = true; // Delay redraw
+              GOL.colors.schedule = true; // Delay redraw until end of next generation
             } else {
               GOL.canvas.drawWorld(); // Force complete redraw now
             }
@@ -1392,7 +1391,9 @@
         },
 
         /**
-         * Button Handler - Show/hide the grid
+         * Show/hide the grid
+         *
+         * This function is only called when the user clicks the "Grid" button.
          */
         grid : function() {
           GOL.grid.current = (GOL.grid.current + 1) % GOL.grid.schemes.length;
@@ -1404,7 +1405,7 @@
         },
 
         /**
-         * Button Handler - Update simulation speed
+         * Update simulation speed
          */
         speedControl : function() {
           // We don't need to do anything with the
@@ -1579,6 +1580,8 @@
 
       /**
        * switchCell
+       *
+       * This is only activated when a user clicks on a cell
        */
       switchCell : function(i, j) {
         if (GOL.sandboxMode===true) {
@@ -1748,8 +1751,8 @@
           for (j = 1; j < this.actualState[i].length; j++) {
 
             x = this.actualState[i][j];
-            xm1 = this.periodicNormalizex(x-1);
             xp1 = this.periodicNormalizex(x+1);
+            xm1 = this.periodicNormalizex(x-1);
 
             deadNeighbors = [
               [xm1, ym1, 1], [x, ym1, 1], [xp1, ym1, 1], 
@@ -1764,8 +1767,12 @@
             // Majority wins, use color returned by getNeighborsFromAlive
             color = result['color'];
             if (color <= 0) {
-              // Tie, keep current color
-              color = this.getCellColor(x, y);
+              // Tie, use tie-breaker rule from python
+              if (x % 2 == y % 2) {
+                  color = 1;
+              } else {
+                  color = 2;
+              }
             }
 
             // Iterate over each dead cell (in the vicinity of alive cells),
@@ -1799,10 +1806,6 @@
                 cellSurvives = true;
               }
             }
-
-            //if (y == GOL.rows-1) {
-            //  console.log('survive for cell x = ' + x + ' y = ' + y + ' : ' + cellSurvives);
-            //}
 
             if (cellSurvives) {
               // Keep cell alive
@@ -2047,6 +2050,7 @@
         } else if (color2 > color1) {
           return 2;
         } else {
+          // TODO: this might not match Python implementation
           return 0;
         }
       },
@@ -2504,7 +2508,7 @@
         try {
           j = GOL.element.speedSlider.value;
         } catch {
-          console.log("Could not read speed-slider value, using default value of 60 ms");
+          // console.log("Could not read speed-slider value, using default value of 60 ms");
           return default_;
         }
         if (j<=0) {
