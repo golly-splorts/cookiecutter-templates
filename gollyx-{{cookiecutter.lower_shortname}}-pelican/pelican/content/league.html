@@ -1,51 +1,73 @@
 {% raw %}{% extends 'base.html' %}{% endraw %}
 {% raw %}{% block content %}{% endraw %}
 
+<style>
+  .card .table th,
+  .card .table td {
+    /* Add vertical lines */
+    border-top: none;
+    border-bottom: none;
+    font-size: 0.9375rem;
+  }
+
+  /* Prevent line wrapping in the team name column */
+  .card .table .team-cell {
+    white-space: nowrap;
+  }
+
+  /* Make the 'Team' header bold */
+  .card .table th.text-left {
+    font-weight: bold;
+  }
+
+  /* Make the team name cells bold */
+  .card .table tbody tr td:first-child {
+    font-weight: bold;
+  }
+
+  /* Center align text in non-team-name data cells */
+  .card .table tbody tr td:nth-child(n+2) {
+    text-align: center;
+  }
+
+  /* Add left border to all th and td except the first one */
+  .card .table th:not(:first-child),
+  .card .table td:not(:first-child) {
+    border-left: 1px solid rgba(255,255,255,0.15);
+  }
+</style>
+
 <div class="container invisible" id="league-standings-header-container">
 
   <div class="row text-center league-standings-header-row">
     <div class="col-md-12">
-      <h2 class="text-center league-standings-header-text">Season <span id="standings-header-season-number">_</span> Standings</h2>
+      <h1 class="text-center league-standings-header-text">League Standings</h2>
     </div>
   </div>
 
-</div>
-
-
-
-<div class="container" id="league-standings-date-picker-container">
-  <div class="row justify-content-lg-center" id="date-picker-container">
-    <div class="col-lg-2" id="date-picker-season-chooser">
-        <!--
-        -->
-        <ul class="list-group text-center">
-            <label for="season">Season:</label>
-            <select name="season" id="season-picker">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="24">24</option>
-            </select>
-        </ul>
-
+  <div class="row text-center justify-content-center" id="dropdown-row">
+    <div class="col-auto">
+      <span class="mr-2">Season</span>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="season-dropdown-button">
+          Loading...
+        </button>
+        <div class="dropdown-menu" id="season-dropdown-menu" style="max-height: 200px; overflow-y: auto;">
+          </div>
+      </div>
     </div>
-    <div class="col-lg-2" id="date-picker-day-chooser">
-        <!--
-        -->
-        <ul class="list-group text-center">
-            <label for="day">Day:</label>
-            <select name="day" id="day-picker">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="48">48</option>
-                <option value="49">49</option>
-            </select>
-        </ul>
 
+    <div class="col-auto">
+      <span class="mr-2">Day</span>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="day-dropdown-button">
+          Loading...
+        </button>
+        <div class="dropdown-menu" id="day-dropdown-menu" style="max-height: 200px; overflow-y: auto;">
+          </div>
+      </div>
     </div>
+  </div>
 
 </div>
 
@@ -53,75 +75,148 @@
 
 <div class="container invisible" id="league-standings-container">
 
-  <!-- league 1 -->
   <div class="row text-center justify-content-lg-center league-standings-league-header-row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <h2 class="text-center league-standings-league-header-text"><span id="league-1-name"></span></h2>
     </div>
   </div>
 
   <div class="row justify-content-lg-center" id="league-1-container">
 
-    <div class="col-lg-5" id="league-1-division-1-container">
-      <h4 class="text-center league-standings-division-header-text"><span id="league-1-division-1-name"></span></h4>
-      <ul class="list-group" id="league-1-division-1-ul">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Team 1
-          <span class="standings-record">W-L</span>
-        </li>
-        -->
-      </ul>
+    <div class="col-xl-6 mb-4" id="league-1-division-1-container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center league-standings-division-header-text"><span id="league-1-division-1-name"></span></h4>
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">Team</th>
+                  <th scope="col" class="text-center">W</th>
+                  <th scope="col" class="text-center">L</th>
+                  <th scope="col" class="text-center">Pct</th>
+                  <th scope="col" class="text-center games-left-col">GL</th>
+                  <th scope="col" class="text-center">GB</th>
+                  <th scope="col" class="text-center">E#</th>
+                  <th scope="col" class="text-center">WCE#</th>
+                </tr>
+              </thead>
+              <tbody id="league-1-division-1-tbody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="col-lg-5" id="league-1-division-2-container">
-      <h4 class="text-center league-standings-division-header-text"><span id="league-1-division-2-name"></span></h4>
-      <ul class="list-group" id="league-1-division-2-ul">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Team 1
-          <span class="standings-record">W-L</span>
-        </li>
-        -->
-      </ul>
+    <div class="col-xl-6 mb-4" id="league-1-division-2-container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center league-standings-division-header-text"><span id="league-1-division-2-name"></span></h4>
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">Team</th>
+                  <th scope="col" class="text-center">W</th>
+                  <th scope="col" class="text-center">L</th>
+                  <th scope="col" class="text-center">Pct</th>
+                  <th scope="col" class="text-center games-left-col">GL</th>
+                  <th scope="col" class="text-center">GB</th>
+                  <th scope="col" class="text-center">E#</th>
+                  <th scope="col" class="text-center">WCE#</th>
+                </tr>
+              </thead>
+              <tbody id="league-1-division-2-tbody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <!-- league 2 -->
   <div class="row text-center justify-content-lg-center league-standings-league-header-row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <h2 class="text-center league-standings-league-header-text"><span id="league-2-name"></span></h2>
     </div>
   </div>
 
   <div class="row justify-content-lg-center" id="league-2-container">
 
-    <div class="col-lg-5" id="league-2-division-1-container">
-      <h4 class="text-center league-standings-division-header-text"><span id="league-2-division-1-name"></span></h4>
-      <ul class="list-group" id="league-2-division-1-ul">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Team 1
-          <span class="standings-record">W-L</span>
-        </li>
-        -->
-      </ul>
+    <div class="col-xl-6 mb-4" id="league-2-division-1-container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center league-standings-division-header-text"><span id="league-2-division-1-name"></span></h4>
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">Team</th>
+                  <th scope="col" class="text-center">W</th>
+                  <th scope="col" class="text-center">L</th>
+                  <th scope="col" class="text-center">Pct</th>
+                  <th scope="col" class="text-center games-left-col">GL</th>
+                  <th scope="col" class="text-center">GB</th>
+                  <th scope="col" class="text-center">E#</th>
+                  <th scope="col" class="text-center">WCE#</th>
+                </tr>
+              </thead>
+              <tbody id="league-2-division-1-tbody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="col-lg-5" id="league-2-division-1-container">
-      <h4 class="text-center league-standings-division-header-text"><span id="league-2-division-2-name"></span></h4>
-      <ul class="list-group" id="league-2-division-2-ul">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Team 1
-          <span class="standings-record">W-L</span>
-        </li>
-        -->
-      </ul>
+    <div class="col-xl-6 mb-4" id="league-2-division-2-container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center league-standings-division-header-text"><span id="league-2-division-2-name"></span></h4>
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">Team</th>
+                  <th scope="col" class="text-center">W</th>
+                  <th scope="col" class="text-center">L</th>
+                  <th scope="col" class="text-center">Pct</th>
+                  <th scope="col" class="text-center games-left-col">GL</th>
+                  <th scope="col" class="text-center">GB</th>
+                  <th scope="col" class="text-center">E#</th>
+                  <th scope="col" class="text-center">WCE#</th>
+                </tr>
+              </thead>
+              <tbody id="league-2-division-2-tbody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+        <hr />
+        <h5>Legend</h5>
+        <ul class="list-unstyled">
+            <li><strong>GB</strong> : Games Behind</li>
+            <li><strong>GL</strong> : Games Left</li>
+            <li><strong>E#</strong> : Elimination Number (0 indicates team has been mathematically eliminated from winning the division)</li>
+            <li><strong>WCE#</strong> : Wild Card Elimination Number (0 indicates team has been mathematically eliminated from the postseason)</li>
+        </ul>
+        <ul class="list-unstyled">
+            <li><strong>x-</strong> : Clinched Division</li>
+            <li><strong>w-</strong> : Clinched Wild Card</li>
+            <li><strong>e-</strong> : Eliminated</li>
+        </ul>
+    </div>
+  </div>
+
 
 </div>
 
