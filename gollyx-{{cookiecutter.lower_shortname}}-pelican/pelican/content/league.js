@@ -265,7 +265,17 @@
       let season0 = season - 1;
       let day0 = day - 1;
 
-      let recordsUrl = this.baseApiUrl + '/standings/' + season0 + '/' + day0;
+      const mode = this.modeApiResult.mode;
+      const currentSeason0 = this.modeApiResult.season;
+
+      // When pre-season and no season has been played yet, use the paramless
+      // /standings endpoint which returns current rosters with 0-0 records.
+      let recordsUrl;
+      if (mode < 10 && currentSeason0 <= 0) {
+        recordsUrl = this.baseApiUrl + '/standings';
+      } else {
+        recordsUrl = this.baseApiUrl + '/standings/' + season0 + '/' + day0;
+      }
       fetch(recordsUrl)
       .then(res => res.json())
       .then((standingsApiResult) => {
