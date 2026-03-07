@@ -33,8 +33,6 @@
   {% raw %}{% include "seed_table.html" %}{% endraw %}
 </template>
 
-<div class="container">
-
 <div class="container invisible" id="container-loading">
 
   <div class="row text-center notify-header invisible loading-message" id="season-loading-message">
@@ -84,12 +82,12 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center" id="season-leagues-container">
-      <div class="col-sm-5 league-container" id="league-1-container">
+    <div class="row justify-content-center ongoing-container lds-ongoing-container d-flex align-items-stretch">
+      <div class="col-lg-5 col-md-6 league-container" id="league-1-container">
         <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
       </div>
 
-      <div class="col-sm-5 league-container" id="league-2-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-2-container">
         <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
       </div>
     </div>
@@ -117,12 +115,12 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center waiting-container" id="lds-waiting-container">
-      <div class="col-sm-5 league-container" id="league-1-container">
+    <div class="row justify-content-center waiting-container d-flex align-items-stretch" id="lds-waiting-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-1-container">
         <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
       </div>
 
-      <div class="col-sm-5 league-container" id="league-2-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-2-container">
         <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
       </div>
     </div>
@@ -154,12 +152,12 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center waiting-container" id="lcs-waiting-container">
-      <div class="col-sm-5 league-container" id="league-1-container">
+    <div class="row justify-content-center waiting-container d-flex align-items-stretch" id="lcs-waiting-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-1-container">
         <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
       </div>
 
-      <div class="col-sm-5 league-container" id="league-2-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-2-container">
         <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
       </div>
     </div>
@@ -190,7 +188,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center waiting-container" id="scs-waiting-container">
+    <div class="row justify-content-center waiting-container" id="scs-waiting-container">
       <div class="col-lg-4 league-container" id="scs-league-waiting-container">
       </div>
     </div>
@@ -217,12 +215,12 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center ongoing-container lds-ongoing-container">
-      <div class="col-sm-5 league-container" id="league-1-container">
+    <div class="row justify-content-center ongoing-container lds-ongoing-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-1-container">
         <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
       </div>
 
-      <div class="col-sm-5 league-container" id="league-2-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-2-container">
         <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
       </div>
     </div>
@@ -249,12 +247,12 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center ongoing-container" id="lcs-ongoing-container">
-      <div class="col-sm-5 league-container" id="league-1-container">
+    <div class="row justify-content-center ongoing-container d-flex align-items-stretch" id="lcs-ongoing-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-1-container">
         <h4 class="text-center league-container-header" id="league-1-header"><span id="league-1-name"></span></h4>
       </div>
 
-      <div class="col-sm-5 league-container" id="league-2-container">
+      <div class="col-lg-5 col-md-6 league-container" id="league-2-container">
         <h4 class="text-center league-container-header" id="league-2-header"><span id="league-2-name"></span></h4>
       </div>
     </div>
@@ -281,7 +279,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-md-center ongoing-container" id="scs-ongoing-container">
+    <div class="row justify-content-center ongoing-container" id="scs-ongoing-container">
       <div class="col-lg-4 league-container" id="scs-league-ongoing-container">
       </div>
     </div>
@@ -352,9 +350,9 @@
 
 {% raw %}{% endblock %}{% endraw %}
 {% raw %}{% block css %}{% endraw %}
-<link href="{% raw %}{{ SITEURL }}{% endraw %}/theme/css/flipdown.min.css"  rel="stylesheet" type="text/css">
-    <!-- re-include custom.css to override some flipdown.css settings -->
-    <link href="{% raw %}{{ SITEURL }}{% endraw %}/theme/css/custom.css"  rel="stylesheet" type="text/css">
+  <link href="{% raw %}{{ SITEURL }}{% endraw %}/theme/css/flipdown.min.css"  rel="stylesheet" type="text/css">
+  <!-- re-include custom.css to override some flipdown.css settings -->
+  <link href="{% raw %}{{ SITEURL }}{% endraw %}/theme/css/custom.css"  rel="stylesheet" type="text/css">
 {% raw %}{% endblock %}{% endraw %}
 {% raw %}{% block javascript %}{% endraw %}
   <script type="text/javascript" src="{% raw %}{{ SITEURL }}{% endraw %}/theme/js/json-sans-eval.js"></script>
