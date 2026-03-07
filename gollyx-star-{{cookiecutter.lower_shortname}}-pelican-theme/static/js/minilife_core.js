@@ -8,7 +8,7 @@
  * See minilife.js for the auto-loading version.
  */
 var Colors = {
-  realBackgroundColor : "#272b30",
+  realBackgroundColor : "#060606",
   gridStrokeColor1    : "#3a3a3a",
   lightTileColor      : "#eee",
   grays               : ["#3a3a3a", "#404040"]
