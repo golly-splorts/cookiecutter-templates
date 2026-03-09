@@ -445,7 +445,7 @@
         var cols = this.getColsFromUrlSafely();
 
         // Load a random map from the /map API endpoint
-        let url = this.mapsApiUrl + '/map/{{cookiecutter.lower_shortname}}/' + this.patternName + '/r/' + this.getRowsFromUrlSafely() + '/c/' + this.getColsFromUrlSafely();
+        let url = this.mapsApiUrl + '/map/star-{{cookiecutter.lower_shortname}}/' + this.patternName + '/r/' + this.getRowsFromUrlSafely() + '/c/' + this.getColsFromUrlSafely();
         fetch(url)
         .then(res => res.json())
         .then((mapApiResult) => {
