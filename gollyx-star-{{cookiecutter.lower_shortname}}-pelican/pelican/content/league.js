@@ -174,10 +174,16 @@
 
       } else { // Pre-season, post-season, or a past season is selected
 
-        for (let i = 1; i <= this.daysPerSeason; i++) {
-          days.push(i);
+        if (mode < 10 && currentSeason0 === 0) {
+          // Nothing has started yet, default to day 1
+          days.push(1);
+          defaultDayValue = 1;
+        } else {
+          for (let i = 1; i <= this.daysPerSeason; i++) {
+            days.push(i);
+          }
+          defaultDayValue = this.daysPerSeason;
         }
-        defaultDayValue = this.daysPerSeason;
       }
 
 
@@ -678,7 +684,7 @@
               fragment.appendChild(tr);
 
             } // finish for each team in the standings
-            
+
             // Append fragment to live DOM
             tbodyElem.appendChild(fragment);
 
