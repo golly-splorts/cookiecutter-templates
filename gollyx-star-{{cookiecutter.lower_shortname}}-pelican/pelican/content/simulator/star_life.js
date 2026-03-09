@@ -74,8 +74,8 @@
     //s2Default: '[{"60":[60,160]},{"61":[62,162]},{"62":[59,60,63,64,65,159,160,163,164,165]}]',
 
     // Geometry:
-    defaultCols: 240,
-    defaultRows: 160,
+    defaultCols: 280,
+    defaultRows: 180,
     defaultCellSize: 3,
 
     //// Stability:
@@ -143,6 +143,14 @@
         {
           aliveLabels: ['Yellow', 'Red', 'Referees'],
           alive: ['#ffc20a', '#dc3220', '#ffffff'],
+        },
+        {
+          aliveLabels: ['Orange', 'Purple', 'Referees'],
+          alive: ['#e66100', '#9963ab', '#ffffff'],
+        },
+        {
+          aliveLabels: ['Bright', 'Not So Bright', 'Referees'],
+          alive: ['#aaaaaa', '#666666', '#ffffff'],
         }
       ],
 
@@ -449,7 +457,7 @@
 
           // Set the game title
           var gameTitleElem = document.getElementById('golly-game-title');
-          gameTitleElem.innerHTML = "Star {{cookiecutter.upper_shortname}} Map: " + mapApiResult.mapName;
+          gameTitleElem.innerHTML = "Star {{cookiecutter.upper_shortname}}: " + mapApiResult.mapName;
 
           this.setTeamNames();
           this.setColors();
