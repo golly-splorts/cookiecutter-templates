@@ -424,6 +424,7 @@
               $('#' + elemId).removeClass('invisible');
             }
           }
+
           // This fails pretty often, so try a few times.
           setTimeout(paint, 100,  apiResult.teamColor, iconId);
           setTimeout(paint, 500,  apiResult.teamColor, iconId);
@@ -810,7 +811,7 @@
         } else if(mode==23) {
 
           ////////////////////////////
-          // Star Cup Series
+          // Star {{cookiecutter.upper_shortname}} Cup Series
           // Scheduled
 
           // SCS has no league, single-column
@@ -891,17 +892,6 @@
                 var mapTags = elem.getElementsByClassName('map-name');
                 for (let mt in mapTags) {
                   mapTags[mt].innerHTML = mapName;
-                }
-              }
-
-              // Update rule name
-              if (game.hasOwnProperty('ruleName')) {
-                var ruleName = game.ruleName;
-                var ruleTags = elem.getElementsByClassName('rule-name');
-                var rt;
-                for (rt = 0; rt < ruleTags.length; rt++) {
-                  ruleNameElem = ruleTags[rt];
-                  ruleNameElem.innerHTML = ruleName;
                 }
               }
 
@@ -1107,7 +1097,7 @@
         } else if (mode==33) {
 
           ////////////////////////////
-          // Star Cup Series
+          // Star {{cookiecutter.upper_shortname}} Cup Series
           // In progress
 
           // SCS has no league, single-column
