@@ -114,6 +114,10 @@
           alive: ['#ffc20a', '#dc3220'],
         },
         {
+          aliveLabels: ['Orange', 'Blue'],
+          alive:       ['#e66100', '#0c7bdc'],
+        },
+        {
           aliveLabels: ['Bright', 'Not So Bright'],
           alive: ['#EEEEEE', '#777777'],
         }
