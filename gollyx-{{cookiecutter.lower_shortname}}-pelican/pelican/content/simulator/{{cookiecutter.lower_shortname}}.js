@@ -47,7 +47,7 @@
 
     // Geometry:
     defaultCols: 240,
-    defaultRows: 150,
+    defaultRows: 160,
     defaultCellSize: 3,
 
     // URLs:
