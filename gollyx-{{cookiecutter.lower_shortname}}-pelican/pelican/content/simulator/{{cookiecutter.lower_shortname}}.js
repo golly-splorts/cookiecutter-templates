@@ -2054,8 +2054,8 @@
         } else if (color2 > color1) {
           return 2;
         } else {
-          // TODO: this might not match Python implementation
-          return 0;
+          // Checkerboard tiebreak (matches Python implementation)
+          return (x % 2 === y % 2) ? 1 : 2;
         }
       },
 
