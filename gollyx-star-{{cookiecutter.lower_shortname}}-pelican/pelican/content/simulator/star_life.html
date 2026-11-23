@@ -202,12 +202,48 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item list-group-item-add-border">
           <div class="box controls">
+            <style>
+              /* Hyper notch: white track, thumb, and label (white on dark gray) with an
+                 orange glow, so Hyper reads as its own state */
+              #speed-slider.hyper {
+                -webkit-appearance: none;
+                appearance: none;
+                height: 16px;
+                background: linear-gradient(#fff, #fff) center / 100% 6px no-repeat;
+                outline: none;
+                filter: drop-shadow(0 0 3px var(--warning)) drop-shadow(0 0 6px var(--warning));
+              }
+              #speed-slider.hyper::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: #fff;
+              }
+              #speed-slider.hyper::-moz-range-track {
+                height: 6px;
+                background: #fff;
+              }
+              #speed-slider.hyper::-moz-range-thumb {
+                width: 16px;
+                height: 16px;
+                border: none;
+                border-radius: 50%;
+                background: #fff;
+              }
+              #speed-label-fast.hyper {
+                color: #fff;
+                font-weight: bold;
+                text-shadow: 0 0 4px var(--warning), 0 0 10px var(--warning);
+              }
+            </style>
             <div class="slidecontainer">
               <form>
                 <div class="form-group my-form-group">
-                  <label for="formControlRange" class="float-left"><u>F</u>aster</label>
+                  <label for="formControlRange" class="float-left" id="speed-label-fast"><u>F</u>aster</label>
                   <label for="formControlRange" class="float-right">Slower</label>
-                  <input type="range" class="form-control-range" id="speed-slider" min="1" max="4" step="1" value="2">
+                  <input type="range" class="form-control-range" id="speed-slider" min="0" max="4" step="1" value="2">
                 </div>
               </form>
             </div>
