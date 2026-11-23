@@ -30,7 +30,7 @@
       s : [2, 3],
       tolZero : 1e-8,
       tolStable : 1e-8,
-      runningAvgMaxDim: 240,
+      runningAvgMaxDim: {{cookiecutter.running_avg_max_dim}},
     },
 
 

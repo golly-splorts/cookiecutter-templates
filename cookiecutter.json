@@ -1,5 +1,6 @@
 {
     "lower_shortname": "lvi",
     "upper_shortname": "LVI",
-    "cup_number": "56"
+    "cup_number": "56",
+    "running_avg_max_dim": "280"
 }
