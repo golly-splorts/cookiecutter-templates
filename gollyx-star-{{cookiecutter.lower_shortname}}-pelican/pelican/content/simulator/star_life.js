@@ -31,7 +31,7 @@
       c : 4,
       tolZero : 1e-8,
       tolStable : 1e-6,
-      runningAvgMaxDim: 280,
+      runningAvgMaxDim: {{cookiecutter.running_avg_max_dim}},
     },
 
     // // Banners
