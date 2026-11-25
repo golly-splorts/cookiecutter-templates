@@ -13,13 +13,15 @@ but remain completely independent.
 
 Hellmouth Cup repository types (with corresponding branch):
 
-* `gollyx--pelican` - branch containing pelican template (site and theme)
+* `gollyx--pelican` - branch containing pelican template
+* `gollyx--pelican-theme` - branch containing pelican theme template
 * `gollyx--data` - branch containing season data (used for real and test data)
 * `zappa--api` - branch containing contents of zappa API folder for gollyx-cloud
 
 Star Cup repository types (with corresponding branch):
 
-* `gollyx-star--pelican` - branch containing pelican template (site and theme)
+* `gollyx-star--pelican` - branch containing pelican template
+* `gollyx-star--pelican-theme` - branch containing pelican theme template
 * `gollyx-star--data` - branch containing season data (used for real and test data)
 * `zappa-star--api` - branch containing contents of zappa API folder for gollyx-cloud
 
