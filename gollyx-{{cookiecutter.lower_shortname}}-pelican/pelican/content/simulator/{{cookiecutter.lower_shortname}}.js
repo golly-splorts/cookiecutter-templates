@@ -46,9 +46,11 @@
     // s2Default: '[{"40":[85]},{"41":[85,86]},{"42":[84,86]},{"44":[82,83]},{"45":[82,83]},{"47":[80,84,85,92]},{"48":[79,81,83,86,92,93]},{"49":[37,80,84,86,87,91,93]},{"50":[36,38,89]},{"51":[37,90]},{"52":[33,34,87,90]},{"53":[33,34,37]},{"54":[31,36,38]},{"55":[29,30,36]},{"56":[30,31,37,38]},{"57":[38,41]},{"59":[39]},{"60":[40,41]},{"61":[38]},{"62":[36,37]},{"63":[37,38]}]',
 
     // Geometry:
-    defaultCols: 240,
-    defaultRows: 160,
-    defaultCellSize: 3,
+    defaultCols: 360,
+    defaultRows: 240,
+    // Cells are drawn on a pitch of cellSize + 1 px; without a cellSize URL param the grid is fit to the page width.
+    minCellSize: 0,
+    maxCellSize: 20,
 
     // URLs:
     baseApiUrl : getBaseApiUrl(),
@@ -742,14 +744,24 @@
       // checking the specified value and setting to default
       // if invalid or not specified
       cellSize = parseInt(this.helpers.getUrlParameter('cellSize'));
-      if (isNaN(cellSize) || cellSize < 1 || cellSize > 10) {
-        cellSize = this.defaultCellSize;
+      if (isNaN(cellSize) || cellSize < this.minCellSize || cellSize > this.maxCellSize) {
+        cellSize = this.fitCellSize();
       }
       if (cellSize <= 5) {
         // Turn off the grid
         this.grid.current = 1;
       }
       return cellSize;
+    },
+
+    /**
+     * Largest cell size whose grid fits the page width (the canvas container is hidden while loading, so measure the header).
+     */
+    fitCellSize : function() {
+      var header = document.getElementById('container-golly-header');
+      var width = header ? header.clientWidth - 34 : window.innerWidth - 32;
+      var pitch = Math.floor(width / this.columns);
+      return Math.max(this.minCellSize, Math.min(this.maxCellSize, pitch - 1));
     },
 
     /**
@@ -1512,8 +1524,8 @@
       drawWorld : function() {
         var i, j;
 
-        // Special no grid case
-        if (GOL.grid.schemes[GOL.grid.current].color === '') {
+        // Special no grid case (a cellSize of 0 leaves no room for grid lines)
+        if (GOL.grid.schemes[GOL.grid.current].color === '' || GOL.cellSize < 1) {
           this.setNoGridOn();
           this.width = this.height = 0;
         } else {

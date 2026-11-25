@@ -444,6 +444,13 @@
             for (iE = 0; iE < t2ScoreElems.length; iE++) {
               t2ScoreElems[iE].innerHTML = t2s;
             }
+            // Mark the losing team's row
+            if (t1s != t2s) {
+              var lostElems = elem.getElementsByClassName(t1s < t2s ? 'game-card-team1' : 'game-card-team2');
+              for (iE = 0; iE < lostElems.length; iE++) {
+                lostElems[iE].classList.add('game-card-lost');
+              }
+            }
           }
 
           // Update number of generations

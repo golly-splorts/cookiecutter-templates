@@ -770,7 +770,7 @@
                   if (game.hasOwnProperty('description')) {
                     descrElems = elem.getElementsByClassName('postseason-game-description');
                     for (let d in descrElems) {
-                      descrElems[d].innerHTML = game.description;
+                      descrElems[d].innerHTML = game.description.replace(", ", "<br>");
                     }
                   }
 
@@ -882,7 +882,7 @@
               if (game.hasOwnProperty('description')) {
                 descrElems = elem.getElementsByClassName('postseason-game-description');
                 for (let d in descrElems) {
-                  descrElems[d].innerHTML = game.description;
+                  descrElems[d].innerHTML = game.description.replace(", ", "<br>");
                 }
               }
 
@@ -1048,7 +1048,7 @@
                     descrElems = elem.getElementsByClassName('postseason-game-description');
                     var d;
                     for (d = 0; d < descrElems.length; d++) {
-                      descrElems[d].innerHTML = game.description;
+                      descrElems[d].innerHTML = game.description.replace(", ", "<br>");
                     }
                   }
 
@@ -1168,7 +1168,7 @@
               var j;
               for (j = 0; j < descTags.length; j++) {
                 descElem = descTags[j];
-                descElem.innerHTML = game.description;
+                descElem.innerHTML = game.description.replace(", ", "<br>");
               }
             }
 
