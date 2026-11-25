@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-<meta charset="utf-8">
 <html lang="en">
 <head>
 
     {% include '_includes/header.html' %}
     {% block css %}
     {% endblock %}
+    <link href="{{ SITEURL }}/theme/css/gollyx.css" rel="stylesheet" type="text/css">
 
 </head>
 <body id="index">
 
 {% include '_includes/navbar.html' %}
 
+<main class="page">
 {% block content %}
 {% endblock %}
+</main>
 
 {% include '_includes/javascript.html' %}
 
 {% block javascript %}
 {% endblock %}
 
-<footer id="contentinfo" class="body">
+<footer id="contentinfo" class="site-footer">
     {% include '_includes/footer.html' %}
 </footer>
 </body>

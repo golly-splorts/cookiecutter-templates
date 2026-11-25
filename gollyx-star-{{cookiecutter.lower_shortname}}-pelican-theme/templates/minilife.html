@@ -2,18 +2,16 @@
 <div class="row justify-content-lg-center">
   <div class="col-md-4">
     <div>
-      <h3 style="color: #eee;">minilife</h3>
+      <h3 class="minilife-title">minilife</h3>
     </div>
     <div>
-      <button type="button" id="buttonRun"   class="btn btn-sm btn-success btn-secondary">Run</button>
-      <button type="button" id="buttonStep"  class="btn btn-sm btn-default btn-secondary">Step</button>
-      <button type="button" id="buttonClear" class="btn btn-sm btn-default btn-secondary">Clear</button>
+      <button type="button" id="buttonRun"   class="btn btn-sm btn-success">Run</button>
+      <button type="button" id="buttonStep"  class="btn btn-sm btn-ghost">Step</button>
+      <button type="button" id="buttonClear" class="btn btn-sm btn-ghost">Clear</button>
     </div>
-    <div>
-      Generation: <span id="generation"></span>
-    </div>
-    <div>
-      Live Cells: <span id="livecells"></span>
+    <div class="minilife-stats">
+      <span>Generation <b id="generation"></b></span>
+      <span>Live cells <b id="livecells"></b></span>
     </div>
   </div>
 </div>
@@ -21,7 +19,7 @@
 <div class="row justify-content-lg-center">
   <div class="col-md-4">
     <noscript>You must enable Javascript to play minilife.</noscript>
-    <canvas id="canvas" width="400" height="400">
+    <canvas id="canvas" width="400" height="400"></canvas>
   </div>
 </div>
 

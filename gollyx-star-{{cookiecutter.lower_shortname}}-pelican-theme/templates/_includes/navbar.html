@@ -1,11 +1,11 @@
 <!-- Navigation -->
-<div id="navbar-div-top-level" class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
+<div id="navbar-div-top-level" class="navbar navbar-expand-lg sticky-top navbar-dark site-nav">
 
   <div id="navbar-div-container" class="container">
 
     <a href="{% raw %}{{ SITEURL }}{% endraw %}/" class="navbar-brand">
-      <img class="navbar-brand-logo" type="image/png" width="25px" src="{% raw %}{{ SITEURL }}{% endraw %}/theme/img/star-cup.png" alt="logo" />
-      {% raw %}{{ SITENAME }}{% endraw %}
+      <img class="navbar-brand-logo" src="{% raw %}{{ SITEURL }}{% endraw %}/theme/img/star-cup.png" alt="" width="28" height="28">
+      <span class="navbar-brand-text">{% raw %}{{ SITENAME }}{% endraw %}</span>
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
 
       <!-- begin list of navbar buttons -->
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ml-auto">
 
         <!--
         pages order:
@@ -63,7 +63,7 @@
           </a>
           <!-- dropdown right will right-align with parent element (expand to left) -->
           <div id="navbar-explore-dropdown-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="themes">
-            <div class="row" style="width: 500px;">
+            <div class="row teams-menu">
               <ul class="list-unstyled col-md-6">
                 <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Aptos_Investigators">Aptos Investigators</a></li>
                 <li><a class="dropdown-item" href="https://wiki.golly.life/wiki/Berkeley_Brutalists">Berkeley Brutalists</a></li>
@@ -108,6 +108,7 @@
               About<span class="caret"></span>
           </a>
           <div id="navbar-about-dropdown-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="themes">
+            <a class="dropdown-item" href="https://golly.life">All Golly Cups</a>
             <a class="dropdown-item" href="https://wiki.golly.life">Golly.Life Wiki</a>
             <a class="dropdown-item" href="https://wiki.golly.life/wiki/Star_{{cookiecutter.upper_shortname}}_Cup">About the Star {{cookiecutter.upper_shortname}} Cup</a>
             <a class="dropdown-item" href="https://wiki.golly.life/wiki/Star_{{cookiecutter.upper_shortname}}_Cup/Rules">Star {{cookiecutter.upper_shortname}} Cup Rules</a>

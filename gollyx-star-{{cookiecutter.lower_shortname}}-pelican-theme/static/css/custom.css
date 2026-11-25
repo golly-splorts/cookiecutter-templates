@@ -1,10 +1,3 @@
-/* navbar color */
-.navbar-dark .navbar-brand,
-.navbar-dark .navbar-brand:hover {
-  /*color: #FF9300 !important;*/
-  color: #6BD0FF !important;
-}
-
 .navbar-brand {
   font-size: 1.095rem;
 }
@@ -15,45 +8,6 @@
   height: 25px;
   margin-left: 15px;
   margin-right: 15px;
-}
-
-/* cyborg color adjustments */
-.btn-success {
-  background-color: #559000 !important;
-  border-color: #559000 !important;
-}
-
-.bg-primary {
-  background-color: #3a3a40 !important;
-}
-
-.badge-primary {
-  background-color: #3a3a40 !important;
-}
-
-/* cyborg size adjustments */
-h1 {
-  font-size: 2.2rem !important;
-}
-
-h2 {
-  font-size: 2.0rem !important;
-}
-
-h3 {
-  font-size: 1.9rem !important;
-}
-
-h4 {
-  font-size: 1.5rem !important;
-}
-
-h5 {
-  font-size: 1.3rem !important;
-}
-
-h6 {
-  font-size: 1.1rem !important;
 }
 
 h1, h2, h3 {
