@@ -1,6 +1,7 @@
     {% raw %}{% block head %}{% endraw %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% raw %}{{ SITENAME }}{% endraw %}</title>
-    <meta charset="utf-8" />
 
     <script>
         var baseUIUrl  = '{% raw %}{{ GOLLYX_BASE_UI  }}{% endraw %}';
@@ -19,7 +20,6 @@
     <!--
         Versions:
         gollyx-{{cookiecutter.lower_shortname}}-pelican: {% raw %}{{ GOLLYX_PELICAN_VERSION }}{% endraw %}
-        gollyx-{{cookiecutter.lower_shortname}}-pelican-theme: {{cookiecutter.cup_number}}00.0
     -->
 
     {% raw %}{% endblock head %}{% endraw %}
