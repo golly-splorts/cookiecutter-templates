@@ -2,5 +2,20 @@
     "lower_shortname": "lvi",
     "upper_shortname": "LVI",
     "cup_number": "56",
-    "running_avg_max_dim": "280"
+    "running_avg_max_dim": "280",
+    "_copy_without_render": [
+        "pelican/theme/templates/article.html",
+        "pelican/theme/templates/base.html",
+        "pelican/theme/templates/finished_game.html",
+        "pelican/theme/templates/finished_postgame.html",
+        "pelican/theme/templates/inprogress_game.html",
+        "pelican/theme/templates/inprogress_postgame.html",
+        "pelican/theme/templates/map.html",
+        "pelican/theme/templates/minilife.html",
+        "pelican/theme/templates/scheduled_game.html",
+        "pelican/theme/templates/scheduled_postgame.html",
+        "pelican/theme/templates/season_day.html",
+        "pelican/theme/templates/seed_table.html",
+        "pelican/theme/static"
+    ]
 }
