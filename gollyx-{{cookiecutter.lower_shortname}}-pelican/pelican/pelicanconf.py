@@ -16,7 +16,7 @@ stage = os.environ.get('GOLLYX_STAGE', '')
 SITENAME = u'Hellmouth {{cookiecutter.upper_shortname}} Cup'
 
 PATH = 'content'
-THEME = 'gollyx-{{cookiecutter.lower_shortname}}-pelican-theme'
+THEME = 'theme'
 
 # Don't try to turn HTML files into pages
 READERS = {'html': None}
@@ -55,9 +55,9 @@ TEMPLATE_PAGES['simulator/{{cookiecutter.lower_shortname}}.html'] = 'simulator/i
 TEMPLATE_PAGES['simulator/{{cookiecutter.lower_shortname}}.js']   = 'simulator/{{cookiecutter.lower_shortname}}.js'
 
 # minilife app is used on multiple pages,
-# so it lives in golly-pelican-theme
+# so it lives in theme/
 
-# These two env vars are used via Jinja in golly-pelican-theme (header.html) to set API/UI base URLs.
+# These two env vars are used via Jinja in theme/ (header.html) to set API/UI base URLs.
 # If they are empty strings, we use Javscript to deduce the base UI URL,
 # and insert "api." beteen the protocol and base URL to get the API URL.
 GOLLYX_BASE_UI = os.environ.get('GOLLYX_BASE_UI', '')
